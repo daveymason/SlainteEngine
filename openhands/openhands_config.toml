@@ -1,0 +1,40 @@
+# OpenHands Appliance Configuration for Slainte-Engine
+# Pluggable Model Support: Ollama (Local), Google Gemini, Anthropic Claude, OpenAI
+
+[core]
+workspace_base = "/workspace"
+cache_dir = "/tmp/cache"
+run_as_openhands = false
+save_trajectory_path = "/workspace/openhands/trajectories"
+max_budget_per_task = 5.0
+max_iterations = 25
+
+[llm]
+# Default configured for Local Ollama, override via .env / environment variables:
+model = "ollama/qwen2.5-coder:32b"
+base_url = "http://host.docker.internal:11434"
+api_key = "ollama"
+temperature = 0.0
+max_tokens = 4096
+timeout = 120
+
+# Optional frontier cloud provider profiles (uncomment or set via LLM_MODEL in .env):
+# Gemini 3.8 Flash / Pro:
+# model = "gemini/gemini-2.0-flash" # or gemini/gemini-1.5-pro
+# api_key = "AIzaSy..."
+
+# Anthropic Claude 3.7 Sonnet:
+# model = "anthropic/claude-3-7-sonnet-20250219"
+# api_key = "sk-ant-..."
+
+# OpenAI GPT-4o:
+# model = "openai/gpt-4o"
+# api_key = "sk-proj-..."
+
+[agent]
+agent = "CodeActAgent"
+memory_enabled = true
+enable_prompt_extensions = true
+
+[mcp]
+config_file = "/workspace/openhands/mcp_config.json"

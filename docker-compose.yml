@@ -1,0 +1,108 @@
+services:
+  # ---------------------------------------------------------------------------
+  # 1. Slainte-Scan-MCP: Deterministic Clinical Tool Server
+  # ---------------------------------------------------------------------------
+  slainte-mcp:
+    build:
+      context: ./slainte-scan-mcp
+      dockerfile: Dockerfile
+    container_name: slainte-mcp
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=8081
+      - MCP_TRANSPORT=sse
+      - PYTHONUNBUFFERED=1
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    networks:
+      - slainte-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8081/sse', timeout=3).status in (200, 400, 404, 405) else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # ---------------------------------------------------------------------------
+  # 2. Slainte-Dashboard: HTMX Clinical Interface & Live Triage Queue
+  # ---------------------------------------------------------------------------
+  slainte-dashboard:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: slainte-dashboard
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/raw:/workspace/data/raw
+      - ./data/fhir_store:/workspace/data/fhir_store
+      - dashboard-data:/app/instance
+    environment:
+      - FLASK_ENV=production
+      - APPLIANCE_MODE=true
+      - FHIR_STORE_PATH=/workspace/data/fhir_store
+      - RAW_DATA_PATH=/workspace/data/raw
+      - SECRET_KEY=${SECRET_KEY:-slainte-engine-production-key-99021}
+      - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME:-admin}
+      - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:-ClinicalAdmin2026!}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - AI_MODEL=${AI_MODEL:-gpt-4o}
+      - HEALTH_SHOW_BACKEND=true
+    networks:
+      - slainte-net
+    depends_on:
+      slainte-mcp:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ---------------------------------------------------------------------------
+  # 3. Slainte-OpenHands: Sandboxed Clinical Ingestion Agent Engine
+  # ---------------------------------------------------------------------------
+  slainte-openhands:
+    build:
+      context: .
+      dockerfile: openhands/Dockerfile
+    container_name: slainte-openhands
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/raw:/workspace/data/raw
+      - ./data/fhir_store:/workspace/data/fhir_store
+      - ./slainte-scan-mcp:/workspace/slainte-scan-mcp:ro
+      - ./openhands:/workspace/openhands
+    environment:
+      - RAW_DATA_PATH=/workspace/data/raw
+      - FHIR_STORE_PATH=/workspace/data/fhir_store
+      - MCP_SRC_PATH=/workspace/slainte-scan-mcp
+      - LLM_MODEL=${LLM_MODEL:-ollama/qwen2.5-coder:32b}
+      - LLM_BASE_URL=${LLM_BASE_URL:-http://host.docker.internal:11434}
+      - LLM_API_KEY=${LLM_API_KEY:-ollama}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    networks:
+      - slainte-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      slainte-mcp:
+        condition: service_healthy
+      slainte-dashboard:
+        condition: service_healthy
+
+volumes:
+  dashboard-data:
+
+networks:
+  slainte-net:
+    driver: bridge

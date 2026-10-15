@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <h2 class="text-primary mb-0"><i class="fas fa-users me-2"></i>Patients</h2>
+    <div>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#intakeModal" id="addPatientBtn">
+            <i class="fas fa-user-plus me-1"></i> Add Patient / Ingest
+        </button>
+    </div>
+</div>
+
+{% if error %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    <strong>Patient list could not be loaded.</strong> {{ error }}
+</div>
+{% endif %}
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="input-group">
+            <input type="search" id="patient-search" name="q" class="form-control"
+                   placeholder="Search by name, ID, identifier, birthdate or phone..."
+                   aria-label="Search patients"
+                   hx-post="/fhir/search_patients"
+                   hx-trigger="keyup changed delay:500ms, search"
+                   hx-target="#patients-table-wrapper"
+                   hx-swap="innerHTML"
+                   hx-include="#current-sort"
+                   hx-indicator="#search-indicator">
+            <span class="input-group-text">
+                <i class="fas fa-search"></i>
+                <span id="search-indicator" class="htmx-indicator spinner-border spinner-border-sm ms-2" role="status"></span>
+            </span>
+        </div>
+    </div>
+    {% if total is not none %}
+    <div class="col-md-6 d-flex align-items-center justify-content-md-end text-muted">
+        <small>{{ total }} patients on the record server</small>
+    </div>
+    {% endif %}
+</div>
+
+<div class="table-responsive" id="patients-table-wrapper">
+    {% include "patient_table_body.html" %}
+</div>

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "slainte-scan-mcp": {
+      "command": "python",
+      "args": ["-m", "src.mcp_server"],
+      "env": {
+        "PYTHONPATH": "/workspace/slainte-scan-mcp",
+        "MCP_TRANSPORT": "stdio"
+      }
+    },
+    "slainte-scan-mcp-sse": {
+      "url": "http://slainte-mcp:8081/sse"
+    }
+  }
+}

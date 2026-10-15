@@ -1,0 +1,128 @@
+{% macro pct(count, total) -%}
+{%- if total and total > 0 -%}{{ "%.1f"|format(count / total * 100) }}%{%- else -%}&ndash;{%- endif -%}
+{%- endmacro %}
+
+<h2 class="text-primary"><i class="fas fa-chart-pie"></i> Patient Demographics</h2>
+
+<p class="text-muted">
+    Based on a sample of {{ demographics.total_patients }} patients
+    {%- if demographics.server_total %} of {{ demographics.server_total }} on the record server{% endif %}.
+</p>
+
+{% if demographics.total_patients == 0 %}
+<div class="alert alert-info">
+    <i class="fas fa-info-circle me-2"></i> No patient records were returned, so there is nothing to summarise.
+</div>
+{% else %}
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-venus-mars"></i> Gender Distribution
+            </div>
+            <div class="card-body">
+                {% if charts.gender %}
+                <div style="position: relative; height: 200px;" class="mb-3">
+                    <canvas id="demographics-chart-gender"></canvas>
+                </div>
+                <script type="application/json" data-chart-for="demographics-chart-gender">{{ charts.gender|tojson }}</script>
+                {% endif %}
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr><th>Gender</th><th>Count</th><th>Percentage</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for label, key in [('Male', 'male'), ('Female', 'female'), ('Other', 'other'), ('Unknown', 'unknown')] %}
+                        <tr>
+                            <td>{{ label }}</td>
+                            <td>{{ demographics.gender_counts[key] }}</td>
+                            <td>{{ pct(demographics.gender_counts[key], demographics.total_patients) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-primary text-white">
+                <i class="fas fa-users"></i> Age Distribution
+            </div>
+            <div class="card-body">
+                {% if charts.age %}
+                <div style="position: relative; height: 200px;" class="mb-3">
+                    <canvas id="demographics-chart-age"></canvas>
+                </div>
+                <script type="application/json" data-chart-for="demographics-chart-age">{{ charts.age|tojson }}</script>
+                {% endif %}
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr><th>Age Group</th><th>Count</th><th>Percentage</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for key in ['0-18', '19-35', '36-55', '56-75', '76+', 'unknown'] %}
+                        <tr>
+                            <td>{{ 'Unknown' if key == 'unknown' else key }}</td>
+                            <td>{{ demographics.age_groups[key] }}</td>
+                            <td>{{ pct(demographics.age_groups[key], demographics.total_patients) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-2">
+    <div class="card-header bg-dark text-white">
+        <i class="fas fa-info-circle"></i> Summary Statistics
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Patients Sampled</h5>
+                        <p class="card-text display-4">{{ demographics.total_patients }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gender Ratio (M:F)</h5>
+                        <p class="card-text display-4">
+                            {% if demographics.gender_counts.female > 0 %}
+                            {{ "%.1f"|format(demographics.gender_counts.male / demographics.gender_counts.female) }} : 1
+                            {% else %}
+                            &ndash;
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Mean Age</h5>
+                        <p class="card-text display-4">
+                            {% if demographics.mean_age is not none %}
+                            {{ demographics.mean_age }}
+                            {% else %}
+                            &ndash;
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary" hx-get="/fhir/Patients" hx-target="#content">
+            <i class="fas fa-arrow-left"></i> Back to Patient List
+        </button>
+    </div>
+</div>
+{% endif %}
