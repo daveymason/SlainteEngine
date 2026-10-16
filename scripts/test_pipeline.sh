@@ -16,7 +16,11 @@ cd "${ROOT_DIR}"
 
 # Ensure virtualenv or system python is available
 PYTHON_BIN="python3"
-if [ -f "${ROOT_DIR}/../Patient-Dashboard-htmx-python-fhir/.venv/bin/python" ]; then
+if [ -f "${ROOT_DIR}/../SlainteDash/.venv/bin/python" ]; then
+    PYTHON_BIN="${ROOT_DIR}/../SlainteDash/.venv/bin/python"
+elif [ -f "${ROOT_DIR}/../SlainteScan/.venv/bin/python" ]; then
+    PYTHON_BIN="${ROOT_DIR}/../SlainteScan/.venv/bin/python"
+elif [ -f "${ROOT_DIR}/../Patient-Dashboard-htmx-python-fhir/.venv/bin/python" ]; then
     PYTHON_BIN="${ROOT_DIR}/../Patient-Dashboard-htmx-python-fhir/.venv/bin/python"
 elif [ -f "${ROOT_DIR}/../OCR2FHIR/.venv/bin/python" ]; then
     PYTHON_BIN="${ROOT_DIR}/../OCR2FHIR/.venv/bin/python"
