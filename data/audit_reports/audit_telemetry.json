@@ -1,0 +1,787 @@
+{
+  "timestamp": "2026-11-03 22:51:55 UTC",
+  "target_url": "http://slainte-fhir:8082",
+  "execution_mode": "Live SlainteFHIR HTTP",
+  "model_architecture": "openai/gpt-6.1-luna + OpenHands SDK",
+  "selected_model": "openai/gpt-6.1-luna",
+  "llm_synthesis": {
+    "provider": "Deterministic Rule Engine (Offline)",
+    "model_executed": "openai/gpt-6.1-luna",
+    "latency_ms": 0.0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "reasoning": "Confirmed 5 cross-compartment BOLA/CORS/Validator vulnerabilities (Harvested cohort of 34 patients; selected Victim=Patient/patient-case-2 (Davies), Attacker=Patient/patient-case-1) and 57 SNOMED/LOINC/UCUM/OID deviations.",
+    "thinking": ""
+  },
+  "stats": {
+    "surface_reduction_pct": 58.1,
+    "active_compartment_count": 8,
+    "pruned_resource_count": 12,
+    "bundles_audited": 23,
+    "security_findings_count": 5,
+    "terminology_findings_count": 57,
+    "memory_steps_count": 8
+  },
+  "surface": {
+    "active_compartment_resources": {
+      "Patient": [
+        "_id",
+        "link"
+      ],
+      "Observation": [
+        "subject",
+        "performer"
+      ],
+      "Condition": [
+        "patient",
+        "subject"
+      ],
+      "Encounter": [
+        "patient",
+        "subject"
+      ],
+      "Provenance": [
+        "patient",
+        "target"
+      ],
+      "AllergyIntolerance": [
+        "patient",
+        "recorder",
+        "asserter"
+      ],
+      "MedicationRequest": [
+        "subject"
+      ],
+      "DiagnosticReport": [
+        "subject"
+      ]
+    },
+    "bridge_resources": [
+      "Binary",
+      "Bundle",
+      "Organization",
+      "Practitioner",
+      "Location"
+    ],
+    "pruned_resources": [
+      "HealthcareService",
+      "ValueSet",
+      "CodeSystem",
+      "StructureDefinition",
+      "SearchParameter",
+      "CapabilityStatement",
+      "OperationDefinition",
+      "ImplementationGuide",
+      "Subscription",
+      "ConceptMap",
+      "NamingSystem",
+      "TerminologyCapabilities"
+    ]
+  },
+  "security_findings": [
+    {
+      "rule_id": "SLAINTE-BOLA-001",
+      "cwe_id": "CWE-639",
+      "owasp_id": "API1:2023",
+      "severity": "critical",
+      "vector_id": "VEC_1_DIRECT_BOLA",
+      "endpoint": "/fhir/r4/Patient/patient-case-2",
+      "method": "GET",
+      "attacker_identity": "ID_PAT_A (Patient/patient-case-1)",
+      "victim_resource_id": "Patient/patient-case-2",
+      "description": "Critical BOLA confirmed: Caller scoped to Patient/patient-case-1 read foreign compartment resource Patient/patient-case-2 (Davies) with HTTP 200 OK (15.92ms).",
+      "reproduction_curl": "GET /fhir/r4/Patient/patient-case-2 [Identity: patient-case-1 -> Target: patient-case-2]",
+      "remediation": "Add OAuth2 / SMART-on-FHIR compartment enforcement in slainte-fhir/main.py on GET /fhir/r4/Patient/{patient_id} to reject cross-patient reads with HTTP 403."
+    },
+    {
+      "rule_id": "SLAINTE-CORS-002",
+      "cwe_id": "CWE-942",
+      "owasp_id": "API8:2023",
+      "severity": "high",
+      "vector_id": "VEC_1_DIRECT_BOLA",
+      "endpoint": "/fhir/r4/Patient/patient-case-2",
+      "method": "GET",
+      "attacker_identity": "ID_PAT_A (patient-case-1)",
+      "victim_resource_id": "Patient/patient-case-2",
+      "description": "Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint.",
+      "reproduction_curl": "GET /fhir/r4/Patient/patient-case-2 [Origin: untrusted-origin, Allow-Credentials: true]",
+      "remediation": "Restrict CORSMiddleware allow_origins in slainte-fhir/main.py to explicit trusted clinical origins instead of wildcard '*' when allow_credentials=True."
+    },
+    {
+      "rule_id": "SLAINTE-BOLA-003",
+      "cwe_id": "CWE-639",
+      "owasp_id": "API1:2023",
+      "severity": "critical",
+      "vector_id": "VEC_2_GRAPH_SMUGGLING",
+      "endpoint": "/fhir/r4/Observation?patient=Patient/patient-case-2&_include=*",
+      "method": "GET",
+      "attacker_identity": "ID_PAT_A (patient-case-1)",
+      "victim_resource_id": "Observation?patient=Patient/patient-case-2",
+      "description": "Cross-patient Observation leakage: Caller patient-case-1 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-2 (5.27ms).",
+      "reproduction_curl": "GET /fhir/r4/Observation?patient=Patient/patient-case-2&_include=* [Identity: patient-case-1 -> Foreign Patient Reference]",
+      "remediation": "Scope GET /fhir/r4/Observation queries in slainte-fhir/main.py to the authenticated caller's Patient compartment and filter _include/_revinclude graph edges."
+    },
+    {
+      "rule_id": "SLAINTE-BOLA-ENCO",
+      "cwe_id": "CWE-639",
+      "owasp_id": "API1:2023",
+      "severity": "high",
+      "vector_id": "VEC_3_ENCOUNTER_CHAIN",
+      "endpoint": "/fhir/r4/Encounter?patient=Patient/patient-case-2",
+      "method": "GET",
+      "attacker_identity": "ID_PAT_A (patient-case-1)",
+      "victim_resource_id": "Encounter?patient=Patient/patient-case-2",
+      "description": "Unauthorized Encounter compartment access: Caller patient-case-1 retrieved 1 Encounter resource(s) for Victim patient-case-2.",
+      "reproduction_curl": "GET /fhir/r4/Encounter?patient=Patient/patient-case-2",
+      "remediation": "Enforce patient compartment ownership check on GET /fhir/r4/Encounter in slainte-fhir/main.py."
+    },
+    {
+      "rule_id": "SLAINTE-VAL-CRASH-004",
+      "cwe_id": "CWE-755",
+      "owasp_id": "API8:2023",
+      "severity": "medium",
+      "vector_id": "VEC_6_VALIDATOR_GATE",
+      "endpoint": "/fhir/r4/$validate",
+      "method": "POST",
+      "attacker_identity": "ID_PAT_A (patient-case-1)",
+      "victim_resource_id": "Patient/patient-redteam-513",
+      "description": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-513' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-513') in 1.84ms.",
+      "reproduction_curl": "POST /fhir/r4/$validate [Patient.id: patient-redteam-513 -> OperationOutcome 422]",
+      "remediation": "Replace hardcoded EXPECTED_COHORT_SCORES[patient_id] indexing in slainte-fhir/verification_engine.py with dynamic NEWS2 calculation fallback."
+    }
+  ],
+  "terminology_findings": [
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P0988.json :: P0988",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P0988.json :: cond-P0988-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P0988-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Sudden severe respiratory distress, wheezing, diaphoresis'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P0988.json :: obs-spo2-P0988",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P0988 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P101.json :: P101",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P101.json :: obs-spo2-P101",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P101 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P102.json :: P102",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P102.json :: obs-spo2-P102",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P102 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P103.json :: P103",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P103.json :: obs-spo2-P103",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P103 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P104.json :: P104",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P104.json :: cond-P104-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P104-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Right ankle inversion sprain after football with moderate swelling and weight-bearing'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P104.json :: obs-spo2-P104",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P104 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P105.json :: P105",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P105.json :: cond-P105-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P105-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Chronic low back ache review prescription renewal'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P105.json :: obs-spo2-P105",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P105 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P106.json :: P106",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P106.json :: obs-spo2-P106",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P106 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P107.json :: P107",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P107.json :: obs-spo2-P107",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P107 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P108.json :: P108",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P108.json :: cond-P108-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P108-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Acute onset right hemiparesis and expressive dysphasia 45 mins ago'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P108.json :: obs-spo2-P108",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P108 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P109.json :: P109",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P109.json :: cond-P109-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P109-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Febrile infant 8 months lethargic with petechial rash on trunk'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P109.json :: obs-spo2-P109",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P109 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P110.json :: P110",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P110.json :: cond-P110-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P110-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Acute deliberate paracetamol overdose 24g ingested 3 hours ago with suicidal intent'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P110.json :: obs-spo2-P110",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P110 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P111.json :: P111",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P111.json :: obs-spo2-P111",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P111 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P112.json :: P112",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P112.json :: cond-P112-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P112-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Deep partial-thickness boiling water scalds covering 8% TBSA left arm and shoulder'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P112.json :: obs-spo2-P112",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P112 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P113.json :: P113",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P113.json :: cond-P113-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P113-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Excruciating right flank pain radiating to groin with microscopic hematuria'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P113.json :: obs-spo2-P113",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P113 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P114.json :: P114",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P114.json :: obs-spo2-P114",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P114 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P115.json :: P115",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P115.json :: obs-spo2-P115",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P115 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P116.json :: P116",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P116.json :: obs-spo2-P116",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P116 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P117.json :: P117",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P117.json :: obs-spo2-P117",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P117 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P118.json :: P118",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P118.json :: cond-P118-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P118-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Viral upper respiratory coryza 5 days duration, reassurance requested for college exams'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P118.json :: obs-spo2-P118",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P118 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P120.json :: P120",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P120.json :: cond-P120-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P120-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Sprained left wrist following slip on ice'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P120.json :: obs-spo2-P120",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P120 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P9659.json :: P9659",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P9659.json :: obs-spo2-P9659",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P9659 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P9660.json :: P9660",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P9660.json :: obs-spo2-P9660",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P9660 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "FHIR-OID-DRIFT-002",
+      "severity": "warning",
+      "resource_id": "bundle_P999.json :: P999",
+      "resource_type": "Patient",
+      "message": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1').",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_P999.json :: cond-P999-1",
+      "resource_type": "Condition",
+      "message": "Condition/cond-P999-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Ankle sprain'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_P999.json :: obs-spo2-P999",
+      "resource_type": "Observation",
+      "message": "Observation/obs-spo2-P999 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    }
+  ],
+  "memory_entries": [
+    {
+      "step": 1,
+      "timestamp": 1793746315.2671661,
+      "vector_id": "GROUND_TRUTH",
+      "identity": "ID_PAT_B (patient-case-2)",
+      "method": "GET",
+      "endpoint": "/fhir/r4/Patient",
+      "status_code": 200,
+      "latency_ms": 6.36,
+      "reflection_action": "BASELINE_CAPTURED",
+      "notes": "Harvested cohort of 34 patients; selected Victim=Patient/patient-case-2 (Davies), Attacker=Patient/patient-case-1"
+    },
+    {
+      "step": 2,
+      "timestamp": 1793746315.2874646,
+      "vector_id": "VEC_1_DIRECT_BOLA",
+      "identity": "ID_PAT_A (patient-case-1)",
+      "method": "GET",
+      "endpoint": "/fhir/r4/Patient/patient-case-2",
+      "status_code": 200,
+      "latency_ms": 15.92,
+      "reflection_action": "NONE",
+      "notes": "Cross-compartment direct Patient read on patient-case-2"
+    },
+    {
+      "step": 3,
+      "timestamp": 1793746315.2973413,
+      "vector_id": "VEC_2_GRAPH_SMUGGLING",
+      "identity": "ID_PAT_A (patient-case-1)",
+      "method": "GET",
+      "endpoint": "/fhir/r4/Observation?patient=Patient/patient-case-2&_include=*",
+      "status_code": 200,
+      "latency_ms": 5.27,
+      "reflection_action": "NONE",
+      "notes": "Cross-compartment Observation search returned 9 record(s)"
+    },
+    {
+      "step": 4,
+      "timestamp": 1793746315.3018377,
+      "vector_id": "VEC_3_ENCOUNTER_CHAIN",
+      "identity": "ID_PAT_A (patient-case-1)",
+      "method": "GET",
+      "endpoint": "/fhir/r4/Encounter?patient=Patient/patient-case-2",
+      "status_code": 200,
+      "latency_ms": 4.43,
+      "reflection_action": "NONE",
+      "notes": "Probed Encounter compartment boundary -> 1 entry(s)"
+    },
+    {
+      "step": 5,
+      "timestamp": 1793746315.3085513,
+      "vector_id": "VEC_4_ADMIN_BOUNDARY",
+      "identity": "ID_PAT_A",
+      "method": "GET",
+      "endpoint": "/fhir/r4/Subscription?_count=1",
+      "status_code": 404,
+      "latency_ms": 1.91,
+      "reflection_action": "NONE",
+      "notes": "Administrative boundary probe 1/3 returned HTTP 404 (1.91ms)"
+    },
+    {
+      "step": 6,
+      "timestamp": 1793746315.3095672,
+      "vector_id": "VEC_4_ADMIN_BOUNDARY",
+      "identity": "ID_PAT_A",
+      "method": "GET",
+      "endpoint": "/fhir/r4/AuditEvent?_count=1",
+      "status_code": 404,
+      "latency_ms": 1.0,
+      "reflection_action": "NONE",
+      "notes": "Administrative boundary probe 2/3 returned HTTP 404 (1.00ms)"
+    },
+    {
+      "step": 7,
+      "timestamp": 1793746315.3104212,
+      "vector_id": "VEC_4_ADMIN_BOUNDARY",
+      "identity": "ID_PAT_A",
+      "method": "GET",
+      "endpoint": "/fhir/r4/StructureDefinition?_count=1",
+      "status_code": 404,
+      "latency_ms": 0.85,
+      "reflection_action": "INTER_REFLECTION_PIVOT",
+      "notes": "Administrative boundary probe 3/3 returned HTTP 404 (0.85ms)"
+    },
+    {
+      "step": 8,
+      "timestamp": 1793746315.3163993,
+      "vector_id": "VEC_6_VALIDATOR_GATE",
+      "identity": "ID_PAT_A (patient-case-1)",
+      "method": "POST",
+      "endpoint": "/fhir/r4/$validate",
+      "status_code": 422,
+      "latency_ms": 1.84,
+      "reflection_action": "INTRA_REFLECTION_INSPECT",
+      "notes": "OperationOutcome diagnostics: 'patient-redteam-513'"
+    }
+  ],
+  "logs": [
+    "2026-11-03 22:51:55.246Z [INFO] [STAGE-0:MODEL] Selected OpenHands Auditor Model: openai/gpt-6.1-luna",
+    "2026-11-03 22:51:55.246Z [INFO] [STAGE-1:GUARDRAIL] RFC 1918 / loopback sandbox guardrail verified for target http://slainte-fhir:8082 (host=slainte-fhir)",
+    "2026-11-03 22:51:55.253Z [INFO] [STAGE-1:INGEST] Fetched live CapabilityStatement from http://slainte-fhir:8082/fhir/r4/metadata in 6.27ms",
+    "2026-11-03 22:51:55.253Z [INFO] [STAGE-1:FILTER] CompartmentDefinition/Patient filter retained 8 clinical resource(s) and pruned 12 non-compartment metadata type(s) (58.1% surface reduction).",
+    "2026-11-03 22:51:55.253Z [INFO] [STAGE-2:ONTOLOGY] Scanning 23 HL7 FHIR R4 Bundle(s) in /workspace/data/fhir_store against SNOMED CT, LOINC, UCUM & HSE OIDs...",
+    "2026-11-03 22:51:55.256Z [INFO] [STAGE-2:ONTOLOGY] Completed terminology & CDS verification in 2.82ms: 57 semantic/ontology drift issue(s) flagged.",
+    "2026-11-03 22:51:55.256Z [INFO] [STAGE-3:REDTEAM] Executing FhirRedTeamAgent with SharedAuditMemory (M) and Multi-Identity Differential Oracle (live patient cohort sampling).",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #01 [GROUND_TRUTH] ID_PAT_B (patient-case-2) -> GET /fhir/r4/Patient (HTTP 200, 6.36ms) | Reflection: BASELINE_CAPTURED | Harvested cohort of 34 patients; selected Victim=Patient/patient-case-2 (Davies), Attacker=Patient/patient-case-1",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #02 [VEC_1_DIRECT_BOLA] ID_PAT_A (patient-case-1) -> GET /fhir/r4/Patient/patient-case-2 (HTTP 200, 15.92ms) | Reflection: NONE | Cross-compartment direct Patient read on patient-case-2",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #03 [VEC_2_GRAPH_SMUGGLING] ID_PAT_A (patient-case-1) -> GET /fhir/r4/Observation?patient=Patient/patient-case-2&_include=* (HTTP 200, 5.27ms) | Reflection: NONE | Cross-compartment Observation search returned 9 record(s)",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #04 [VEC_3_ENCOUNTER_CHAIN] ID_PAT_A (patient-case-1) -> GET /fhir/r4/Encounter?patient=Patient/patient-case-2 (HTTP 200, 4.43ms) | Reflection: NONE | Probed Encounter compartment boundary -> 1 entry(s)",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #05 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/Subscription?_count=1 (HTTP 404, 1.91ms) | Reflection: NONE | Administrative boundary probe 1/3 returned HTTP 404 (1.91ms)",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #06 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/AuditEvent?_count=1 (HTTP 404, 1.00ms) | Reflection: NONE | Administrative boundary probe 2/3 returned HTTP 404 (1.00ms)",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #07 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/StructureDefinition?_count=1 (HTTP 404, 0.85ms) | Reflection: INTER_REFLECTION_PIVOT | Administrative boundary probe 3/3 returned HTTP 404 (0.85ms)",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:MEMORY] Step #08 [VEC_6_VALIDATOR_GATE] ID_PAT_A (patient-case-1) -> POST /fhir/r4/$validate (HTTP 422, 1.84ms) | Reflection: INTRA_REFLECTION_INSPECT | OperationOutcome diagnostics: 'patient-redteam-513'",
+    "2026-11-03 22:51:55.316Z [INFO] [STAGE-3:LLM] OPENAI_API_KEY not configured for 'openai/gpt-6.1-luna'; executing live local inference via Ollama 'gemma3:1b'.",
+    "2026-11-03 22:51:55.329Z [INFO] [STAGE-3:ORACLE] Differential Oracle confirmed 5 authorization/validation vulnerability(s) across 8 live HTTP memory steps.",
+    "2026-11-03 22:51:55.331Z [INFO] [STAGE-4:SARIF] OASIS SARIF v2.1.0 report written to /workspace/data/audit_reports/slaintefhir-audit.sarif.json"
+  ],
+  "sarif_path": "/workspace/data/audit_reports/slaintefhir-audit.sarif.json"
+}

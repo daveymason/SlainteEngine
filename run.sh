@@ -173,6 +173,12 @@ show_status() {
         echo -e "  * SlainteScan (8081):   ${RED}[DOWN or INITIALIZING]${NC}"
     fi
 
+    if curl -s -m 2 http://localhost:8082/health | grep -q "ok" 2>/dev/null; then
+        echo -e "  * SlainteFHIR (8082):   ${GREEN}[HEALTHY / Micro-EHR active]${NC}"
+    else
+        echo -e "  * SlainteFHIR (8082):   ${RED}[DOWN or INITIALIZING]${NC}"
+    fi
+
     if docker ps --format '{{.Names}}' | grep -q 'slainte-openhands'; then
         echo -e "  * SlainteEngine (3000): ${GREEN}[ACTIVE / Ingestion Loop running]${NC}"
     else
@@ -207,6 +213,18 @@ trigger_ingest() {
     fi
 }
 
+trigger_audit() {
+    print_banner
+    echo -e "${BLUE}[AUDIT] Running SlainteFHIR Red-Team & Semantic Terminology Verifier...${NC}"
+    mkdir -p data/audit_reports
+    if docker ps --format '{{.Names}}' | grep -q 'slainte-auditor'; then
+        docker exec -it slainte-auditor python3 /workspace/slainte-auditor/auditor_runner.py --once
+    else
+        echo -e "${YELLOW}Running local audit pass against ./data/fhir_store and localhost:8082...${NC}"
+        python3 slainte-auditor/auditor_runner.py --once --store-dir data/fhir_store --report-dir data/audit_reports
+    fi
+}
+
 show_help() {
     print_banner
     echo -e "${BOLD}USAGE:${NC} ./run.sh [COMMAND]"
@@ -219,6 +237,7 @@ show_help() {
     echo -e "  ${BLUE}test${NC}           Execute the end-to-end automated verification test suite"
     echo -e "  ${BLUE}logs [svc]${NC}     Follow live container logs (optional service: dashboard, mcp, openhands)"
     echo -e "  ${CYAN}ingest${NC}         Trigger an immediate single-pass ingestion cycle"
+    echo -e "  ${CYAN}audit${NC}          Execute a single-pass Red-Team BOLA & FHIR terminology audit"
     echo -e "  ${BOLD}help${NC}           Show this help message"
     echo ""
 }
@@ -245,6 +264,9 @@ case "${1:-start}" in
         ;;
     ingest)
         trigger_ingest
+        ;;
+    audit)
+        trigger_audit
         ;;
     help|--help|-h)
         show_help

@@ -50,12 +50,16 @@ services:
       - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME:-admin}
       - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:-ClinicalAdmin2026!}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - AI_MODEL=${AI_MODEL:-gpt-4o}
+      - AI_MODEL=${AI_MODEL:-gpt-6.1-luna}
       - HEALTH_SHOW_BACKEND=true
+      - LOG_HASH_SALT=${LOG_HASH_SALT:-slainte-secure-audit-salt-2026-prod}
+      - FHIR_SERVER_URL=http://slainte-fhir:8082/fhir/r4
     networks:
       - slainte-net
     depends_on:
       slainte-mcp:
+        condition: service_healthy
+      slainte-fhir:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4).status==200 else 1)"]
@@ -98,6 +102,62 @@ services:
       slainte-mcp:
         condition: service_healthy
       slainte-dashboard:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
+  # 4. Slainte-FHIR: Lightweight Autonomous Clinical FHIR R4 Server
+  # ---------------------------------------------------------------------------
+  slainte-fhir:
+    build:
+      context: ./slainte-fhir
+      dockerfile: Dockerfile
+    container_name: slainte-fhir
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./data/fhir_store:/app/data/fhir_store
+    environment:
+      - PORT=8082
+      - DB_PATH=/app/data/fhir_store/fhir_store.db
+      - SEED_FILE=/app/data.json
+    networks:
+      - slainte-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8082/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # ---------------------------------------------------------------------------
+  # 5. Slainte-Auditor: Autonomous Red-Team & Semantic FHIR R4 Verifier Agent
+  # ---------------------------------------------------------------------------
+  slainte-auditor:
+    build:
+      context: ./slainte-auditor
+      dockerfile: Dockerfile
+    container_name: slainte-auditor
+    restart: unless-stopped
+    volumes:
+      - ./data/fhir_store:/workspace/data/fhir_store:ro
+      - ./data/audit_reports:/workspace/data/audit_reports
+    environment:
+      - TARGET_FHIR_URL=http://slainte-fhir:8082
+      - MCP_SERVER_URL=http://slainte-mcp:8081
+      - FHIR_STORE_PATH=/workspace/data/fhir_store
+      - REPORT_OUTPUT_DIR=/workspace/data/audit_reports
+      - LLM_MODEL=${LLM_MODEL:-openai/gpt-6.1-luna}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - LLM_BASE_URL=${LLM_BASE_URL:-http://host.docker.internal:11434}
+    networks:
+      - slainte-net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      slainte-fhir:
+        condition: service_healthy
+      slainte-mcp:
         condition: service_healthy
 
 volumes:

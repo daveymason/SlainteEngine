@@ -1,0 +1,1427 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "SlainteFHIR-Auditor",
+          "version": "1.0.0",
+          "informationUri": "https://hl7.org/fhir/R4/security.html",
+          "rules": [
+            {
+              "id": "SLAINTE-BOLA-001",
+              "name": "VEC_1_DIRECT_BOLA",
+              "shortDescription": {
+                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
+              },
+              "fullDescription": {
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/patient-case-1 read foreign compartment resource Patient/patient-case-2 (Davies) with HTTP 200 OK (15.92ms)."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-639",
+                  "API1:2023"
+                ],
+                "security-severity": "9.1"
+              }
+            },
+            {
+              "id": "SLAINTE-CORS-002",
+              "name": "VEC_1_DIRECT_BOLA",
+              "shortDescription": {
+                "text": "API8:2023 / CWE-942: SLAINTE-CORS-002"
+              },
+              "fullDescription": {
+                "text": "Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-942",
+                  "API8:2023"
+                ],
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SLAINTE-BOLA-003",
+              "name": "VEC_2_GRAPH_SMUGGLING",
+              "shortDescription": {
+                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
+              },
+              "fullDescription": {
+                "text": "Cross-patient Observation leakage: Caller patient-case-1 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-2 (5.27ms)."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-639",
+                  "API1:2023"
+                ],
+                "security-severity": "9.1"
+              }
+            },
+            {
+              "id": "SLAINTE-BOLA-ENCO",
+              "name": "VEC_3_ENCOUNTER_CHAIN",
+              "shortDescription": {
+                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-ENCO"
+              },
+              "fullDescription": {
+                "text": "Unauthorized Encounter compartment access: Caller patient-case-1 retrieved 1 Encounter resource(s) for Victim patient-case-2."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-639",
+                  "API1:2023"
+                ],
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "SLAINTE-VAL-CRASH-004",
+              "name": "VEC_6_VALIDATOR_GATE",
+              "shortDescription": {
+                "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
+              },
+              "fullDescription": {
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-513' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-513') in 1.84ms."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-755",
+                  "API8:2023"
+                ],
+                "security-severity": "7.5"
+              }
+            },
+            {
+              "id": "FHIR-OID-DRIFT-002",
+              "name": "FHIR-Semantic-Conformance",
+              "shortDescription": {
+                "text": "FHIR R4 Semantic & Ontology Rule FHIR-OID-DRIFT-002"
+              },
+              "fullDescription": {
+                "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+              },
+              "properties": {
+                "tags": [
+                  "clinical-interoperability",
+                  "snomed-ct",
+                  "loinc",
+                  "ucum",
+                  "CWE-20"
+                ]
+              }
+            },
+            {
+              "id": "SNOMED-FALLBACK-002",
+              "name": "FHIR-Semantic-Conformance",
+              "shortDescription": {
+                "text": "FHIR R4 Semantic & Ontology Rule SNOMED-FALLBACK-002"
+              },
+              "fullDescription": {
+                "text": "Condition/cond-P0988-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Sudden severe respiratory distress, wheezing, diaphoresis'), indicating an unmapped clinical complaint."
+              },
+              "properties": {
+                "tags": [
+                  "clinical-interoperability",
+                  "snomed-ct",
+                  "loinc",
+                  "ucum",
+                  "CWE-20"
+                ]
+              }
+            },
+            {
+              "id": "LOINC-DRIFT-001",
+              "name": "FHIR-Semantic-Conformance",
+              "shortDescription": {
+                "text": "FHIR R4 Semantic & Ontology Rule LOINC-DRIFT-001"
+              },
+              "fullDescription": {
+                "text": "Observation/obs-spo2-P0988 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+              },
+              "properties": {
+                "tags": [
+                  "clinical-interoperability",
+                  "snomed-ct",
+                  "loinc",
+                  "ucum",
+                  "CWE-20"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "endTimeUtc": "2026-11-03T22:51:55.329555+00:00"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SLAINTE-BOLA-001",
+          "level": "error",
+          "message": {
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/patient-case-1 read foreign compartment resource Patient/patient-case-2 (Davies) with HTTP 200 OK (15.92ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-2 [Identity: patient-case-1 -> Target: patient-case-2]`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-2"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (Patient/patient-case-1)",
+            "victim_resource": "Patient/patient-case-2",
+            "cwe": "CWE-639",
+            "owasp": "API1:2023"
+          }
+        },
+        {
+          "ruleId": "SLAINTE-CORS-002",
+          "level": "error",
+          "message": {
+            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/patient-case-2 [Origin: untrusted-origin, Allow-Credentials: true]`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-2"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (patient-case-1)",
+            "victim_resource": "Patient/patient-case-2",
+            "cwe": "CWE-942",
+            "owasp": "API8:2023"
+          }
+        },
+        {
+          "ruleId": "SLAINTE-BOLA-003",
+          "level": "error",
+          "message": {
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller patient-case-1 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-2 (5.27ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-2&_include=* [Identity: patient-case-1 -> Foreign Patient Reference]`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-2&_include=*"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (patient-case-1)",
+            "victim_resource": "Observation?patient=Patient/patient-case-2",
+            "cwe": "CWE-639",
+            "owasp": "API1:2023"
+          }
+        },
+        {
+          "ruleId": "SLAINTE-BOLA-ENCO",
+          "level": "error",
+          "message": {
+            "text": "[HIGH] Unauthorized Encounter compartment access: Caller patient-case-1 retrieved 1 Encounter resource(s) for Victim patient-case-2. (Reproduce: `GET /fhir/r4/Encounter?patient=Patient/patient-case-2`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Encounter?patient=Patient/patient-case-2"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (patient-case-1)",
+            "victim_resource": "Encounter?patient=Patient/patient-case-2",
+            "cwe": "CWE-639",
+            "owasp": "API1:2023"
+          }
+        },
+        {
+          "ruleId": "SLAINTE-VAL-CRASH-004",
+          "level": "warning",
+          "message": {
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-513' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-513') in 1.84ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-513 -> OperationOutcome 422]`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/$validate"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (patient-case-1)",
+            "victim_resource": "Patient/patient-redteam-513",
+            "cwe": "CWE-755",
+            "owasp": "API8:2023"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P0988.json :: P0988"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P0988.json :: P0988"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P0988-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Sudden severe respiratory distress, wheezing, diaphoresis'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P0988.json :: cond-P0988-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P0988.json :: cond-P0988-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P0988 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P0988.json :: obs-spo2-P0988"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P0988.json :: obs-spo2-P0988"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P101.json :: P101"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P101.json :: P101"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P101 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P101.json :: obs-spo2-P101"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P101.json :: obs-spo2-P101"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P102.json :: P102"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P102.json :: P102"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P102 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P102.json :: obs-spo2-P102"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P102.json :: obs-spo2-P102"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P103.json :: P103"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P103.json :: P103"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P103 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P103.json :: obs-spo2-P103"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P103.json :: obs-spo2-P103"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P104.json :: P104"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P104.json :: P104"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P104-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Right ankle inversion sprain after football with moderate swelling and weight-bearing'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P104.json :: cond-P104-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P104.json :: cond-P104-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P104 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P104.json :: obs-spo2-P104"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P104.json :: obs-spo2-P104"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P105.json :: P105"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P105.json :: P105"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P105-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Chronic low back ache review prescription renewal'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P105.json :: cond-P105-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P105.json :: cond-P105-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P105 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P105.json :: obs-spo2-P105"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P105.json :: obs-spo2-P105"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P106.json :: P106"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P106.json :: P106"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P106 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P106.json :: obs-spo2-P106"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P106.json :: obs-spo2-P106"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P107.json :: P107"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P107.json :: P107"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P107 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P107.json :: obs-spo2-P107"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P107.json :: obs-spo2-P107"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P108.json :: P108"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P108.json :: P108"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P108-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Acute onset right hemiparesis and expressive dysphasia 45 mins ago'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P108.json :: cond-P108-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P108.json :: cond-P108-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P108 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P108.json :: obs-spo2-P108"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P108.json :: obs-spo2-P108"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P109.json :: P109"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P109.json :: P109"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P109-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Febrile infant 8 months lethargic with petechial rash on trunk'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P109.json :: cond-P109-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P109.json :: cond-P109-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P109 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P109.json :: obs-spo2-P109"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P109.json :: obs-spo2-P109"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P110.json :: P110"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P110.json :: P110"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P110-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Acute deliberate paracetamol overdose 24g ingested 3 hours ago with suicidal intent'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P110.json :: cond-P110-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P110.json :: cond-P110-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P110 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P110.json :: obs-spo2-P110"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P110.json :: obs-spo2-P110"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P111.json :: P111"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P111.json :: P111"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P111 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P111.json :: obs-spo2-P111"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P111.json :: obs-spo2-P111"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P112.json :: P112"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P112.json :: P112"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P112-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Deep partial-thickness boiling water scalds covering 8% TBSA left arm and shoulder'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P112.json :: cond-P112-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P112.json :: cond-P112-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P112 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P112.json :: obs-spo2-P112"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P112.json :: obs-spo2-P112"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P113.json :: P113"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P113.json :: P113"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P113-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Excruciating right flank pain radiating to groin with microscopic hematuria'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P113.json :: cond-P113-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P113.json :: cond-P113-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P113 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P113.json :: obs-spo2-P113"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P113.json :: obs-spo2-P113"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P114.json :: P114"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P114.json :: P114"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P114 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P114.json :: obs-spo2-P114"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P114.json :: obs-spo2-P114"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P115.json :: P115"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P115.json :: P115"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P115 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P115.json :: obs-spo2-P115"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P115.json :: obs-spo2-P115"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P116.json :: P116"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P116.json :: P116"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P116 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P116.json :: obs-spo2-P116"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P116.json :: obs-spo2-P116"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P117.json :: P117"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P117.json :: P117"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P117 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P117.json :: obs-spo2-P117"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P117.json :: obs-spo2-P117"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P118.json :: P118"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P118.json :: P118"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P118-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Viral upper respiratory coryza 5 days duration, reassurance requested for college exams'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P118.json :: cond-P118-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P118.json :: cond-P118-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P118 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P118.json :: obs-spo2-P118"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P118.json :: obs-spo2-P118"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P120.json :: P120"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P120.json :: P120"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P120-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Sprained left wrist following slip on ice'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P120.json :: cond-P120-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P120.json :: cond-P120-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P120 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P120.json :: obs-spo2-P120"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P120.json :: obs-spo2-P120"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P9659.json :: P9659"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P9659.json :: P9659"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P9659 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P9659.json :: obs-spo2-P9659"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P9659.json :: obs-spo2-P9659"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P9660.json :: P9660"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P9660.json :: P9660"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P9660 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P9660.json :: obs-spo2-P9660"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P9660.json :: obs-spo2-P9660"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P999.json :: P999"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P999.json :: P999"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-P999-1 uses generic fallback SNOMED CT code '404684003' ('Clinical finding: Ankle sprain'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_P999.json :: cond-P999-1"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_P999.json :: cond-P999-1"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P999 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P999.json :: obs-spo2-P999"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P999.json :: obs-spo2-P999"
+          }
+        }
+      ]
+    }
+  ]
+}
