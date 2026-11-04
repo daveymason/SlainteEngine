@@ -40,12 +40,16 @@ services:
     volumes:
       - ./data/raw:/workspace/data/raw
       - ./data/fhir_store:/workspace/data/fhir_store
+      - ./data/audit_reports:/workspace/data/audit_reports
+      - ./slainte-auditor:/workspace/slainte-auditor
       - dashboard-data:/app/instance
     environment:
       - FLASK_ENV=production
       - APPLIANCE_MODE=true
       - FHIR_STORE_PATH=/workspace/data/fhir_store
       - RAW_DATA_PATH=/workspace/data/raw
+      - REPORT_OUTPUT_DIR=/workspace/data/audit_reports
+      - TARGET_FHIR_URL=http://slainte-fhir:8082
       - SECRET_KEY=${SECRET_KEY:-slainte-engine-production-key-99021}
       - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME:-admin}
       - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:-ClinicalAdmin2026!}
