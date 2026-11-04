@@ -5,7 +5,7 @@
 [![FastMCP](https://img.shields.io/badge/MCP-FastMCP%202026-blue.svg)](https://modelcontextprotocol.io/)
 [![Zero Hallucination](https://img.shields.io/badge/Guardrails-Zero%20Hallucination-green.svg)](#zero-trust-clinical-guardrails)
 
-**Slainte-Engine** is a turnkey, zero-trust clinical ingestion appliance designed for emergency departments, regional health trusts (HSE / NHS), and acute triage teams. It autonomously ingests messy clinical CSVs, legacy database extracts, and triage notes, transforms them into mathematically verified **HL7 FHIR R4** bundles via an autonomous agent pipeline bound by deterministic **Model Context Protocol (MCP)** guardrails, and renders them in real time on an ultra-fast **HTMX** clinical dashboard.
+**Slainte-Engine** (by **SlainteTech AI Security Labs**) is a turnkey, zero-trust clinical AI and cybersecurity appliance. It combines an **Autonomous 9-Agent Fleet** (Security/Red-Team `SlainteShield`, Governance/Privacy `SlainteGov`, and Clinical/Ingestion `SlainteClinical`), deterministic **Model Context Protocol (`SlainteScan` FastMCP)** guardrails, a sovereign **HL7 FHIR R4 Micro-EHR (`SlainteFHIR` on `:8082`)**, and **7 Role-Based Multi-Vertical Clinical Cockpits (`SlainteDash`)** (`Emergency Department`, `GP`, `Dentist`, `Pharmacy`, `Ambulance EMS`, `Elite Sports Club`, and `Astronaut Health Monitoring`).
 
 ---
 
