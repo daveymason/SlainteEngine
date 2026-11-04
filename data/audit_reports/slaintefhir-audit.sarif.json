@@ -16,7 +16,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
               },
               "fullDescription": {
-                "text": "Critical BOLA confirmed: Caller scoped to Patient/patient-case-1 read foreign compartment resource Patient/patient-case-2 (Davies) with HTTP 200 OK (4.93ms)."
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/P999 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (4.05ms)."
               },
               "properties": {
                 "tags": [
@@ -54,7 +54,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
               },
               "fullDescription": {
-                "text": "Cross-patient Observation leakage: Caller patient-case-1 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-2 (4.64ms)."
+                "text": "Cross-patient Observation leakage: Caller P999 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (3.04ms)."
               },
               "properties": {
                 "tags": [
@@ -73,7 +73,7 @@
                 "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
               },
               "fullDescription": {
-                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-105' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-105') in 1.71ms."
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-165' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-165') in 1.70ms."
               },
               "properties": {
                 "tags": [
@@ -148,7 +148,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-11-04T01:07:22.224261+00:00"
+          "endTimeUtc": "2026-11-04T21:48:19.832465+00:00"
         }
       ],
       "results": [
@@ -156,20 +156,20 @@
           "ruleId": "SLAINTE-BOLA-001",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/patient-case-1 read foreign compartment resource Patient/patient-case-2 (Davies) with HTTP 200 OK (4.93ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-2 [Identity: patient-case-1 -> Target: patient-case-2]`)"
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P999 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (4.05ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Identity: P999 -> Target: patient-case-4]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-2"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (Patient/patient-case-1)",
-            "victim_resource": "Patient/patient-case-2",
+            "attacker_identity": "ID_PAT_A (Patient/P999)",
+            "victim_resource": "Patient/patient-case-4",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -178,20 +178,20 @@
           "ruleId": "SLAINTE-CORS-002",
           "level": "error",
           "message": {
-            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/patient-case-2 [Origin: untrusted-origin, Allow-Credentials: true]`)"
+            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Origin: untrusted-origin, Allow-Credentials: true]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-2"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (patient-case-1)",
-            "victim_resource": "Patient/patient-case-2",
+            "attacker_identity": "ID_PAT_A (P999)",
+            "victim_resource": "Patient/patient-case-4",
             "cwe": "CWE-942",
             "owasp": "API8:2023"
           }
@@ -200,20 +200,20 @@
           "ruleId": "SLAINTE-BOLA-003",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Cross-patient Observation leakage: Caller patient-case-1 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-2 (4.64ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-2&_include=* [Identity: patient-case-1 -> Foreign Patient Reference]`)"
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P999 retrieved 9 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (3.04ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-4&_include=* [Identity: P999 -> Foreign Patient Reference]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-2&_include=*"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-4&_include=*"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (patient-case-1)",
-            "victim_resource": "Observation?patient=Patient/patient-case-2",
+            "attacker_identity": "ID_PAT_A (P999)",
+            "victim_resource": "Observation?patient=Patient/patient-case-4",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -222,7 +222,7 @@
           "ruleId": "SLAINTE-VAL-CRASH-004",
           "level": "warning",
           "message": {
-            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-105' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-105') in 1.71ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-105 -> OperationOutcome 422]`)"
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-165' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-165') in 1.70ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-165 -> OperationOutcome 422]`)"
           },
           "locations": [
             {
@@ -234,8 +234,8 @@
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (patient-case-1)",
-            "victim_resource": "Patient/patient-redteam-105",
+            "attacker_identity": "ID_PAT_A (P999)",
+            "victim_resource": "Patient/patient-redteam-165",
             "cwe": "CWE-755",
             "owasp": "API8:2023"
           }
