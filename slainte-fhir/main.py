@@ -120,6 +120,8 @@ async def capability_statement():
                     {"type": "Observation", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Condition", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Encounter", "interaction": [{"code": "read"}, {"code": "search-type"}]},
+                    {"type": "MedicationRequest", "interaction": [{"code": "read"}, {"code": "search-type"}]},
+                    {"type": "AllergyIntolerance", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Provenance", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Bundle", "interaction": [{"code": "create"}]}
                 ]
@@ -133,26 +135,33 @@ async def capability_statement():
 
 @app.get("/fhir/r4/Patient")
 async def search_patients(
+    request: Request,
     _id: Optional[str] = Query(None),
     identifier: Optional[str] = Query(None),
     name: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
     limit: int = Query(50, le=200)
 ):
-    patients = await db.query_resources("Patient", limit=limit)
+    patients = await db.query_resources("Patient", limit=200)
     if _id:
         patients = [p for p in patients if p.get("id") == _id]
     if identifier:
         patients = [
             p for p in patients 
-            if any(i.get("value") == identifier for i in p.get("identifier", []))
+            if any(identifier.lower() in str(i.get("value", "")).lower() for i in p.get("identifier", []))
         ]
-    if name:
-        name_lower = name.lower()
+    name_query = name or request.query_params.get("name:contains")
+    if name_query:
+        name_lower = name_query.lower()
         patients = [
             p for p in patients
-            if any(name_lower in " ".join(n.get("given", []) + [n.get("family", "")]).lower() for n in p.get("name", []))
+            if any(
+                name_lower in (n.get("text", "") + " " + " ".join(n.get("given", []) + [n.get("family", "")])).lower()
+                for n in p.get("name", [])
+            )
         ]
-    return create_bundle_searchset(patients)
+    effective_limit = _count if _count is not None else limit
+    return create_bundle_searchset(patients[:effective_limit], total=len(patients))
 
 @app.get("/fhir/r4/Patient/{patient_id}")
 async def get_patient(patient_id: str):
@@ -172,27 +181,122 @@ async def get_patient(patient_id: str):
 async def search_observations(
     patient: Optional[str] = Query(None),
     subject: Optional[str] = Query(None),
+    category: Optional[str] = Query(None),
     code: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
     limit: int = Query(100, le=500)
 ):
     patient_ref = patient or subject
-    obs_list = await db.query_resources("Observation", patient_ref=patient_ref, limit=limit)
+    obs_list = await db.query_resources("Observation", patient_ref=patient_ref, limit=500)
+
+    if category:
+        cat_target = category.lower().split("|")[-1].strip()
+        vital_loincs = {
+            "8480-6", "8462-4", "85354-9", "55284-4", "8867-4",
+            "59408-5", "2708-6", "9279-1", "8310-5", "72514-3", "9269-2"
+        }
+        filtered_by_cat = []
+        for o in obs_list:
+            cats = o.get("category", [])
+            cat_codes = [
+                cd.get("code", "").lower()
+                for c in cats if isinstance(c, dict)
+                for cd in c.get("coding", []) if isinstance(cd, dict) and cd.get("code")
+            ]
+            obs_loincs = {
+                c.get("code")
+                for c in o.get("code", {}).get("coding", [])
+                if isinstance(c, dict) and c.get("code")
+            }
+            is_vital = bool(obs_loincs & vital_loincs)
+            if cat_target in cat_codes:
+                filtered_by_cat.append(o)
+            elif not cat_codes:
+                if cat_target == "vital-signs" and is_vital:
+                    filtered_by_cat.append(o)
+                elif cat_target == "laboratory" and not is_vital and "75540-5" not in obs_loincs:
+                    filtered_by_cat.append(o)
+        obs_list = filtered_by_cat
+
     if code:
+        raw_codes = [c.strip() for c in code.split(",") if c.strip()]
+        codes_to_match = set()
+        for rc in raw_codes:
+            codes_to_match.add(rc)
+            if "|" in rc:
+                codes_to_match.add(rc.split("|")[-1])
+        if "59408-5" in codes_to_match or "2708-6" in codes_to_match:
+            codes_to_match.update({"59408-5", "2708-6"})
+        if "85354-9" in codes_to_match or "55284-4" in codes_to_match:
+            codes_to_match.update({"85354-9", "55284-4"})
         obs_list = [
-            o for o in obs_list 
-            if any(c.get("code") == code for c in o.get("code", {}).get("coding", []))
+            o for o in obs_list
+            if o.get("code", {}).get("text") in codes_to_match
+            or any(
+                c.get("code") in codes_to_match
+                for c in o.get("code", {}).get("coding", [])
+                if isinstance(c, dict)
+            )
         ]
-    return create_bundle_searchset(obs_list)
+
+    effective_limit = _count if _count is not None else limit
+    return create_bundle_searchset(obs_list[:effective_limit], total=len(obs_list))
 
 @app.get("/fhir/r4/Condition")
 async def search_conditions(
     patient: Optional[str] = Query(None),
     subject: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
     limit: int = Query(100, le=500)
 ):
     patient_ref = patient or subject
-    conditions = await db.query_resources("Condition", patient_ref=patient_ref, limit=limit)
+    effective_limit = _count if _count is not None else limit
+    conditions = await db.query_resources("Condition", patient_ref=patient_ref, limit=effective_limit)
     return create_bundle_searchset(conditions)
+
+@app.get("/fhir/r4/MedicationRequest")
+async def search_medication_requests(
+    patient: Optional[str] = Query(None),
+    subject: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
+    limit: int = Query(100, le=500)
+):
+    patient_ref = patient or subject
+    effective_limit = _count if _count is not None else limit
+    meds = await db.query_resources("MedicationRequest", patient_ref=patient_ref, limit=effective_limit)
+    return create_bundle_searchset(meds)
+
+@app.get("/fhir/r4/MedicationRequest/{med_id}")
+async def get_medication_request(med_id: str):
+    med = await db.get_resource("MedicationRequest", med_id)
+    if not med:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"MedicationRequest/{med_id} not found")
+        )
+    return med
+
+@app.get("/fhir/r4/AllergyIntolerance")
+async def search_allergy_intolerances(
+    patient: Optional[str] = Query(None),
+    subject: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
+    limit: int = Query(100, le=500)
+):
+    patient_ref = patient or subject
+    effective_limit = _count if _count is not None else limit
+    allergies = await db.query_resources("AllergyIntolerance", patient_ref=patient_ref, limit=effective_limit)
+    return create_bundle_searchset(allergies)
+
+@app.get("/fhir/r4/AllergyIntolerance/{allergy_id}")
+async def get_allergy_intolerance(allergy_id: str):
+    alg = await db.get_resource("AllergyIntolerance", allergy_id)
+    if not alg:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"AllergyIntolerance/{allergy_id} not found")
+        )
+    return alg
 
 @app.get("/fhir/r4/Encounter")
 async def search_encounters(

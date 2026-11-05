@@ -82,7 +82,7 @@
           "text": "MTS Cat 1 - Immediate / Red (Target: 0 min)"
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "period": {
           "start": "2026-10-17T22:10:00+01:00"
@@ -132,7 +132,7 @@
           "text": "Acute ST-Elevation Myocardial Infarction (STEMI) complicated by Cardiogenic Shock"
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -160,7 +160,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -171,7 +171,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -194,7 +206,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -205,7 +217,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -228,7 +252,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -239,7 +263,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -262,7 +298,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -273,7 +309,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -296,7 +344,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -321,6 +369,18 @@
             },
             "valueBoolean": true
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -344,7 +404,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -355,7 +415,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -378,7 +450,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -389,7 +461,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -412,7 +496,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:10000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-1"
         },
         "encounter": {
           "reference": "urn:uuid:10000000-0000-4000-8000-000000000002"
@@ -423,7 +507,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -502,7 +598,7 @@
           "text": "MTS Cat 2 - Very Urgent / Orange (Target: 10 min)"
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "period": {
           "start": "2026-10-17T22:30:00+01:00"
@@ -552,7 +648,7 @@
           "text": "Severe Acute Exacerbation of Asthma with silent chest and altered mental status"
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -580,7 +676,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -591,7 +687,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -614,7 +722,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -625,7 +733,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -648,7 +768,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -659,7 +779,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -682,7 +814,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -693,7 +825,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -716,7 +860,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -741,6 +885,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -764,7 +920,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -775,7 +931,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -798,7 +966,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -809,7 +977,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -832,7 +1012,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:20000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-2"
         },
         "encounter": {
           "reference": "urn:uuid:20000000-0000-4000-8000-000000000002"
@@ -843,7 +1023,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -922,7 +1114,7 @@
           "text": "MTS Cat 3 - Urgent / Yellow (Target: 60 min)"
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "period": {
           "start": "2026-10-17T23:00:00+01:00"
@@ -967,7 +1159,7 @@
           "text": "Acute Appendicitis with localized right iliac fossa peritonitis"
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -995,7 +1187,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1006,7 +1198,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1029,7 +1233,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1040,7 +1244,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1063,7 +1279,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1074,7 +1290,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1097,7 +1325,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1108,7 +1336,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1131,7 +1371,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1156,6 +1396,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -1179,7 +1431,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1190,7 +1442,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1213,7 +1477,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1224,7 +1488,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1247,7 +1523,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1258,7 +1534,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1281,7 +1569,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:30000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-3"
         },
         "encounter": {
           "reference": "urn:uuid:30000000-0000-4000-8000-000000000002"
@@ -1292,7 +1580,19 @@
           "unit": "10*9/L",
           "system": "http://unitsofmeasure.org",
           "code": "10*9/L"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1371,7 +1671,7 @@
           "text": "MTS Cat 4 - Standard / Green (Target: 120 min)"
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "period": {
           "start": "2026-10-17T18:15:00+01:00"
@@ -1416,7 +1716,7 @@
           "text": "Inversion right ankle sprain with intact distal neurovascular status"
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1444,7 +1744,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1455,7 +1755,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1478,7 +1790,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1489,7 +1801,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1512,7 +1836,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1523,7 +1847,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1546,7 +1882,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1557,7 +1893,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1580,7 +1928,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1605,6 +1953,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -1628,7 +1988,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1639,7 +1999,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1662,7 +2034,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1673,7 +2045,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1696,7 +2080,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:40000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-4"
         },
         "encounter": {
           "reference": "urn:uuid:40000000-0000-4000-8000-000000000002"
@@ -1707,7 +2091,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1786,7 +2182,7 @@
           "text": "MTS Cat 5 - Non-Urgent / Blue (Target: 240 min)"
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "period": {
           "start": "2026-10-17T14:00:00+01:00",
@@ -1832,7 +2228,7 @@
           "text": "Chronic osteoarthritis of knee presenting for routine medication refill"
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -1860,7 +2256,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -1871,7 +2267,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1894,7 +2302,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -1905,7 +2313,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1928,7 +2348,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -1939,7 +2359,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1962,7 +2394,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -1973,7 +2405,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -1996,7 +2440,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -2021,6 +2465,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -2044,7 +2500,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -2055,7 +2511,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2078,7 +2546,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -2089,7 +2557,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2112,7 +2592,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:50000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-5"
         },
         "encounter": {
           "reference": "urn:uuid:50000000-0000-4000-8000-000000000002"
@@ -2123,7 +2603,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2202,7 +2694,7 @@
           "text": "Scheduled Irish GP Chronic Disease Management (CDM) Programme Review"
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "period": {
           "start": "2026-10-15T10:00:00+01:00",
@@ -2247,7 +2739,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2292,7 +2784,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2337,7 +2829,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2365,7 +2857,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "effectiveDateTime": "2026-04-15T10:00:00+01:00",
         "valueQuantity": {
@@ -2373,7 +2865,19 @@
           "unit": "%",
           "system": "http://unitsofmeasure.org",
           "code": "%"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2396,7 +2900,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "effectiveDateTime": "2026-04-15T10:00:00+01:00",
         "valueQuantity": {
@@ -2404,7 +2908,19 @@
           "unit": "mL/min/1.73m2",
           "system": "http://unitsofmeasure.org",
           "code": "mL/min/{1.73_m2}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2427,7 +2943,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "effectiveDateTime": "2026-04-15T10:00:00+01:00",
         "valueQuantity": {
@@ -2435,7 +2951,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2458,7 +2986,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "effectiveDateTime": "2026-04-15T10:00:00+01:00",
         "valueQuantity": {
@@ -2466,7 +2994,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2489,7 +3029,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2500,7 +3040,19 @@
           "unit": "%",
           "system": "http://unitsofmeasure.org",
           "code": "%"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2523,7 +3075,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2534,7 +3086,19 @@
           "unit": "mL/min/1.73m2",
           "system": "http://unitsofmeasure.org",
           "code": "mL/min/{1.73_m2}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2557,7 +3121,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2568,7 +3132,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2591,7 +3167,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2602,7 +3178,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2625,7 +3213,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2636,7 +3224,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2659,7 +3259,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2670,7 +3270,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2693,7 +3305,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2718,6 +3330,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -2741,7 +3365,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2752,7 +3376,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2775,7 +3411,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2786,7 +3422,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2809,7 +3457,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:60000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-6"
         },
         "encounter": {
           "reference": "urn:uuid:60000000-0000-4000-8000-000000000002"
@@ -2820,7 +3468,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -2899,7 +3559,7 @@
           "text": "MTS Cat 3 - Urgent / Yellow (Urgent Primary Care Consultation)"
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "period": {
           "start": "2026-10-17T16:00:00+01:00"
@@ -2954,7 +3614,7 @@
           "text": "Documented severe anaphylaxis to Penicillin"
         },
         "patient": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "recordedDate": "2021-06-10T11:00:00+01:00",
         "reaction": [
@@ -3030,7 +3690,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3065,7 +3725,7 @@
           "text": "Amoxicillin 500 mg / Clavulanate potassium 125 mg Oral Tablet (Proposed prescription for CDS contraindication gate testing)"
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3112,7 +3772,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3123,7 +3783,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3146,7 +3818,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3157,7 +3829,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3180,7 +3864,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3191,7 +3875,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3214,7 +3910,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3225,7 +3921,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3248,7 +3956,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3273,6 +3981,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -3296,7 +4016,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3307,7 +4027,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3330,7 +4062,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3341,7 +4073,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3364,7 +4108,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:70000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-7"
         },
         "encounter": {
           "reference": "urn:uuid:70000000-0000-4000-8000-000000000002"
@@ -3375,7 +4119,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3454,7 +4210,7 @@
           "text": "MTS Cat 3 - Urgent / Yellow (Emergency Dental Assessment)"
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "period": {
           "start": "2026-10-17T11:00:00+01:00"
@@ -3516,7 +4272,7 @@
           }
         ],
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3579,7 +4335,7 @@
           }
         ],
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3618,7 +4374,7 @@
           "text": "FDI #46"
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3750,6 +4506,18 @@
               "code": "mm"
             }
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
         ]
       },
       "request": {
@@ -3773,7 +4541,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3784,7 +4552,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3807,7 +4587,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3818,7 +4598,19 @@
           "unit": "mmHg",
           "system": "http://unitsofmeasure.org",
           "code": "mm[Hg]"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3841,7 +4633,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3852,7 +4644,19 @@
           "unit": "beats/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3875,7 +4679,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3886,7 +4690,19 @@
           "unit": "breaths/minute",
           "system": "http://unitsofmeasure.org",
           "code": "/min"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3909,7 +4725,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3934,6 +4750,18 @@
             },
             "valueBoolean": false
           }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
         ]
       },
       "request": {
@@ -3957,7 +4785,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -3968,7 +4796,19 @@
           "unit": "C",
           "system": "http://unitsofmeasure.org",
           "code": "Cel"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -3991,7 +4831,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -4002,7 +4842,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -4025,7 +4877,7 @@
           ]
         },
         "subject": {
-          "reference": "urn:uuid:80000000-0000-4000-8000-000000000001"
+          "reference": "Patient/patient-case-8"
         },
         "encounter": {
           "reference": "urn:uuid:80000000-0000-4000-8000-000000000002"
@@ -4036,7 +4888,19 @@
           "unit": "{score}",
           "system": "http://unitsofmeasure.org",
           "code": "{score}"
-        }
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ]
       },
       "request": {
         "method": "POST",
@@ -21004,6 +21868,4631 @@
       "request": {
         "method": "POST",
         "url": "Observation"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-1-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-1-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6598-7",
+              "display": "Cardiac Troponin T"
+            }
+          ],
+          "text": "Cardiac Troponin T"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 485.0,
+          "unit": "ng/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "ng/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-1-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-1-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2524-7",
+              "display": "Blood Lactate"
+            }
+          ],
+          "text": "Blood Lactate"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.6,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-1-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-1-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.3,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-1-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-1-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Serum Creatinine"
+            }
+          ],
+          "text": "Serum Creatinine"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 118.0,
+          "unit": "umol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "umol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-1-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-1-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "108774000",
+              "display": "Aspirin 300mg Dispersible Tablet"
+            }
+          ],
+          "text": "Aspirin 300mg Dispersible Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "dosageInstruction": [
+          {
+            "text": "300mg orally stat"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-1-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-1-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372826007",
+              "display": "Ticagrelor 90mg Oral Tablet"
+            }
+          ],
+          "text": "Ticagrelor 90mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "dosageInstruction": [
+          {
+            "text": "180mg loading dose orally stat"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-1-enr-3",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-1-enr-3",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Morphine Sulfate 10mg/mL Injection"
+            }
+          ],
+          "text": "Morphine Sulfate 10mg/mL Injection"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-1"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-1"
+        },
+        "dosageInstruction": [
+          {
+            "text": "2.5-5mg IV titrated to pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-1-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-1-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372687004",
+              "display": "Contrast Media (Iodinated)"
+            }
+          ],
+          "text": "Contrast Media (Iodinated)"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-1"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Bronchospasm"
+                  }
+                ],
+                "text": "Bronchospasm"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-2-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-2-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2019-8",
+              "display": "Arterial PaCO2"
+            }
+          ],
+          "text": "Arterial PaCO2"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 6.9,
+          "unit": "kPa",
+          "system": "http://unitsofmeasure.org",
+          "code": "kPa"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-2-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-2-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.2,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-2-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-2-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 48.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-2-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-2-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 3.4,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-2-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-2-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372897005",
+              "display": "Salbutamol 5mg/2.5mL Nebuliser Solution"
+            }
+          ],
+          "text": "Salbutamol 5mg/2.5mL Nebuliser Solution"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "dosageInstruction": [
+          {
+            "text": "5mg nebulised back-to-back via O2"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-2-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-2-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372584003",
+              "display": "Ipratropium Bromide 500mcg Nebuliser"
+            }
+          ],
+          "text": "Ipratropium Bromide 500mcg Nebuliser"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "dosageInstruction": [
+          {
+            "text": "500mcg nebulised q6h"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-2-enr-3",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-2-enr-3",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387253001",
+              "display": "Hydrocortisone 100mg IV Injection"
+            }
+          ],
+          "text": "Hydrocortisone 100mg IV Injection"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-2"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-2"
+        },
+        "dosageInstruction": [
+          {
+            "text": "100mg IV stat"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-2-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-2-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387458008",
+              "display": "Aspirin / NSAIDs"
+            }
+          ],
+          "text": "Aspirin / NSAIDs"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-2"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Severe bronchospasm"
+                  }
+                ],
+                "text": "Severe bronchospasm"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-3-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-3-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 142.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-3-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-3-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.6,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-3-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-3-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2524-7",
+              "display": "Venous Lactate"
+            }
+          ],
+          "text": "Venous Lactate"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 2.1,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-3-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-3-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372756006",
+              "display": "Cefuroxime 1.5g IV Infusion"
+            }
+          ],
+          "text": "Cefuroxime 1.5g IV Infusion"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1.5g IV q8h peri-operative"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-3-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-3-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372840008",
+              "display": "Metronidazole 500mg IV Infusion"
+            }
+          ],
+          "text": "Metronidazole 500mg IV Infusion"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "dosageInstruction": [
+          {
+            "text": "500mg IV q8h"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-3-enr-3",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-3-enr-3",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g IV Infusion"
+            }
+          ],
+          "text": "Paracetamol 1g IV Infusion"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-3"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-3"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g IV q6h PRN pain/pyrexia"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-3-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-3-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "373270004",
+              "display": "Penicillin Class Antibiotics"
+            }
+          ],
+          "text": "Penicillin Class Antibiotics"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-3"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Maculopapular rash"
+                  }
+                ],
+                "text": "Maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-4-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-4-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-4"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-4"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.4,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-4-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-4-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-4"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-4"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 7.1,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-4-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-4-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-4"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-4"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-4-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-4-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387207008",
+              "display": "Ibuprofen 400mg Oral Tablet"
+            }
+          ],
+          "text": "Ibuprofen 400mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-4"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-4"
+        },
+        "dosageInstruction": [
+          {
+            "text": "400mg orally TDS with food"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-4-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-4-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 500mg Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 500mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-4"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-4"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-4-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-4-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387494007",
+              "display": "Codeine Phosphate"
+            }
+          ],
+          "text": "Codeine Phosphate"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-4"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Nausea and severe dizziness"
+                  }
+                ],
+                "text": "Nausea and severe dizziness"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-5-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-5-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2160-0",
+              "display": "Serum Creatinine"
+            }
+          ],
+          "text": "Serum Creatinine"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-5"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-5"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 88.0,
+          "unit": "umol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "umol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-5-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-5-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33914-3",
+              "display": "Estimated GFR (eGFR)"
+            }
+          ],
+          "text": "Estimated GFR (eGFR)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-5"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-5"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 76.0,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-5-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-5-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-5"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-5"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.1,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-5-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-5-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387173000",
+              "display": "Celecoxib 200mg Oral Capsule"
+            }
+          ],
+          "text": "Celecoxib 200mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-5"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-5"
+        },
+        "dosageInstruction": [
+          {
+            "text": "200mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-5-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-5-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Gastro-Resistant Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Gastro-Resistant Capsule"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-5"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-5"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-5-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-5-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372735009",
+              "display": "Sulfonamide Antibiotics"
+            }
+          ],
+          "text": "Sulfonamide Antibiotics"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-5"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Urticaria"
+                  }
+                ],
+                "text": "Urticaria"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-6-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-6-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372567009",
+              "display": "Metformin 500mg Modified-Release Tablet"
+            }
+          ],
+          "text": "Metformin 500mg Modified-Release Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-6"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-6"
+        },
+        "dosageInstruction": [
+          {
+            "text": "500mg orally BD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-6-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-6-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "386872004",
+              "display": "Ramipril 5mg Oral Capsule"
+            }
+          ],
+          "text": "Ramipril 5mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-6"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-6"
+        },
+        "dosageInstruction": [
+          {
+            "text": "5mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-6-enr-3",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-6-enr-3",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372912004",
+              "display": "Empagliflozin 10mg Oral Tablet"
+            }
+          ],
+          "text": "Empagliflozin 10mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-6"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-6"
+        },
+        "dosageInstruction": [
+          {
+            "text": "10mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-6-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-6-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387420009",
+              "display": "Lisinopril"
+            }
+          ],
+          "text": "Lisinopril"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-6"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Persistent dry ACE-inhibitor cough"
+                  }
+                ],
+                "text": "Persistent dry ACE-inhibitor cough"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-7-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-7-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-7"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-7"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 15.8,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-7-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-7-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-7"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-7"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 86.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-7-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-7-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-7"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-7"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.1,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-7-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-7-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 500mg Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 500mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-7"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-7"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN fever"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-8-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-8-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-8"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-8"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 11.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-8-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-8-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-8"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-8"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 29.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-patient-case-8-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-patient-case-8-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2345-7",
+              "display": "Random Blood Glucose"
+            }
+          ],
+          "text": "Random Blood Glucose"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-8"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-8"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 5.6,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-8-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-8-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387207008",
+              "display": "Ibuprofen 400mg Oral Tablet"
+            }
+          ],
+          "text": "Ibuprofen 400mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-8"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-8"
+        },
+        "dosageInstruction": [
+          {
+            "text": "400mg orally TDS after meals"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-patient-case-8-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-patient-case-8-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "372840008",
+              "display": "Metronidazole 400mg Oral Tablet"
+            }
+          ],
+          "text": "Metronidazole 400mg Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/patient-case-8"
+        },
+        "encounter": {
+          "reference": "Encounter/encounter-case-8"
+        },
+        "dosageInstruction": [
+          {
+            "text": "400mg orally TDS for 5 days"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-patient-case-8-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-patient-case-8-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "high",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "111088007",
+              "display": "Natural Rubber Latex"
+            }
+          ],
+          "text": "Natural Rubber Latex"
+        },
+        "patient": {
+          "reference": "Patient/patient-case-8"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Contact angioedema"
+                  }
+                ],
+                "text": "Contact angioedema"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-vital-P0988-8480-6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-vital-P0988-8480-6",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8480-6",
+              "display": "Systolic Blood Pressure"
+            }
+          ],
+          "text": "Systolic Blood Pressure"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 128.0,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-vital-P0988-8462-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-vital-P0988-8462-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8462-4",
+              "display": "Diastolic Blood Pressure"
+            }
+          ],
+          "text": "Diastolic Blood Pressure"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 82.0,
+          "unit": "mmHg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mm[Hg]"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-vital-P0988-8867-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-vital-P0988-8867-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8867-4",
+              "display": "Heart Rate"
+            }
+          ],
+          "text": "Heart Rate"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 88.0,
+          "unit": "bpm",
+          "system": "http://unitsofmeasure.org",
+          "code": "/min"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-vital-P0988-8310-5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-vital-P0988-8310-5",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs",
+                "display": "Vital Signs"
+              }
+            ],
+            "text": "Vital Signs"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8310-5",
+              "display": "Body Temperature"
+            }
+          ],
+          "text": "Body Temperature"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 37.0,
+          "unit": "Cel",
+          "system": "http://unitsofmeasure.org",
+          "code": "Cel"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P0988-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P0988-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P0988-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P0988-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P0988-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P0988-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P0988-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P0988-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P0988-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P0988-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P0988-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P0988-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P0988"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P0988"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P0988-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P0988-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P0988"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P115-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P115-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P115"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P115"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P115-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P115-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P115"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P115"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P115-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P115-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P115"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P115"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P115-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P115-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P115"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P115"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P117-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P117-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P117"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P117"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P117-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P117-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P117"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P117"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P117-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P117-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P117"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P117"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P117-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P117-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P117"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P117"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P118-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P118-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P118"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P118"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P118-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P118-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P118"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P118"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P118-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P118-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P118"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P118"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P118-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P118-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P118"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P118"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P120-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P120-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P120-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P120-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P120-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P120-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P120-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P120-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P120-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P120-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P120-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P120-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P120"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P120"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P120-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P120-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P120"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P5805-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P5805-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P5805"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P5805"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P5805-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P5805-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P5805"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P5805"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P5805-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P5805-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P5805"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P5805"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P5805-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P5805-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P5805"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P5805"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9659-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9659-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P9659"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9659"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9659-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9659-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P9659"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9659"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9659-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9659-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P9659"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9659"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9659-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9659-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P9659"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9659"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9660-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9660-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9660-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9660-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9660-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9660-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9660-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9660-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9660-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9660-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9660-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9660-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P9660"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9660"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P9660-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P9660-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P9660"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9661-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9661-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9661-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9661-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9661-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9661-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9661-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9661-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9661-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9661-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9661-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9661-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P9661"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9661"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P9661-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P9661-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P9661"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9662-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9662-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9662-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9662-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9662-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9662-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P9662-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P9662-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9662-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9662-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P9662-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P9662-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P9662"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P9662"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P9662-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P9662-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P9662"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P999-1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P999-1",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7",
+              "display": "Haemoglobin (Hb)"
+            }
+          ],
+          "text": "Haemoglobin (Hb)"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 13.8,
+          "unit": "g/dL",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/dL"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P999-2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P999-2",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "6690-2",
+              "display": "White Blood Cell Count (WBC)"
+            }
+          ],
+          "text": "White Blood Cell Count (WBC)"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 8.4,
+          "unit": "10*9/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "10*9/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P999-3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P999-3",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "1988-5",
+              "display": "C-Reactive Protein (CRP)"
+            }
+          ],
+          "text": "C-Reactive Protein (CRP)"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 14.0,
+          "unit": "mg/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:obs-lab-P999-4",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "obs-lab-P999-4",
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory",
+                "display": "Laboratory"
+              }
+            ],
+            "text": "Laboratory"
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "2823-3",
+              "display": "Serum Potassium"
+            }
+          ],
+          "text": "Serum Potassium"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "effectiveDateTime": "2026-10-18T08:30:00+00:00",
+        "valueQuantity": {
+          "value": 4.2,
+          "unit": "mmol/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "mmol/L"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P999-enr-1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P999-enr-1",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387517004",
+              "display": "Paracetamol 1g Oral Tablet"
+            }
+          ],
+          "text": "Paracetamol 1g Oral Tablet"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "dosageInstruction": [
+          {
+            "text": "1g orally QDS PRN pain"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:med-P999-enr-2",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-P999-enr-2",
+        "status": "active",
+        "intent": "order",
+        "authoredOn": "2026-10-18T08:30:00+00:00",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "387137007",
+              "display": "Omeprazole 20mg Oral Capsule"
+            }
+          ],
+          "text": "Omeprazole 20mg Oral Capsule"
+        },
+        "subject": {
+          "reference": "Patient/P999"
+        },
+        "encounter": {
+          "reference": "Encounter/enc-P999"
+        },
+        "dosageInstruction": [
+          {
+            "text": "20mg orally OD"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:alg-P999-enr-1",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "alg-P999-enr-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ]
+        },
+        "criticality": "low",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "419199007",
+              "display": "Penicillin V"
+            }
+          ],
+          "text": "Penicillin V"
+        },
+        "patient": {
+          "reference": "Patient/P999"
+        },
+        "recordedDate": "2026-10-18T08:30:00+00:00",
+        "reaction": [
+          {
+            "manifestation": [
+              {
+                "coding": [
+                  {
+                    "system": "http://snomed.info/sct",
+                    "code": "418363000",
+                    "display": "Mild maculopapular rash"
+                  }
+                ],
+                "text": "Mild maculopapular rash"
+              }
+            ]
+          }
+        ]
       }
     }
   ]
