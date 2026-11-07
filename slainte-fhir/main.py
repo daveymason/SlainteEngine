@@ -120,9 +120,10 @@ async def capability_statement():
                     {"type": "Observation", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Condition", "interaction": [{"code": "read"}, {"code": "search-type"}]},
                     {"type": "Encounter", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "MedicationRequest", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "AllergyIntolerance", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "Provenance", "interaction": [{"code": "read"}, {"code": "search-type"}]},
+                    {"type": "MedicationRequest", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "AllergyIntolerance", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "DocumentReference", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "Provenance", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}]},
                     {"type": "Bundle", "interaction": [{"code": "create"}]}
                 ]
             }
@@ -333,6 +334,91 @@ async def get_provenance(provenance_id: str):
             content=create_operation_outcome("error", "not-found", f"Provenance/{provenance_id} not found")
         )
     return prov
+
+@app.get("/fhir/r4/DocumentReference")
+async def search_document_references(
+    patient: Optional[str] = Query(None),
+    subject: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
+    limit: int = Query(100, le=500)
+):
+    patient_ref = patient or subject
+    effective_limit = _count if _count is not None else limit
+    docs = await db.query_resources("DocumentReference", patient_ref=patient_ref, limit=effective_limit)
+    return create_bundle_searchset(docs)
+
+@app.get("/fhir/r4/DocumentReference/{doc_id}")
+async def get_document_reference(doc_id: str):
+    doc = await db.get_resource("DocumentReference", doc_id)
+    if not doc:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"DocumentReference/{doc_id} not found")
+        )
+    return doc
+
+@app.get("/fhir/r4/Condition/{cond_id}")
+async def get_condition(cond_id: str):
+    cond = await db.get_resource("Condition", cond_id)
+    if not cond:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"Condition/{cond_id} not found")
+        )
+    return cond
+
+@app.get("/fhir/r4/Observation/{obs_id}")
+async def get_observation(obs_id: str):
+    obs = await db.get_resource("Observation", obs_id)
+    if not obs:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"Observation/{obs_id} not found")
+        )
+    return obs
+
+SUPPORTED_MUTABLE_RESOURCES = {
+    "Patient", "Encounter", "Condition", "Observation",
+    "MedicationRequest", "AllergyIntolerance", "DocumentReference", "Provenance"
+}
+
+@app.post("/fhir/r4/{resource_type}", status_code=status.HTTP_201_CREATED)
+async def create_fhir_resource(resource_type: str, payload: Dict[str, Any]):
+    """Create an individual HL7 FHIR R4 clinical resource."""
+    if resource_type == "$validate":
+        return await validate_fhir(payload)
+    if resource_type == "Bundle":
+        return await ingest_bundle(payload)
+    if resource_type not in SUPPORTED_MUTABLE_RESOURCES:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=create_operation_outcome("error", "not-supported", f"Unsupported resourceType: {resource_type}")
+        )
+    if payload.get("resourceType") and payload.get("resourceType") != resource_type:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=create_operation_outcome("error", "invalid", f"resourceType mismatch: expected {resource_type}")
+        )
+    payload = dict(payload)
+    payload["resourceType"] = resource_type
+    saved = await db.save_resource(payload)
+    await publish_event("resource-created", {"resourceType": resource_type, "id": saved.get("id")})
+    return saved
+
+@app.put("/fhir/r4/{resource_type}/{resource_id}")
+async def update_fhir_resource(resource_type: str, resource_id: str, payload: Dict[str, Any]):
+    """Update an existing HL7 FHIR R4 clinical resource by ID."""
+    if resource_type not in SUPPORTED_MUTABLE_RESOURCES:
+        return JSONResponse(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            content=create_operation_outcome("error", "not-supported", f"Unsupported resourceType: {resource_type}")
+        )
+    payload = dict(payload)
+    payload["resourceType"] = resource_type
+    payload["id"] = resource_id
+    saved = await db.save_resource(payload)
+    await publish_event("resource-updated", {"resourceType": resource_type, "id": resource_id})
+    return saved
 
 
 # =============================================================================

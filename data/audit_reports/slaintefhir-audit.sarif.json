@@ -16,7 +16,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
               },
               "fullDescription": {
-                "text": "Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/P114 (Quigley) with HTTP 200 OK (3.62ms)."
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/P9661 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (3.75ms)."
               },
               "properties": {
                 "tags": [
@@ -54,7 +54,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
               },
               "fullDescription": {
-                "text": "Cross-patient Observation leakage: Caller P118 retrieved 10 clinical Observation resource(s) belonging to Victim Patient/P114 (5.01ms)."
+                "text": "Cross-patient Observation leakage: Caller P9661 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (4.43ms)."
               },
               "properties": {
                 "tags": [
@@ -73,7 +73,7 @@
                 "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
               },
               "fullDescription": {
-                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-591' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-591') in 1.96ms."
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-220' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-220') in 1.74ms."
               },
               "properties": {
                 "tags": [
@@ -141,6 +141,25 @@
                   "CWE-20"
                 ]
               }
+            },
+            {
+              "id": "CDS-CONTRAINDICATION-001",
+              "name": "FHIR-Semantic-Conformance",
+              "shortDescription": {
+                "text": "FHIR R4 Semantic & Ontology Rule CDS-CONTRAINDICATION-001"
+              },
+              "fullDescription": {
+                "text": "Semantic Clinical Safety Violation: Beta-lactam MedicationRequest (medreq-case-7-coamoxiclav) prescribed alongside documented Penicillin AllergyIntolerance."
+              },
+              "properties": {
+                "tags": [
+                  "clinical-interoperability",
+                  "snomed-ct",
+                  "loinc",
+                  "ucum",
+                  "CWE-20"
+                ]
+              }
             }
           ]
         }
@@ -148,7 +167,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-11-04T22:44:27.832541+00:00"
+          "endTimeUtc": "2026-11-07T12:22:08.155175+00:00"
         }
       ],
       "results": [
@@ -156,20 +175,20 @@
           "ruleId": "SLAINTE-BOLA-001",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/P114 (Quigley) with HTTP 200 OK (3.62ms). (Reproduce: `GET /fhir/r4/Patient/P114 [Identity: P118 -> Target: P114]`)"
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P9661 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (3.75ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Identity: P9661 -> Target: patient-case-4]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P114"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (Patient/P118)",
-            "victim_resource": "Patient/P114",
+            "attacker_identity": "ID_PAT_A (Patient/P9661)",
+            "victim_resource": "Patient/patient-case-4",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -178,20 +197,20 @@
           "ruleId": "SLAINTE-CORS-002",
           "level": "error",
           "message": {
-            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/P114 [Origin: untrusted-origin, Allow-Credentials: true]`)"
+            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Origin: untrusted-origin, Allow-Credentials: true]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P114"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Patient/P114",
+            "attacker_identity": "ID_PAT_A (P9661)",
+            "victim_resource": "Patient/patient-case-4",
             "cwe": "CWE-942",
             "owasp": "API8:2023"
           }
@@ -200,20 +219,20 @@
           "ruleId": "SLAINTE-BOLA-003",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P118 retrieved 10 clinical Observation resource(s) belonging to Victim Patient/P114 (5.01ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/P114&_include=* [Identity: P118 -> Foreign Patient Reference]`)"
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P9661 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (4.43ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-4&_include=* [Identity: P9661 -> Foreign Patient Reference]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/P114&_include=*"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-4&_include=*"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Observation?patient=Patient/P114",
+            "attacker_identity": "ID_PAT_A (P9661)",
+            "victim_resource": "Observation?patient=Patient/patient-case-4",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -222,7 +241,7 @@
           "ruleId": "SLAINTE-VAL-CRASH-004",
           "level": "warning",
           "message": {
-            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-591' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-591') in 1.96ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-591 -> OperationOutcome 422]`)"
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-220' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-220') in 1.74ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-220 -> OperationOutcome 422]`)"
           },
           "locations": [
             {
@@ -234,8 +253,8 @@
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Patient/patient-redteam-591",
+            "attacker_identity": "ID_PAT_A (P9661)",
+            "victim_resource": "Patient/patient-redteam-220",
             "cwe": "CWE-755",
             "owasp": "API8:2023"
           }
@@ -1250,6 +1269,46 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "Patient/bundle_P5805.json :: P5805"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P5805.json :: P5805"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P5805 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P5805.json :: obs-spo2-P5805"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P5805.json :: obs-spo2-P5805"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "Patient/bundle_P9659.json :: P9659"
                 }
               }
@@ -1330,6 +1389,86 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
+                  "uri": "Patient/bundle_P9661.json :: P9661"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P9661.json :: P9661"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P9661 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P9661.json :: obs-spo2-P9661"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P9661.json :: obs-spo2-P9661"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Patient/bundle_P9662.json :: P9662"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Patient",
+            "resource_id": "bundle_P9662.json :: P9662"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-spo2-P9662 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_P9662.json :: obs-spo2-P9662"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_P9662.json :: obs-spo2-P9662"
+          }
+        },
+        {
+          "ruleId": "FHIR-OID-DRIFT-002",
+          "level": "warning",
+          "message": {
+            "text": "Cross-service OID drift detected: bundle uses SlainteScan GMS OID 'urn:oid:1.3.6.1.4.1.54392.5.2690.42.80' which SlainteFHIR verification_engine rejects (expects 'urn:oid:2.16.840.1.113883.2.17.1.1')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
                   "uri": "Patient/bundle_P999.json :: P999"
                 }
               }
@@ -1378,6 +1517,26 @@
           "properties": {
             "resource_type": "Observation",
             "resource_id": "bundle_P999.json :: obs-spo2-P999"
+          }
+        },
+        {
+          "ruleId": "CDS-CONTRAINDICATION-001",
+          "level": "error",
+          "message": {
+            "text": "Semantic Clinical Safety Violation: Beta-lactam MedicationRequest (medreq-case-7-coamoxiclav) prescribed alongside documented Penicillin AllergyIntolerance."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "MedicationRequest/bundle_patient-case-7.json :: medreq-case-7-coamoxiclav"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "MedicationRequest",
+            "resource_id": "bundle_patient-case-7.json :: medreq-case-7-coamoxiclav"
           }
         }
       ]

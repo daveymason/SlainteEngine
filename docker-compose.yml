@@ -9,7 +9,7 @@ services:
     container_name: slainte-mcp
     restart: unless-stopped
     ports:
-      - "8081:8081"
+      - "127.0.0.1:8081:8081"
     environment:
       - PORT=8081
       - MCP_TRANSPORT=sse
@@ -118,7 +118,7 @@ services:
     container_name: slainte-fhir
     restart: unless-stopped
     ports:
-      - "8082:8082"
+      - "127.0.0.1:8082:8082"
     volumes:
       - ./data/fhir_store:/app/data/fhir_store
     environment:

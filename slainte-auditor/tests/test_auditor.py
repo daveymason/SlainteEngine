@@ -255,25 +255,23 @@ def test_auditor_dashboard_ui_routes_render_stats_boxes_and_logs(tmp_path):
     )
     assert login_resp.status_code == 200
 
-    # 1. GET /fhir/Auditor renders top KPI stat boxes and execution logs
+    # 1. GET /fhir/Auditor renders the Autonomous Agents Directory and KPI stat boxes
     resp = client.get("/fhir/Auditor")
     assert resp.status_code == 200
     html = resp.get_data(as_text=True)
-    assert "Slainte-Auditor: Autonomous FHIR R4 Verifier" in html
-    assert "Surface Reduction" in html
-    assert "FHIR Bundles Audited" in html
-    assert "BOLA / Auth Findings" in html
-    assert "Ontology &amp; UCUM Drift" in html
-    assert "Reflection Memory" in html
-    assert "Slainte-Auditor Live Execution Logs" in html
+    assert "Autonomous Clinical &amp; Security Agents" in html
+    assert "SlainteShield-BOLA" in html
+    assert "SlainteShield-FHIR" in html
 
-    # 2. POST /fhir/auditor/run triggers a live audit cycle and returns updated fragment
+    # 2. POST /fhir/auditor/run and POST /fhir/Agent/bola_redteam/run execute live audit cycles
     run_resp = client.post("/fhir/auditor/run")
     assert run_resp.status_code == 200
-    run_html = run_resp.get_data(as_text=True)
-    assert "STAGE-1:GUARDRAIL" in run_html
-    assert "STAGE-3:ORACLE" in run_html
-    assert "SLAINTE-BOLA-001" in run_html
+    bola_resp = client.post("/fhir/Agent/bola_redteam/run")
+    assert bola_resp.status_code == 200
+    bola_html = bola_resp.get_data(as_text=True)
+    assert "Attack Surface Reduction" in bola_html
+    assert "Reflection Memory (M)" in bola_html
+    assert "SLAINTE-BOLA-001" in bola_html
 
     # 3. GET /fhir/auditor/sarif returns valid OASIS SARIF v2.1.0 JSON
     sarif_resp = client.get("/fhir/auditor/sarif")

@@ -142,6 +142,44 @@ async def save_bundle(bundle: Dict[str, Any]) -> int:
     finally:
         await conn.close()
 
+async def save_resource(resource: Dict[str, Any]) -> Dict[str, Any]:
+    """Persist or update a single HL7 FHIR R4 resource in SQLite WAL."""
+    res_type = resource.get("resourceType")
+    if not res_type:
+        raise ValueError("Missing resourceType")
+    res_id = resource.get("id") or f"{res_type.lower()}-{os.urandom(4).hex()}"
+    resource = dict(resource)
+    resource["id"] = res_id
+    full_id = f"{res_type}/{res_id}"
+
+    patient_ref = None
+    if res_type == "Patient":
+        patient_ref = full_id
+    elif isinstance(resource.get("subject"), dict) and resource["subject"].get("reference"):
+        patient_ref = resource["subject"]["reference"]
+    elif isinstance(resource.get("patient"), dict) and resource["patient"].get("reference"):
+        patient_ref = resource["patient"]["reference"]
+    elif res_type == "Provenance":
+        for t in resource.get("target", []):
+            t_ref = t.get("reference", "")
+            if "Patient/" in t_ref:
+                patient_ref = t_ref[t_ref.find("Patient/"):]
+                break
+
+    conn = await get_connection()
+    try:
+        await conn.execute(
+            """
+            INSERT OR REPLACE INTO fhir_resources (id, resource_type, resource_id, patient_ref, raw_json, updated_at)
+            VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP);
+            """,
+            (full_id, res_type, res_id, patient_ref, json.dumps(resource))
+        )
+        await conn.commit()
+        return resource
+    finally:
+        await conn.close()
+
 async def get_resource(res_type: str, res_id: str) -> Optional[Dict[str, Any]]:
     full_id = f"{res_type}/{res_id}"
     conn = await get_connection()

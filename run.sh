@@ -47,16 +47,21 @@ ensure_environment() {
             echo -e "${YELLOW}[SETUP] Creating .env from .env.example...${NC}"
             cp .env.example .env
         else
-            echo -e "${YELLOW}[SETUP] Initializing minimal .env...${NC}"
-            cat << 'ENVEOF' > .env
+            echo -e "${YELLOW}[SETUP] Initializing minimal .env with cryptographic secrets...${NC}"
+            local gen_secret
+            local gen_salt
+            gen_secret="$(openssl rand -hex 32 2>/dev/null || python3 -c 'import secrets; print(secrets.token_hex(32))')"
+            gen_salt="$(openssl rand -hex 32 2>/dev/null || python3 -c 'import secrets; print(secrets.token_hex(32))')"
+            cat << ENVEOF > .env
 FLASK_ENV=production
 APPLIANCE_MODE=true
 FHIR_STORE_PATH=/workspace/data/fhir_store
 RAW_DATA_PATH=/workspace/data/raw
-SECRET_KEY=slainte-engine-production-key-99021
+SECRET_KEY=${gen_secret}
+LOG_HASH_SALT=${gen_salt}
 INITIAL_ADMIN_USERNAME=admin
 INITIAL_ADMIN_PASSWORD=ClinicalAdmin2026!
-LLM_MODEL=ollama/qwen2.5-coder:32b
+LLM_MODEL=ollama/k9/lime:latest
 LLM_BASE_URL=http://host.docker.internal:11434
 LLM_API_KEY=ollama
 ENVEOF
@@ -125,8 +130,9 @@ start_appliance() {
     echo -e "${GREEN}${BOLD}  APPLIANCE OPERATIONAL - READY FOR CLINICAL USE${NC}"
     echo -e "${CYAN}${BOLD}==========================================================================${NC}"
     echo -e "  * ${BOLD}Clinical Dashboard:${NC}    http://localhost:8000"
-    echo -e "  * ${BOLD}Live Triage Queue:${NC}     http://localhost:8000/?view=/fhir/Triage"
-    echo -e "  * ${BOLD}Pipeline Telemetry:${NC}    http://localhost:8000/?view=/pipeline/status"
+    echo -e "  * ${BOLD}Live Triage Queue:${NC}     http://localhost:8000/?view=triage"
+    echo -e "  * ${BOLD}9-Agent Command Hub:${NC}   http://localhost:8000/agents"
+    echo -e "  * ${BOLD}SlainteFHIR R4 API:${NC}    http://localhost:8082/fhir/r4/metadata"
     echo -e "  * ${BOLD}FastMCP Server:${NC}        http://localhost:8081/sse"
     echo -e "  * ${BOLD}OpenHands Sandbox:${NC}     http://localhost:3000"
     echo -e "  * ${BOLD}Credentials:${NC}           Username: ${YELLOW}admin${NC}  |  Password: ${YELLOW}ClinicalAdmin2026!${NC}"
