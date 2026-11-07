@@ -82,13 +82,34 @@ body {
     padding: 0.75rem 1.25rem;
 }
 
-/* Buttons — Crisp, accessible clinical controls */
+/* Buttons — Crisp, accessible clinical controls with subtle micro-feedback */
 .btn {
     border-radius: 6px;
     padding: 0.42rem 0.9rem;
     font-weight: 600;
     font-size: 0.875rem;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.12);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--tropical-primary);
+    outline-offset: 2px;
+}
+
+.btn.htmx-request {
+    pointer-events: none;
+    opacity: 0.82;
 }
 
 .btn-sm {
@@ -106,7 +127,6 @@ body {
 .btn-primary:focus {
     background-color: var(--tropical-primary-dark);
     border-color: var(--tropical-primary-dark);
-    transform: none;
 }
 
 .btn-info {
@@ -119,7 +139,6 @@ body {
     background-color: #075985;
     border-color: #075985;
     color: #FFFFFF;
-    transform: none;
 }
 
 .btn-outline-primary {
@@ -131,7 +150,6 @@ body {
     background-color: var(--tropical-primary);
     border-color: var(--tropical-primary);
     color: #FFFFFF;
-    transform: none;
 }
 
 /* Clinical Tables — High readability, tabular figures */

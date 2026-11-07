@@ -480,6 +480,81 @@ def _build_agent_detail_context(app, agent_id, force_run=False, form_data=None):
                 f"Agent 11 (SlainteRev-Coding) audited {len(cohort_reports)} patient chart(s) — identified €{total_uplift:,} in uncoded HIPE DRG complexity uplift."
             )
 
+    elif agent_id == 'clinic_onboarding':
+        from agents.runner import run_agent
+        sample_files = ['gp_legacy_patient_export.csv', 'hospital_discharge_feed.hl7', 'scanned_intake_referral.pdf']
+        selected_file = (form_data.get('source_file') or sample_files[0]).strip()
+        res = run_agent('clinic_onboarding', context={'source_file': selected_file, 'raw_files': raw_files})
+        ctx['onboarding_result'] = res
+        ctx['onboarding_samples'] = sample_files
+        ctx['selected_source_file'] = selected_file
+        if force_run:
+            ctx['action_banner'] = f"Agent 12 (SlainteGov-Onboard) processed '{selected_file}': {res.summary}"
+
+    elif agent_id == 'discharge_transfer':
+        from agents.runner import run_agent
+        target_pid = (form_data.get('patient_id') or (patient_options[0]['id'] if patient_options else 'P101')).strip()
+        pt_match = next((p for p in patient_options if p['id'] == target_pid), None) or (patient_options[0] if patient_options else {'id': target_pid, 'name': 'Sample Patient', 'allergies': [], 'medications': []})
+        vitals = {'respiratory_rate': 16, 'spo2': 98, 'systolic_bp': 124, 'heart_rate': 72, 'temperature': 36.8}
+        res = run_agent('discharge_transfer', context={
+            'patient_id': target_pid,
+            'patient_name': pt_match.get('name', target_pid),
+            'vitals': vitals,
+            'medications': pt_match.get('medications', []),
+            'allergies': pt_match.get('allergies', []),
+            'transfer_facility': form_data.get('transfer_facility', 'Primary Care GP & Community Nursing'),
+        })
+        ctx['discharge_result'] = res
+        ctx['discharge_patient'] = pt_match
+        if force_run:
+            ctx['action_banner'] = f"Agent 13 (SlainteCare-Transfer) evaluated discharge stability for {pt_match.get('name')}: {res.summary}"
+
+    elif agent_id == 'ems_prealert':
+        from agents.runner import run_agent
+        receiving_hospitals = [
+            "Mater Misericordiae University Hospital ED",
+            "St. James's Hospital Adult ED",
+            "Tallaght University Hospital ED",
+            "Beaumont Hospital ED",
+            "St. Vincent's University Hospital ED",
+        ]
+        ed_target = form_data.get('receiving_ed') or receiving_hospitals[0]
+        eta_min = int(form_data.get('eta_minutes') or 12)
+        vitals = {
+            'respiratory_rate': float(form_data.get('rr') or 24),
+            'spo2': float(form_data.get('spo2') or 92),
+            'systolic_bp': float(form_data.get('sbp') or 98),
+            'heart_rate': float(form_data.get('hr') or 118),
+            'temperature': float(form_data.get('temp') or 37.8),
+        }
+        res = run_agent('ems_prealert', context={
+            'vitals': vitals,
+            'eta_minutes': eta_min,
+            'receiving_ed': ed_target,
+            'chief_complaint': form_data.get('chief_complaint') or 'Acute respiratory distress and hypotension',
+        })
+        ctx['ems_result'] = res
+        ctx['ems_hospitals'] = receiving_hospitals
+        ctx['ems_selected_hospital'] = ed_target
+        ctx['ems_vitals'] = vitals
+        ctx['ems_eta'] = eta_min
+        if force_run:
+            ctx['action_banner'] = f"Agent 14 (SlainteEMS-Alert) dispatched pre-alert to {ed_target}: {res.summary}"
+
+    elif agent_id == 'chronic_surveillance':
+        from agents.runner import run_agent
+        res = run_agent('chronic_surveillance', context={'patients': patient_options[:20]})
+        ctx['surveillance_result'] = res
+        if force_run:
+            ctx['action_banner'] = f"Agent 15 (SlainteCare-CDM) audited {len(patient_options[:20])} patient panel records: {res.summary}"
+
+    elif agent_id == 'nis2_compliance':
+        from agents.runner import run_agent
+        res = run_agent('nis2_compliance')
+        ctx['nis2_result'] = res
+        if force_run:
+            ctx['action_banner'] = f"Agent 16 (SlainteGov-NIS2) continuous compliance audit verified: {res.summary}"
+
     return ctx
 
 

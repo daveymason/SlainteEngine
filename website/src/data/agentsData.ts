@@ -775,6 +775,336 @@ export const HEALTH_TECH_AGENTS: AgentRecord[] = [
       },
     ],
   },
+  {
+    slug: 'clinic-onboarding-legacy-migration-agent',
+    name: 'Clinic Onboarding & Legacy Data Migration Agent',
+    codeName: 'SlainteGov-Onboard',
+    squad: 'SlainteGov Governance',
+    squadColor: 'warning',
+    iconKey: 'verified',
+    seoTitle: 'Clinic Onboarding & Legacy Data Migration Agent | SlainteTech',
+    seoDescription:
+      'Autonomous onboarding engine that maps legacy GP, dental, and hospital exports into validated Irish Core HL7 FHIR R4 Bundles.',
+    heroSummary:
+      'Introspects raw practice exports (CSV, HL7v2, scanned PDF), maps heterogeneous schemas into SNOMED-CT and LOINC ontologies, and compiles zero-defect Irish Core FHIR R4 Bundles for seamless practice onboarding.',
+    fastMcpBadges: ['Irish Core FHIR R4', 'LOINC / SNOMED-CT Mapping', 'Zero-Defect Validation'],
+    capabilities: [
+      {
+        title: 'Multi-Modal Schema Introspection',
+        description:
+          'Ingests heterogeneous practice dumps across CSV tabular exports, legacy HL7v2 pipe-hat streams, and scanned referral letters.',
+        guardrailChip: 'Universal Ingestion',
+        iconKey: 'sync',
+      },
+      {
+        title: 'Deterministic Terminology Binding',
+        description:
+          'Resolves and binds clinical attributes to official Irish HIQA SNOMED-CT releases, LOINC observational codes, and UCUM units.',
+        guardrailChip: 'Strict HIQA OID Standards',
+        iconKey: 'factCheck',
+      },
+      {
+        title: 'Automated FHIR R4 Bundle Compilation',
+        description:
+          'Constructs verified Patient, Condition, Observation, AllergyIntolerance, and MedicationRequest resources bound within validated bundles.',
+        guardrailChip: '100% FHIR R4 Validated',
+        iconKey: 'verified',
+      },
+    ],
+    verticalUseCase: {
+      eyebrow: 'Verified Vertical Use Case — Practice Onboarding & M&A',
+      headline: 'Migrating 10 Years of Legacy GP Records in Minutes',
+      scenario:
+        'When onboarding a newly acquired medical centre with legacy tabular database dumps, SlainteGov-Onboard validates every patient against Irish GMS OIDs and compiles verified FHIR R4 Bundles without data loss.',
+      outcomeMetric: 'Zero Data Loss Migration Across Patient Cohorts',
+      verticalTitle: 'For General Practitioners & Clinic Networks',
+      verticalHref: '/verticals/general-practice/',
+    },
+    technicalSpecs: [
+      {
+        parameter: 'Source Ingestion Formats',
+        deterministicMechanism: 'Native CSV, HL7v2 ADT/ORU parsers, and OCR text extractors',
+        fhirBinding: 'Bundle.entry with provenance attribution',
+        standardAlignment: 'HL7 FHIR R4 Core & Irish National Profiles',
+      },
+      {
+        parameter: 'Terminology Resolution',
+        deterministicMechanism: 'Deterministic LOINC and SNOMED-CT lookup table resolution',
+        fhirBinding: 'Coding.system = http://snomed.info/sct & http://loinc.org',
+        standardAlignment: 'HIQA National Health Information Standards',
+      },
+      {
+        parameter: 'Verification Gate',
+        deterministicMechanism: 'Zero-tolerance schema validator rejects malformed references',
+        fhirBinding: 'OperationOutcome error reporting',
+        standardAlignment: 'OASIS SARIF v2.1.0 & ISO 27001',
+      },
+    ],
+  },
+  {
+    slug: 'discharge-clinical-handover-agent',
+    name: 'Discharge & Clinical Handover Coordinator',
+    codeName: 'SlainteCare-Transfer',
+    squad: 'SlainteClinical Care',
+    squadColor: 'primary',
+    iconKey: 'sync',
+    seoTitle: 'Discharge & Clinical Handover Coordinator Agent | SlainteTech',
+    seoDescription:
+      'Evaluates inpatient physiological stability, reconciles discharge medications against allergies, and drafts structured electronic transfer summaries.',
+    heroSummary:
+      'Enforces physiological stability gates (NEWS2 <= 2), runs 3-Tier pharmacology reconciliation against documented patient allergies, and drafts structured HL7 FHIR DocumentReference transfer letters.',
+    fastMcpBadges: ['NEWS2 <= 2 Stability Gate', '3-Tier Med Reconciliation', 'FHIR DocumentReference'],
+    capabilities: [
+      {
+        title: 'Physiological Stability Verification',
+        description:
+          'Evaluates 24-hour vital sign trajectories to ensure NEWS2 <= 2 prior to step-down ward discharge or GP transfer.',
+        guardrailChip: 'Hard Hold on NEWS2 >= 3',
+        iconKey: 'monitorHeart',
+      },
+      {
+        title: '3-Tier Discharge Medication Reconciliation',
+        description:
+          'Screens all to-take-out (TTO) medications against recorded allergies, active inpatient orders, and renal eGFR thresholds.',
+        guardrailChip: 'Zero Unreconciled Meds',
+        iconKey: 'medication',
+      },
+      {
+        title: 'Structured Electronic Transfer Letter',
+        description:
+          'Compiles problem lists, discharge vitals, follow-up instructions, and practitioner IMC sign-off into signed FHIR DocumentReference notes.',
+        guardrailChip: 'Provenance Signed',
+        iconKey: 'factCheck',
+      },
+    ],
+    verticalUseCase: {
+      eyebrow: 'Verified Vertical Use Case — Acute Inpatient Wards',
+      headline: 'Preventing Premature Discharges and Unreconciled Medication Errors',
+      scenario:
+        'When a patient is scheduled for discharge but their respiratory rate elevates to 24 with SpO2 at 93% (NEWS2: 4), SlainteCare-Transfer places an automated clinical hold, preventing premature step-down.',
+      outcomeMetric: '100% of Discharged Patients Meet Verified Stability Criteria',
+      verticalTitle: 'For Hospital Inpatient Wards & ED',
+      verticalHref: '/verticals/emergency/',
+    },
+    technicalSpecs: [
+      {
+        parameter: 'Stability Threshold',
+        deterministicMechanism: 'RCP NEWS2 early warning score calculation',
+        fhirBinding: 'Observation (NEWS2 Vital Signs) & RiskAssessment',
+        standardAlignment: 'Royal College of Physicians NEWS2 Standard',
+      },
+      {
+        parameter: 'Pharmacology Safety',
+        deterministicMechanism: 'Deterministic 3-tier allergy, DDI, and eGFR screening',
+        fhirBinding: 'MedicationRequest.status = active / stopped',
+        standardAlignment: 'ISMP High-Alert Medication Guidelines',
+      },
+      {
+        parameter: 'Transfer Profile',
+        deterministicMechanism: 'FHIR R4 DocumentReference clinical note composition',
+        fhirBinding: 'DocumentReference with Provenance cryptographic hash',
+        standardAlignment: 'Irish Core Clinical Handover Standard',
+      },
+    ],
+  },
+  {
+    slug: 'emergency-prehospital-prealert-agent',
+    name: 'Emergency Pre-Hospital Pre-Alert Agent',
+    codeName: 'SlainteEMS-Alert',
+    squad: 'SlainteClinical Care',
+    squadColor: 'error',
+    iconKey: 'monitorHeart',
+    seoTitle: 'Emergency Pre-Hospital Pre-Alert Agent | SlainteTech',
+    seoDescription:
+      'Rapid ambulance tablet telemetry agent computing Manchester Triage urgency and beaming real-time pre-arrival alerts to receiving Emergency Departments.',
+    heroSummary:
+      'Evaluates pre-hospital field vitals on ambulance tablets, computes deterministic Manchester Triage and NEWS2 urgency, and beams encrypted pre-alerts with ETA to receiving Emergency Department resuscitation bays.',
+    fastMcpBadges: ['Sub-Second MTS Scorer', 'ED Resus Pre-Alert', 'Mobile Field ePCR Ready'],
+    capabilities: [
+      {
+        title: 'Sub-Second Field Urgency Scoring',
+        description:
+          'Calculates Manchester Triage System Category 1 to 5 and RCP NEWS2 deterioration scores from field vitals in milliseconds.',
+        guardrailChip: 'Zero-Latency Triage',
+        iconKey: 'monitorHeart',
+      },
+      {
+        title: 'Encrypted Emergency Pre-Alert Dispatch',
+        description:
+          'Transmits patient physiological telemetry, chief complaints, and estimated arrival time (ETA) directly into hospital ED queues.',
+        guardrailChip: 'Direct Resus Notification',
+        iconKey: 'sync',
+      },
+      {
+        title: 'Offline-First Ambulance Tablet Cache',
+        description:
+          'Full operational capability in mobile environments with automatic FHIR R4 Bundle sync upon cellular network reconnection.',
+        guardrailChip: 'High-Contrast Field UI',
+        iconKey: 'security',
+      },
+    ],
+    verticalUseCase: {
+      eyebrow: 'Verified Vertical Use Case — Pre-Hospital Emergency Care',
+      headline: 'Pre-Alerting Hospital Trauma Bays Before Ambulance Arrival',
+      scenario:
+        'A paramedic crew enters vital signs for a suspected stroke patient (BP 185/105, HR 105, RR 22, MTS Cat 2). SlainteEMS-Alert immediately transmits an AMBER alert to the receiving ED, allowing the stroke team to prepare the CT scanner.',
+      outcomeMetric: 'Reduced ED Door-to-Needle Time by Pre-Alerting Trauma Teams',
+      verticalTitle: 'For Emergency Medical Services & Paramedics',
+      verticalHref: '/verticals/ems/',
+    },
+    technicalSpecs: [
+      {
+        parameter: 'Acuity Algorithms',
+        deterministicMechanism: 'Manchester Triage System & RCP NEWS2 in deterministic Python',
+        fhirBinding: 'RiskAssessment & Observation (Vital Signs)',
+        standardAlignment: 'MTS 3rd Edition & RCP National Guidelines',
+      },
+      {
+        parameter: 'Telemetry Protocol',
+        deterministicMechanism: 'Authenticated REST/WebSocket relay to receiving ED queues',
+        fhirBinding: 'Encounter (Emergency) with status = in-progress',
+        standardAlignment: 'HL7 FHIR R4 Emergency Encounter Profile',
+      },
+      {
+        parameter: 'Field Security',
+        deterministicMechanism: 'TLS 1.3 encrypted mobile transit with salted audit logging',
+        fhirBinding: 'Provenance with practitioner ID (PHECC / NMBI)',
+        standardAlignment: 'PHECC Pre-Hospital Standard & ISO 27001',
+      },
+    ],
+  },
+  {
+    slug: 'chronic-disease-surveillance-agent',
+    name: 'Chronic Disease & Quality Care Surveillance Agent',
+    codeName: 'SlainteCare-CDM',
+    squad: 'SlainteClinical Care',
+    squadColor: 'primary',
+    iconKey: 'summarize',
+    seoTitle: 'Chronic Disease & Quality Care Surveillance Agent | SlainteTech',
+    seoDescription:
+      'Continuously audits patient cohorts for diabetes, hypertension, and CKD to detect overdue surveillance markers and surface proactive GP care gap alerts.',
+    heroSummary:
+      'Continuously sweeps patient panels for diabetes, hypertension, and cardiovascular disease to identify overdue surveillance biomarkers (HbA1c > 12m, eGFR decline, uncontrolled BP) and generate proactive clinical recall lists.',
+    fastMcpBadges: ['HSE CDM Contract Aligned', 'Overdue Marker Detection', 'Automated Care Gap Recall'],
+    capabilities: [
+      {
+        title: 'Panel-Wide Biomarker Surveillance',
+        description:
+          'Scans entire practice rosters for overdue diabetes (HbA1c > 12 months), hypertension (BP > 6 months), and CKD (eGFR) checks.',
+        guardrailChip: 'Zero-Miss Recall',
+        iconKey: 'analytics',
+      },
+      {
+        title: 'Objective Care Gap Escalation',
+        description:
+          'Flags clinically significant biomarker drift (SBP >= 150 mmHg, rapid eGFR loss) with prioritized recommendations for GP review.',
+        guardrailChip: 'Actionable Insights',
+        iconKey: 'factCheck',
+      },
+      {
+        title: 'Irish HSE CDM Protocol Compliance',
+        description:
+          'Aligns with the national Chronic Disease Management contract guidelines, supporting structured bi-annual review requirements.',
+        guardrailChip: 'HSE CDM Contract Ready',
+        iconKey: 'verified',
+      },
+    ],
+    verticalUseCase: {
+      eyebrow: 'Verified Vertical Use Case — General Practice & Primary Care Networks',
+      headline: 'Closing Chronic Disease Care Gaps Before Complications Arise',
+      scenario:
+        'Across a practice panel of 1,200 diabetic patients, SlainteCare-CDM surfaces 42 patients whose HbA1c has not been tested in over 14 months, allowing practice nurses to trigger proactive recall appointments.',
+      outcomeMetric: '94% On-Time Annual Review Rate for Chronic Disease Cohorts',
+      verticalTitle: 'For Primary Care & Family Medicine',
+      verticalHref: '/verticals/general-practice/',
+    },
+    technicalSpecs: [
+      {
+        parameter: 'Surveillance Intervals',
+        deterministicMechanism: 'Temporal interval evaluation against clinical guidelines',
+        fhirBinding: 'Observation (4548-4 HbA1c, 33914-3 eGFR, 85354-9 BP)',
+        standardAlignment: 'HSE Chronic Disease Management Framework',
+      },
+      {
+        parameter: 'Care Gap Flagging',
+        deterministicMechanism: 'Deterministic rule engine evaluating lab date and values',
+        fhirBinding: 'CarePlan.activity and Flag resource',
+        standardAlignment: 'NICE & Irish College of General Practitioners (ICGP)',
+      },
+      {
+        parameter: 'Audit Logging',
+        deterministicMechanism: 'Append-only audit trail logging all surfaced care gaps',
+        fhirBinding: 'AuditEvent with pseudonymized patient identifier',
+        standardAlignment: 'EU GDPR Article 9 & Data Minimisation',
+      },
+    ],
+  },
+  {
+    slug: 'eu-nis2-directive-compliance-agent',
+    name: 'EU NIS2 Directive & Continuous Compliance Auditor',
+    codeName: 'SlainteGov-NIS2',
+    squad: 'SlainteGov Governance',
+    squadColor: 'error',
+    iconKey: 'security',
+    seoTitle: 'EU NIS2 Directive & Continuous Compliance Auditor | SlainteTech',
+    seoDescription:
+      'Autonomous regulatory agent auditing hospital digital infrastructure against EU Directive 2022/2555 Article 21 cybersecurity risk-management requirements.',
+    heroSummary:
+      'Continuously audits healthcare operational controls against EU Directive 2022/2555 (NIS2) Article 21, verifying SIEM event dispatch, supply-chain dependency pins, cryptographic integrity, and incident reporting readiness.',
+    fastMcpBadges: ['EU Directive 2022/2555', 'Article 21 Safeguards', 'Continuous Attestation'],
+    capabilities: [
+      {
+        title: 'Article 21 Control Verification',
+        description:
+          'Audits access controls, multi-factor authentication, incident handling readiness, and supply chain security against NIS2 standards.',
+        guardrailChip: '5/5 Controls Verified',
+        iconKey: 'security',
+      },
+      {
+        title: 'SIEM Security Webhook Dispatcher',
+        description:
+          'Verifies live dispatch of HMAC-SHA256 signed security alert payloads to hospital SIEM platforms (Microsoft Sentinel, Splunk, PagerDuty).',
+        guardrailChip: 'Instant SIEM Telemetry',
+        iconKey: 'sync',
+      },
+      {
+        title: 'Printable Executive Compliance Certificate',
+        description:
+          'Generates verifiable, print-ready attestation certificates certifying compliance with NIS2, EU AI Act, HIQA, and ISO 27001.',
+        guardrailChip: 'Board-Ready Attestation',
+        iconKey: 'factCheck',
+      },
+    ],
+    verticalUseCase: {
+      eyebrow: 'Verified Vertical Use Case — Hospital CISOs & Health Boards',
+      headline: 'Automating Continuous NIS2 Compliance for Hospital Trusts',
+      scenario:
+        'Ahead of an external regulatory audit by the National Cyber Security Centre (NCSC), hospital leadership generates a cryptographically signed NIS2 Article 21 attestation showing 100% compliance across all digital clinical systems.',
+      outcomeMetric: '100% Audit Readiness with Continuous Cryptographic Proof',
+      verticalTitle: 'For Hospital CISOs, CIOs & Trust Boards',
+      verticalHref: '/security-compliance/',
+    },
+    technicalSpecs: [
+      {
+        parameter: 'Regulatory Scope',
+        deterministicMechanism: 'Continuous verification of NIS2 Article 21 (1)-(2) safeguards',
+        fhirBinding: 'CapabilityStatement.security & AuditEvent',
+        standardAlignment: 'EU Directive 2022/2555 (NIS2) & ISO/IEC 27001:2022',
+      },
+      {
+        parameter: 'Supply-Chain Verification',
+        deterministicMechanism: 'Exact dependency version pin checks & SRI sha384- asset verification',
+        fhirBinding: 'Audit log verification signatures',
+        standardAlignment: 'NIST SP 800-161 Supply Chain Risk Management',
+      },
+      {
+        parameter: 'Incident Reporting Gate',
+        deterministicMechanism: 'HMAC-SHA256 signed webhook dispatch within mandatory incident windows',
+        fhirBinding: 'AuditEvent with cryptographic SHA-256 digest',
+        standardAlignment: 'EU NIS2 24-Hour Early Warning Mandate',
+      },
+    ],
+  },
 ];
 
 export function getAgentBySlug(slug: string): AgentRecord | undefined {

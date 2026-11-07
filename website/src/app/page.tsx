@@ -42,7 +42,7 @@ export default function HomePage() {
             <Grid size={{ xs: 12, md: 7 }}>
               <Stack direction="row" flexWrap="wrap" gap={1} sx={{ mb: 2.5 }}>
                 <Chip
-                  label="11 Autonomous Health-Tech Agents"
+                  label="16 Autonomous Health-Tech Agents"
                   color="primary"
                   size="small"
                   sx={{ border: '1px solid #7DD3FC' }}
@@ -70,7 +70,7 @@ export default function HomePage() {
               </Typography>
 
               <Typography variant="body1" sx={{ color: '#E2E8F0', fontSize: '1.1rem', mb: 3.5, maxWidth: 650 }}>
-                SlainteTech pairs sovereign HL7 FHIR R4 infrastructure with 11 specialized agents governed by deterministic Python FastMCP guardrails — delivering zero-hallucination triage, 3-Tier pharmacology, ambient scribing, and OWASP/NIS2 security across 8 healthcare verticals.
+                SlainteTech pairs sovereign HL7 FHIR R4 infrastructure with 16 specialized agents governed by deterministic Python FastMCP guardrails — delivering zero-hallucination triage, 3-Tier pharmacology, ambient scribing, and OWASP/NIS2 security across 8 healthcare verticals.
               </Typography>
 
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mb: 4 }}>
@@ -94,7 +94,7 @@ export default function HomePage() {
                     '&:hover': { borderColor: '#FFFFFF', bgcolor: 'rgba(255,255,255,0.08)' },
                   }}
                 >
-                  Inspect All 11 Agents
+                  Inspect All 16 Agents
                 </Button>
                 <Button
                   component={Link}
@@ -386,7 +386,7 @@ export default function HomePage() {
           >
             <Box sx={{ maxWidth: 740 }}>
               <Typography variant="overline" sx={{ color: '#134E68', fontWeight: 800, letterSpacing: '0.08em', display: 'block' }}>
-                3 Specialized Squads • 11 Verified Agents
+                3 Specialized Squads • 16 Verified Agents
               </Typography>
               <Typography component="h2" variant="h2" id="agents-fleet-heading" sx={{ color: '#0F172A', mb: 1 }}>
                 Autonomous Health-Tech Agents
@@ -404,6 +404,110 @@ export default function HomePage() {
             {HEALTH_TECH_AGENTS.map((agent) => (
               <Grid key={agent.slug} size={{ xs: 12, sm: 6, md: 4 }}>
                 <AgentSolutionCard agent={agent} headingLevel="h3" />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* REAL-WORLD HEALTHCARE DELIVERY & CLINICAL PHOTOGRAPHY */}
+      <Box
+        component="section"
+        aria-labelledby="clinical-delivery-heading"
+        sx={{
+          py: { xs: 7, md: 9 },
+          bgcolor: '#FFFFFF',
+          borderTop: '1px solid #E2E8F0',
+          borderBottom: '1px solid #E2E8F0',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Stack spacing={2} sx={{ mb: 4.5, maxWidth: 780 }}>
+            <Typography variant="overline" sx={{ color: '#134E68', fontWeight: 800, letterSpacing: '0.08em', display: 'block' }}>
+              Real-World Clinical Environments
+            </Typography>
+            <Typography component="h2" variant="h2" id="clinical-delivery-heading" sx={{ color: '#0F172A' }}>
+              Built for Frontline Clinicians, Hospital Trusts &amp; Community Care Teams
+            </Typography>
+            <Typography variant="body1" sx={{ color: '#334155' }}>
+              Like leading healthcare technology platforms, SlainteTech is designed for real clinical workflows — from high-acuity resuscitation bays and multi-disciplinary inpatient rounds to community nursing and enterprise cybersecurity command centres.
+            </Typography>
+          </Stack>
+
+          <Grid container spacing={3}>
+            {[
+              {
+                img: '/images/hero-clinicians.jpg',
+                title: 'Multi-Disciplinary Clinical Rounds',
+                subtitle: 'Hospital Inpatient & Specialist Wards',
+                desc: 'Physicians and charge nurses review live vital trajectories, NEWS2 early warnings, and cited AI bedside briefings on mobile tablets.',
+              },
+              {
+                img: '/images/bedside-doctor.jpg',
+                title: 'Point-of-Care Bedside Review',
+                subtitle: 'General Practice & Ambulatory Care',
+                desc: 'Ambient voice scribing drafts structured SOAP notes and pre-screened orders while clinicians maintain unbroken eye contact with patients.',
+              },
+              {
+                img: '/images/emergency-team.jpg',
+                title: 'Acute Emergency Resuscitation',
+                subtitle: 'Emergency Departments & Trauma Bays',
+                desc: 'Manchester Triage Cat 1–5 urgency calculation and automated ambulance pre-alert telemetry prepared before the patient arrives.',
+              },
+              {
+                img: '/images/telehealth-nurse.jpg',
+                title: 'Chronic Disease Surveillance',
+                subtitle: 'Primary Care & Care-at-Home Nursing',
+                desc: 'Continuous surveillance of diabetic and hypertensive panels to surface overdue surveillance markers and proactive recall interventions.',
+              },
+              {
+                img: '/images/security-soc.jpg',
+                title: 'CISO Cybersecurity Command',
+                subtitle: 'EU NIS2 & SIEM Webhook Telemetry',
+                desc: 'Continuous Article 21 technical safeguards verification with live HMAC-signed security alerts dispatched to Sentinel, Splunk, and PagerDuty.',
+              },
+            ].map((card, idx) => (
+              <Grid key={card.title} size={{ xs: 12, sm: 6, md: idx === 0 ? 8 : idx === 1 ? 4 : 4 }}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 2,
+                    border: '1px solid #CBD5E1',
+                    overflow: 'hidden',
+                    boxShadow: '0 2px 8px rgba(15, 23, 42, 0.06)',
+                    transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 18px rgba(15, 23, 42, 0.12)',
+                    },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={card.img}
+                    alt={card.title}
+                    sx={{
+                      width: '100%',
+                      height: idx === 0 ? 240 : 190,
+                      objectFit: 'cover',
+                      display: 'block',
+                      bgcolor: '#0F172A',
+                    }}
+                  />
+                  <CardContent sx={{ p: 2.5, flexGrow: 1 }}>
+                    <Typography variant="overline" sx={{ color: '#1B6B8D', fontWeight: 800, fontSize: '0.72rem' }}>
+                      {card.subtitle}
+                    </Typography>
+                    <Typography component="h3" variant="h3" sx={{ fontSize: '1.05rem', color: '#0F172A', mb: 0.75 }}>
+                      {card.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#475569', fontSize: '0.86rem', lineHeight: 1.5 }}>
+                      {card.desc}
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Grid>
             ))}
           </Grid>

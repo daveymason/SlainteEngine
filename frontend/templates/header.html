@@ -43,34 +43,40 @@
             </form>
             {% endif %}
 
-            <!-- Direct Navigation Dropdown for All 11 Agent Dashboards -->
+            <!-- Direct Navigation Dropdown for All 16 Agent Dashboards -->
             <div class="dropdown">
                 <button class="btn btn-sm btn-outline-light dropdown-toggle d-flex align-items-center gap-1" type="button" id="agentsNavDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #475569;">
                     <i class="fas fa-shield-alt" aria-hidden="true"></i> <span class="d-none d-sm-inline">Agents</span>
+                    <span class="badge bg-primary ms-1 d-none d-lg-inline-block" style="font-size: 0.65rem;">16</span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="agentsNavDropdown" style="min-width: 280px; font-size: 0.83rem;">
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="agentsNavDropdown" style="min-width: 310px; font-size: 0.82rem; max-height: 85vh; overflow-y: auto;">
                     <li>
                         <a class="dropdown-item fw-bold py-2" href="/?view=agents">
-                            <i class="fas fa-th-large me-2 text-primary" aria-hidden="true"></i>All Agents Directory
+                            <i class="fas fa-th-large me-2 text-primary" aria-hidden="true"></i>All 16 Agents Directory
                         </a>
                     </li>
                     <li><hr class="dropdown-divider my-1"></li>
-                    <li><h6 class="dropdown-header text-uppercase" style="font-size: 0.68rem;">SlainteShield — Security</h6></li>
+                    <li><h6 class="dropdown-header text-uppercase text-secondary fw-bold" style="font-size: 0.68rem; letter-spacing: 0.05em;">SlainteShield — Security &amp; Adversarial</h6></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_bola_redteam"><span class="text-muted font-monospace me-1">01</span> BOLA &amp; Role-Boundary Agent</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_fhir_conformance"><span class="text-muted font-monospace me-1">02</span> FHIR R4 Integrity Agent</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_cve_vulnerability"><span class="text-muted font-monospace me-1">03</span> Supply-Chain &amp; CVE Agent</a></li>
                     <li><hr class="dropdown-divider my-1"></li>
-                    <li><h6 class="dropdown-header text-uppercase" style="font-size: 0.68rem;">SlainteGov — Privacy, Audit &amp; HIPE</h6></li>
+                    <li><h6 class="dropdown-header text-uppercase text-secondary fw-bold" style="font-size: 0.68rem; letter-spacing: 0.05em;">SlainteGov — Privacy, Compliance &amp; Onboarding</h6></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_gdpr_privacy"><span class="text-muted font-monospace me-1">04</span> GDPR Art. 9 Privacy Agent</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_immutable_audit"><span class="text-muted font-monospace me-1">05</span> GovAudit &amp; Provenance Agent</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_clinical_coding"><span class="text-muted font-monospace me-1">11</span> HIPE / ICD-10-AM Coding Agent</a></li>
+                    <li><a class="dropdown-item py-1" href="/?view=agent_clinic_onboarding"><span class="text-muted font-monospace me-1">12</span> Clinic Onboarding &amp; Migration</a></li>
+                    <li><a class="dropdown-item py-1" href="/?view=agent_nis2_compliance"><span class="text-muted font-monospace me-1">16</span> EU NIS2 Directive Auditor</a></li>
                     <li><hr class="dropdown-divider my-1"></li>
-                    <li><h6 class="dropdown-header text-uppercase" style="font-size: 0.68rem;">SlainteClinical — Bedside &amp; Voice</h6></li>
+                    <li><h6 class="dropdown-header text-uppercase text-secondary fw-bold" style="font-size: 0.68rem; letter-spacing: 0.05em;">SlainteCare — Bedside, Triage &amp; Surveillance</h6></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_multimodal_ingest"><span class="text-muted font-monospace me-1">06</span> Clinical &amp; HL7v2 Ingestion</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_patient_summariser"><span class="text-muted font-monospace me-1">07</span> Cited Patient Summariser</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_medication_safety"><span class="text-muted font-monospace me-1">08</span> 3-Tier Rx-Guard Pharmacology</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_acuity_triage"><span class="text-muted font-monospace me-1">09</span> Dx-Triage &amp; NEWS2 Acuity</a></li>
                     <li><a class="dropdown-item py-1" href="/?view=agent_ambient_scribe"><span class="text-muted font-monospace me-1">10</span> Ambient Voice Scribe Agent</a></li>
+                    <li><a class="dropdown-item py-1" href="/?view=agent_discharge_transfer"><span class="text-muted font-monospace me-1">13</span> Discharge &amp; Transfer Coordinator</a></li>
+                    <li><a class="dropdown-item py-1" href="/?view=agent_ems_prealert"><span class="text-muted font-monospace me-1">14</span> Emergency Pre-Hospital Pre-Alert</a></li>
+                    <li><a class="dropdown-item py-1" href="/?view=agent_chronic_surveillance"><span class="text-muted font-monospace me-1">15</span> Chronic Disease Surveillance</a></li>
                     <li><hr class="dropdown-divider my-1"></li>
                     <li><a class="dropdown-item py-1 fw-semibold text-primary" href="/agents/compliance-certificate"><i class="fas fa-certificate me-1" aria-hidden="true"></i> NIS2 / EU AI Act Certificate</a></li>
                 </ul>
