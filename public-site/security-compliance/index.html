@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security, GDPR Art. 9, EU AI Act &amp; NIS2 Trust Center | SlainteTech AI Security Labs</title>
+  <meta name="description" content="Review SlainteTech&#x27;s cryptographic audit controls, GDPR Art. 9 PII redaction, Break-the-Glass RBAC, SIEM webhooks, and EU MDR / DCB0129 governance posture.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#page-heading" class="skip-link visually-hidden">Skip to main content</a>
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-link">SlainteTech AI Security Labs</a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../platform/index.html">Platform</a></li>
+          <li><a href="../agents/index.html">11 Agents</a></li>
+          <li><a href="../verticals/index.html">Industries (For...)</a></li>
+          <li><a href="../security-compliance/index.html" aria-current="page">Security &amp; Compliance</a></li>
+          <li><a href="../pricing/index.html">Pricing</a></li>
+          <li><a href="../investors/index.html">Investors</a></li>
+          <li><a href="../docs/index.html">Docs</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../contact/index.html" class="nav-cta">Book Pilot / Data Room</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <nav aria-label="Breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ol>
+        <li><a href="../index.html">Home</a></li><li aria-current="page">Security &amp; Compliance</li>
+      </ol>
+    </div>
+  </nav>
+  <main>
+    <div class="container">
+      <section class="hero">
+        <p class="eyebrow">Trust Center • Built for Hospital CISOs, DPOs &amp; Clinical Safety Officers</p>
+        <h1 id="page-heading" tabindex="-1">Cryptographic Auditability, Zero-Leak Privacy &amp; Continuous API Defense</h1>
+        <p class="lead">Every security claim in Slainte-Engine is backed by live executable verification and a one-click printable Executive Compliance Attestation Certificate.</p>
+        
+      </section>
+      <section>
+        <h2>Regulatory &amp; Security Framework Alignment</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Slainte-Engine Regulatory &amp; Security Control Mapping</caption>
+            <thead>
+              <tr>
+                <th scope="col">Standard / Regulation</th>
+                <th scope="col">Technical Control Implemented in Slainte-Engine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">EU NIS2 Directive (Art. 21 &amp; 23)</th><td>Pinned supply-chain dependencies, SRI <code>sha384</code> verified assets, progressive lockout, and HMAC-SHA256 signed SIEM incident webhooks (<code>X-Slainte-Signature</code>).</td></tr>
+              <tr><th scope="row">EU AI Act (High-Risk Transparency)</th><td>Deterministic FastMCP math separation, mandatory <code>[ResourceType/id]</code> source citations, clinician-in-the-loop approval, and immutable <code>ai_exchange</code> prompt/output logging.</td></tr>
+              <tr><th scope="row">EU GDPR Art. 9 &amp; Irish HIQA</th><td>Salted SHA-256 log pseudonymisation, automated PII stripping prior to external AI calls, granular Clinical RBAC, and 60-minute audited Break-the-Glass emergency grants.</td></tr>
+              <tr><th scope="row">EU MDR (2017/745) &amp; DCB0129 / DCB0160</th><td>Agents 01–06 deploy immediately as non-MDR cybersecurity &amp; interoperability infrastructure; Agents 07–11 present transparent deterministic rule logic for human clinician sign-off.</td></tr>
+              <tr><th scope="row">OWASP API Security Top 10 (2023)</th><td>Continuous Agent 01 Dual-Phase Reflection BOLA probing against <code>CompartmentDefinition/Patient</code> boundaries.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Frequently Asked CISO &amp; DPO Questions</h2>
+        <details name="sec-faq">
+          <summary>Can Slainte-Engine run with zero internet access so no PHI ever leaves the hospital VLAN?</summary>
+          <p>Yes. In Sovereign Air-Gap mode, Slainte-Engine pairs with an on-premise Ollama GPU server (or runs purely deterministic Agents 01–06, 08, 09, and 11 without any LLM at all), ensuring zero external network egress.</p>
+        </details>
+        <details name="sec-faq">
+          <summary>How is audit log tampering prevented even if an application session is compromised?</summary>
+          <p>Six compiled database triggers (<code>BEFORE UPDATE</code> and <code>BEFORE DELETE</code> on <code>audit_log</code>, <code>ai_exchange</code>, and <code>break_glass_grants</code>) abort any mutation attempt at the storage engine layer, backed by HMAC-signed JSON audit snapshots and real-time SIEM forwarding.</p>
+        </details>
+        <details name="sec-faq">
+          <summary>How do clinicians handle acute emergencies when RBAC restricts prescribing?</summary>
+          <p>Clinicians invoke the audited Break-the-Glass workflow under GDPR Art. 9(2)(c) vital-interests provisions, recording a mandatory clinical justification that unlocks a 60-minute emergency grant while immediately dispatching a signed <code>CRITICAL</code> alert to the CISO SIEM.</p>
+        </details>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <nav aria-label="Footer" class="footer-grid">
+        <div class="footer-col">
+          <h2>SlainteTech AI Security Labs</h2>
+          <p>Autonomous clinical, compliance, and cybersecurity agents bound by deterministic FastMCP guardrails on HL7 FHIR R4.</p>
+          <p><strong>Verified Suite:</strong> 11 Agents &middot; 8 Verticals &middot; 347 Automated Tests.</p>
+        </div>
+        <div class="footer-col">
+          <h2>For Healthcare &amp; Aerospace</h2>
+          <ul class="footer-links">
+            <li><a href="../verticals/emergency-departments/index.html">For Emergency Departments</a></li>
+            <li><a href="../verticals/general-practice/index.html">For General Practitioners (GPs)</a></li>
+            <li><a href="../verticals/psychiatry/index.html">For Psychiatrists &amp; Mental Health</a></li>
+            <li><a href="../verticals/dentistry/index.html">For Dental Surgeons &amp; DSOs</a></li>
+            <li><a href="../verticals/pharmacy/index.html">For Clinical &amp; Community Pharmacies</a></li>
+            <li><a href="../verticals/ambulance-ems/index.html">For Ambulance &amp; Paramedic Services</a></li>
+            <li><a href="../verticals/sports-medicine/index.html">For Elite Sports Clubs &amp; Federations</a></li>
+            <li><a href="../verticals/astronaut-health/index.html">For Astronaut &amp; Aerospace Medicine</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Platform &amp; Agents</h2>
+          <ul class="footer-links">
+            <li><a href="../platform/index.html">Deterministic FastMCP Architecture</a></li>
+            <li><a href="../agents/index.html">All 11 Autonomous Agents</a></li>
+            <li><a href="../agents/slainteshield-security/index.html">SlainteShield Security Squad (01–03)</a></li>
+            <li><a href="../agents/slaintegov-compliance/index.html">SlainteGov Compliance Squad (04–05)</a></li>
+            <li><a href="../agents/slainteclinical-copilots/index.html">SlainteClinical &amp; Coding Squad (06–11)</a></li>
+            <li><a href="../llms.txt">AI Search Manifest (llms.txt)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company &amp; Diligence</h2>
+          <ul class="footer-links">
+            <li><a href="../investors/index.html">Investor Thesis &amp; Data Room</a></li>
+            <li><a href="../pricing/index.html">Enterprise Licensing &amp; ROI</a></li>
+            <li><a href="../security-compliance/index.html">NIS2, EU AI Act &amp; GDPR Art. 9</a></li>
+            <li><a href="../docs/index.html">SMART-on-FHIR &amp; HL7v2 Docs</a></li>
+            <li><a href="../about/index.html">About SlainteTech</a></li>
+            <li><a href="../contact/index.html">Contact &amp; Pilot Request</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>&copy; 2026 SlainteTech AI Security Labs Ltd. Built in Ireland for European &amp; Global Healthcare Infrastructure. Zero real patient PHI is stored on this public site.</p>
+    </div>
+  </footer>
+</body>
+</html>

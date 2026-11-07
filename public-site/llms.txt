@@ -1,0 +1,30 @@
+# SlainteTech AI Security Labs (Slainte-Engine Platform)
+
+> Sovereign Clinical AI, Cybersecurity Red-Teaming & HL7 FHIR R4 Interoperability Platform bound by Deterministic FastMCP Guardrails.
+
+## Core Architecture
+- **SlainteDash (:8000)**: Multi-vertical HTMX clinical workstation, SMART-on-FHIR v2 App Launch, OIDC PKCE SSO, Granular Clinical RBAC & Break-the-Glass.
+- **SlainteFHIR (:8082)**: Sovereign HL7 FHIR R4 Micro-EHR (SQLite WAL + PostgreSQL 16 Row-Level Security schema).
+- **SlainteScan (:8081)**: Deterministic Python FastMCP server executing Manchester Triage (Cat 1-5), RCP NEWS2 (0-20), SNOMED/LOINC/UCUM validation, and 3-Tier SlainteRx-Guard pharmacology checks.
+- **11 Autonomous Agents**:
+  - 01 SlainteShield-BOLA (OWASP API1:2023 Red-Team Verifier)
+  - 02 SlainteShield-FHIR (FHIR R4 & Irish GMS OID Conformance + OASIS SARIF v2.1.0)
+  - 03 SlainteShield-CVE (Supply-Chain Pins, SRI sha384 & CSP Security Auditor)
+  - 04 SlainteGov-GDPR (GDPR Art. 9 PII De-Identification & BAA Gate)
+  - 05 SlainteGov-Audit (Immutable SQLite Kernel Triggers, SHA-256 Provenance & SIEM Webhooks)
+  - 06 SlainteEngine-Ingest (Native HL7v2 Pipe-Hat + Multimodal PDF/CSV/OCR Harmonizer)
+  - 07 SlainteScribe-Brief (Cited [ResourceType/id] Clinical Handover Summariser)
+  - 08 SlainteRx-Guard (3-Tier Allergy + ISMP High-Alert DDI + Lab eGFR Renal Gate)
+  - 09 SlainteDx-Triage (Deterministic MTS Cat 1-5 & 24h NEWS2 Trajectory Engine)
+  - 10 SlainteScribe-Voice (Ambient Clinical Voice Scribe & Pre-Screened FHIR Order Drafter)
+  - 11 SlainteRev-Coding (Autonomous HIPE / ICD-10-AM / SNOMED Comorbidity & DRG Revenue Auditor)
+
+## Industry Verticals ("For...")
+- /verticals/emergency-departments/ (SlainteED)
+- /verticals/general-practice/ (SlainteGP)
+- /verticals/psychiatry/ (SlaintePsych)
+- /verticals/dentistry/ (SlainteDent)
+- /verticals/pharmacy/ (SlaintePharm)
+- /verticals/ambulance-ems/ (SlainteEMS)
+- /verticals/sports-medicine/ (SlainteSport)
+- /verticals/astronaut-health/ (SlainteAstro)

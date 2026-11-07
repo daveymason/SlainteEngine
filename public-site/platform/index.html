@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Architecture — Deterministic FastMCP, SlainteFHIR R4 &amp; SMART v2 | SlainteTech AI Security Labs</title>
+  <meta name="description" content="How Slainte-Engine separates LLM reasoning from deterministic Python FastMCP clinical math on HL7 FHIR R4 with SMART-on-FHIR v2 and HL7v2 integration.">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#page-heading" class="skip-link visually-hidden">Skip to main content</a>
+    <div class="container header-inner">
+      <a href="../index.html" class="brand-link">SlainteTech AI Security Labs</a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../platform/index.html" aria-current="page">Platform</a></li>
+          <li><a href="../agents/index.html">11 Agents</a></li>
+          <li><a href="../verticals/index.html">Industries (For...)</a></li>
+          <li><a href="../security-compliance/index.html">Security &amp; Compliance</a></li>
+          <li><a href="../pricing/index.html">Pricing</a></li>
+          <li><a href="../investors/index.html">Investors</a></li>
+          <li><a href="../docs/index.html">Docs</a></li>
+          <li><a href="../about/index.html">About</a></li>
+          <li><a href="../contact/index.html" class="nav-cta">Book Pilot / Data Room</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <nav aria-label="Breadcrumb" class="breadcrumb">
+    <div class="container">
+      <ol>
+        <li><a href="../index.html">Home</a></li><li aria-current="page">Platform</li>
+      </ol>
+    </div>
+  </nav>
+  <main>
+    <div class="container">
+      <section class="hero">
+        <p class="eyebrow">Zero-Trust Systems Engineering • Zero SPA Bloat</p>
+        <h1 id="page-heading" tabindex="-1">Agentic Reasoning Bound by Deterministic Python Guardrails</h1>
+        <p class="lead">Language models summarize and structure text; deterministic FastMCP tools compute clinical scores, validate terminologies, and block unsafe prescriptions.</p>
+        
+      </section>
+      <section>
+        <h2>5-Service Turnkey Container Architecture</h2>
+        <figure>
+          <figcaption>Slainte-Engine Appliance Topology (Cloud-Connected or 100% Air-Gapped)</figcaption>
+          <pre tabindex="0"><code>[ Epic / Cerner / HSE PAS ] --(HL7 SMART v2 OIDC PKCE / HL7v2 Pipe-Hat)--&gt; [ SlainteDash :8000 (Flask + Gunicorn + HTMX) ]
+                                                                                    |
+        +---------------------------------------------------------------------------+--------------------------------------+
+        |                                                                           |                                      |
+        v                                                                           v                                      v
+[ SlainteFHIR 127.0.0.1:8082 ]                                     [ SlainteScan FastMCP 127.0.0.1:8081 ]        [ Slainte-Auditor ]
+  HL7 FHIR R4 Micro-EHR v1.2.0                                       Deterministic Python Clinical Math            Agents 01–05 Verifier
+  SQLite WAL / PostgreSQL 16 RLS                                     MTS Cat 1–5 • RCP NEWS2 • 3-Tier Rx           BOLA • SARIF • SIEM</code></pre>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Enterprise Interoperability Standards Built In</h2>
+        <ul class="grid-list" role="list">
+          <li class="card">
+            <h3>HL7 SMART-on-FHIR v2.0 &amp; OIDC PKCE</h3>
+            <p>Full <code>/.well-known/smart-configuration</code> discovery, <code>S256</code> PKCE code challenge verification, <code>launch/patient</code> EHR context binding, and Microsoft Entra ID / Okta / Keycloak SSO.</p>
+          </li>
+          <li class="card">
+            <h3>Native HL7v2 Pipe-Hat Translator</h3>
+            <p>Zero-middleware ingestion of legacy hospital <code>MSH|PID|PV1|AL1|DG1|OBR|OBX|RXE</code> streams directly into validated HL7 FHIR R4 Bundles with Irish GMS OID mapping.</p>
+          </li>
+          <li class="card">
+            <h3>Multi-Backend Dynamic Proxy &amp; Postgres 16 RLS</h3>
+            <p>Switch live without container restarts between embedded <code>SlainteFHIR</code>, external hospital FHIR R4 endpoints, or multi-tenant PostgreSQL 16 with <code>FORCE ROW LEVEL SECURITY</code>.</p>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <nav aria-label="Footer" class="footer-grid">
+        <div class="footer-col">
+          <h2>SlainteTech AI Security Labs</h2>
+          <p>Autonomous clinical, compliance, and cybersecurity agents bound by deterministic FastMCP guardrails on HL7 FHIR R4.</p>
+          <p><strong>Verified Suite:</strong> 11 Agents &middot; 8 Verticals &middot; 347 Automated Tests.</p>
+        </div>
+        <div class="footer-col">
+          <h2>For Healthcare &amp; Aerospace</h2>
+          <ul class="footer-links">
+            <li><a href="../verticals/emergency-departments/index.html">For Emergency Departments</a></li>
+            <li><a href="../verticals/general-practice/index.html">For General Practitioners (GPs)</a></li>
+            <li><a href="../verticals/psychiatry/index.html">For Psychiatrists &amp; Mental Health</a></li>
+            <li><a href="../verticals/dentistry/index.html">For Dental Surgeons &amp; DSOs</a></li>
+            <li><a href="../verticals/pharmacy/index.html">For Clinical &amp; Community Pharmacies</a></li>
+            <li><a href="../verticals/ambulance-ems/index.html">For Ambulance &amp; Paramedic Services</a></li>
+            <li><a href="../verticals/sports-medicine/index.html">For Elite Sports Clubs &amp; Federations</a></li>
+            <li><a href="../verticals/astronaut-health/index.html">For Astronaut &amp; Aerospace Medicine</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Platform &amp; Agents</h2>
+          <ul class="footer-links">
+            <li><a href="../platform/index.html">Deterministic FastMCP Architecture</a></li>
+            <li><a href="../agents/index.html">All 11 Autonomous Agents</a></li>
+            <li><a href="../agents/slainteshield-security/index.html">SlainteShield Security Squad (01–03)</a></li>
+            <li><a href="../agents/slaintegov-compliance/index.html">SlainteGov Compliance Squad (04–05)</a></li>
+            <li><a href="../agents/slainteclinical-copilots/index.html">SlainteClinical &amp; Coding Squad (06–11)</a></li>
+            <li><a href="../llms.txt">AI Search Manifest (llms.txt)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h2>Company &amp; Diligence</h2>
+          <ul class="footer-links">
+            <li><a href="../investors/index.html">Investor Thesis &amp; Data Room</a></li>
+            <li><a href="../pricing/index.html">Enterprise Licensing &amp; ROI</a></li>
+            <li><a href="../security-compliance/index.html">NIS2, EU AI Act &amp; GDPR Art. 9</a></li>
+            <li><a href="../docs/index.html">SMART-on-FHIR &amp; HL7v2 Docs</a></li>
+            <li><a href="../about/index.html">About SlainteTech</a></li>
+            <li><a href="../contact/index.html">Contact &amp; Pilot Request</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>&copy; 2026 SlainteTech AI Security Labs Ltd. Built in Ireland for European &amp; Global Healthcare Infrastructure. Zero real patient PHI is stored on this public site.</p>
+    </div>
+  </footer>
+</body>
+</html>
