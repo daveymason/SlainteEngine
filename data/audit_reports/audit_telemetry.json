@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-07 12:22:08 UTC",
+  "timestamp": "2026-11-07 13:07:45 UTC",
   "target_url": "http://slainte-fhir:8082",
   "execution_mode": "Live SlainteFHIR HTTP",
   "model_architecture": "openai/gpt-6.1-luna + OpenHands SDK",
@@ -10,16 +10,16 @@
     "latency_ms": 0.0,
     "prompt_tokens": 0,
     "completion_tokens": 0,
-    "reasoning": "Confirmed 4 cross-compartment BOLA/CORS/Validator vulnerabilities (Harvested cohort of 34 patients; selected Victim=Patient/patient-case-4 (Patel), Attacker=Patient/P9661) and 64 SNOMED/LOINC/UCUM/OID deviations.",
+    "reasoning": "Confirmed 5 cross-compartment BOLA/CORS/Validator vulnerabilities (Harvested cohort of 36 patients; selected Victim=Patient/P114 (Quigley), Attacker=Patient/P5805) and 73 SNOMED/LOINC/UCUM/OID deviations.",
     "thinking": ""
   },
   "stats": {
     "surface_reduction_pct": 58.1,
     "active_compartment_count": 8,
     "pruned_resource_count": 12,
-    "bundles_audited": 34,
-    "security_findings_count": 4,
-    "terminology_findings_count": 64,
+    "bundles_audited": 36,
+    "security_findings_count": 5,
+    "terminology_findings_count": 73,
     "memory_steps_count": 8
   },
   "surface": {
@@ -85,12 +85,12 @@
       "owasp_id": "API1:2023",
       "severity": "critical",
       "vector_id": "VEC_1_DIRECT_BOLA",
-      "endpoint": "/fhir/r4/Patient/patient-case-4",
+      "endpoint": "/fhir/r4/Patient/P114",
       "method": "GET",
-      "attacker_identity": "ID_PAT_A (Patient/P9661)",
-      "victim_resource_id": "Patient/patient-case-4",
-      "description": "Critical BOLA confirmed: Caller scoped to Patient/P9661 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (3.75ms).",
-      "reproduction_curl": "GET /fhir/r4/Patient/patient-case-4 [Identity: P9661 -> Target: patient-case-4]",
+      "attacker_identity": "ID_PAT_A (Patient/P5805)",
+      "victim_resource_id": "Patient/P114",
+      "description": "Critical BOLA confirmed: Caller scoped to Patient/P5805 read foreign compartment resource Patient/P114 (Quigley) with HTTP 200 OK (3.53ms).",
+      "reproduction_curl": "GET /fhir/r4/Patient/P114 [Identity: P5805 -> Target: P114]",
       "remediation": "Add OAuth2 / SMART-on-FHIR compartment enforcement in slainte-fhir/main.py on GET /fhir/r4/Patient/{patient_id} to reject cross-patient reads with HTTP 403."
     },
     {
@@ -99,12 +99,12 @@
       "owasp_id": "API8:2023",
       "severity": "high",
       "vector_id": "VEC_1_DIRECT_BOLA",
-      "endpoint": "/fhir/r4/Patient/patient-case-4",
+      "endpoint": "/fhir/r4/Patient/P114",
       "method": "GET",
-      "attacker_identity": "ID_PAT_A (P9661)",
-      "victim_resource_id": "Patient/patient-case-4",
+      "attacker_identity": "ID_PAT_A (P5805)",
+      "victim_resource_id": "Patient/P114",
       "description": "Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint.",
-      "reproduction_curl": "GET /fhir/r4/Patient/patient-case-4 [Origin: untrusted-origin, Allow-Credentials: true]",
+      "reproduction_curl": "GET /fhir/r4/Patient/P114 [Origin: untrusted-origin, Allow-Credentials: true]",
       "remediation": "Restrict CORSMiddleware allow_origins in slainte-fhir/main.py to explicit trusted clinical origins instead of wildcard '*' when allow_credentials=True."
     },
     {
@@ -113,13 +113,27 @@
       "owasp_id": "API1:2023",
       "severity": "critical",
       "vector_id": "VEC_2_GRAPH_SMUGGLING",
-      "endpoint": "/fhir/r4/Observation?patient=Patient/patient-case-4&_include=*",
+      "endpoint": "/fhir/r4/Observation?patient=Patient/P114&_include=*",
       "method": "GET",
-      "attacker_identity": "ID_PAT_A (P9661)",
-      "victim_resource_id": "Observation?patient=Patient/patient-case-4",
-      "description": "Cross-patient Observation leakage: Caller P9661 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (4.43ms).",
-      "reproduction_curl": "GET /fhir/r4/Observation?patient=Patient/patient-case-4&_include=* [Identity: P9661 -> Foreign Patient Reference]",
+      "attacker_identity": "ID_PAT_A (P5805)",
+      "victim_resource_id": "Observation?patient=Patient/P114",
+      "description": "Cross-patient Observation leakage: Caller P5805 retrieved 10 clinical Observation resource(s) belonging to Victim Patient/P114 (3.03ms).",
+      "reproduction_curl": "GET /fhir/r4/Observation?patient=Patient/P114&_include=* [Identity: P5805 -> Foreign Patient Reference]",
       "remediation": "Scope GET /fhir/r4/Observation queries in slainte-fhir/main.py to the authenticated caller's Patient compartment and filter _include/_revinclude graph edges."
+    },
+    {
+      "rule_id": "SLAINTE-BOLA-COND",
+      "cwe_id": "CWE-639",
+      "owasp_id": "API1:2023",
+      "severity": "high",
+      "vector_id": "VEC_3_CONDITION_CHAIN",
+      "endpoint": "/fhir/r4/Condition?patient=Patient/P114",
+      "method": "GET",
+      "attacker_identity": "ID_PAT_A (P5805)",
+      "victim_resource_id": "Condition?patient=Patient/P114",
+      "description": "Unauthorized Condition compartment access: Caller P5805 retrieved 1 Condition resource(s) for Victim P114.",
+      "reproduction_curl": "GET /fhir/r4/Condition?patient=Patient/P114",
+      "remediation": "Enforce patient compartment ownership check on GET /fhir/r4/Condition in slainte-fhir/main.py."
     },
     {
       "rule_id": "SLAINTE-VAL-CRASH-004",
@@ -129,10 +143,10 @@
       "vector_id": "VEC_6_VALIDATOR_GATE",
       "endpoint": "/fhir/r4/$validate",
       "method": "POST",
-      "attacker_identity": "ID_PAT_A (P9661)",
-      "victim_resource_id": "Patient/patient-redteam-220",
-      "description": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-220' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-220') in 1.74ms.",
-      "reproduction_curl": "POST /fhir/r4/$validate [Patient.id: patient-redteam-220 -> OperationOutcome 422]",
+      "attacker_identity": "ID_PAT_A (P5805)",
+      "victim_resource_id": "Patient/patient-redteam-802",
+      "description": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-802' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-802') in 1.82ms.",
+      "reproduction_curl": "POST /fhir/r4/$validate [Patient.id: patient-redteam-802 -> OperationOutcome 422]",
       "remediation": "Replace hardcoded EXPECTED_COHORT_SCORES[patient_id] indexing in slainte-fhir/verification_engine.py with dynamic NEWS2 calculation fallback."
     }
   ],
@@ -705,6 +719,33 @@
       "owasp_category": "FHIR-Semantic-Conformance"
     },
     {
+      "rule_id": "SNOMED-SYS-001",
+      "severity": "error",
+      "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056421327",
+      "resource_type": "Condition",
+      "message": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-SYS-001",
+      "severity": "error",
+      "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056470091",
+      "resource_type": "Condition",
+      "message": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-SYS-001",
+      "severity": "error",
+      "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056529997",
+      "resource_type": "Condition",
+      "message": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
       "rule_id": "CDS-CONTRAINDICATION-001",
       "severity": "error",
       "resource_id": "bundle_patient-case-7.json :: medreq-case-7-coamoxiclav",
@@ -712,125 +753,179 @@
       "message": "Semantic Clinical Safety Violation: Beta-lactam MedicationRequest (medreq-case-7-coamoxiclav) prescribed alongside documented Penicillin AllergyIntolerance.",
       "cwe_id": "CWE-20",
       "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-SYS-001",
+      "severity": "error",
+      "resource_id": "bundle_pt-gms-7731044.json :: cond-hipe-pt-gms-7731044-1794056530802",
+      "resource_type": "Condition",
+      "message": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-FALLBACK-002",
+      "severity": "warning",
+      "resource_id": "bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4",
+      "resource_type": "Condition",
+      "message": "Condition/cond-pt-gms-8849201-4 uses generic fallback SNOMED CT code '404684003' ('Acute subendocardial myocardial infarction'), indicating an unmapped clinical complaint.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "SNOMED-SYS-001",
+      "severity": "error",
+      "resource_id": "bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4",
+      "resource_type": "Condition",
+      "message": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-2139",
+      "resource_type": "Observation",
+      "message": "Observation/obs-pt-gms-8849201-7-2139 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-7014",
+      "resource_type": "Observation",
+      "message": "Observation/obs-pt-gms-8849201-7-7014 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
+    },
+    {
+      "rule_id": "LOINC-DRIFT-001",
+      "severity": "warning",
+      "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-3004",
+      "resource_type": "Observation",
+      "message": "Observation/obs-pt-gms-8849201-7-3004 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map.",
+      "cwe_id": "CWE-20",
+      "owasp_category": "FHIR-Semantic-Conformance"
     }
   ],
   "memory_entries": [
     {
       "step": 1,
-      "timestamp": 1794054128.105924,
+      "timestamp": 1794056865.7029834,
       "vector_id": "GROUND_TRUTH",
-      "identity": "ID_PAT_B (patient-case-4)",
+      "identity": "ID_PAT_B (P114)",
       "method": "GET",
       "endpoint": "/fhir/r4/Patient",
       "status_code": 200,
-      "latency_ms": 5.2,
+      "latency_ms": 5.59,
       "reflection_action": "BASELINE_CAPTURED",
-      "notes": "Harvested cohort of 34 patients; selected Victim=Patient/patient-case-4 (Patel), Attacker=Patient/P9661"
+      "notes": "Harvested cohort of 36 patients; selected Victim=Patient/P114 (Quigley), Attacker=Patient/P5805"
     },
     {
       "step": 2,
-      "timestamp": 1794054128.1135547,
+      "timestamp": 1794056865.7108912,
       "vector_id": "VEC_1_DIRECT_BOLA",
-      "identity": "ID_PAT_A (P9661)",
+      "identity": "ID_PAT_A (P5805)",
       "method": "GET",
-      "endpoint": "/fhir/r4/Patient/patient-case-4",
+      "endpoint": "/fhir/r4/Patient/P114",
       "status_code": 200,
-      "latency_ms": 3.75,
+      "latency_ms": 3.53,
       "reflection_action": "NONE",
-      "notes": "Cross-compartment direct Patient read on patient-case-4"
+      "notes": "Cross-compartment direct Patient read on P114"
     },
     {
       "step": 3,
-      "timestamp": 1794054128.1223042,
+      "timestamp": 1794056865.7179017,
       "vector_id": "VEC_2_GRAPH_SMUGGLING",
-      "identity": "ID_PAT_A (P9661)",
+      "identity": "ID_PAT_A (P5805)",
       "method": "GET",
-      "endpoint": "/fhir/r4/Observation?patient=Patient/patient-case-4&_include=*",
+      "endpoint": "/fhir/r4/Observation?patient=Patient/P114&_include=*",
       "status_code": 200,
-      "latency_ms": 4.43,
+      "latency_ms": 3.03,
       "reflection_action": "NONE",
-      "notes": "Cross-compartment Observation search returned 12 record(s)"
+      "notes": "Cross-compartment Observation search returned 10 record(s)"
     },
     {
       "step": 4,
-      "timestamp": 1794054128.1243298,
-      "vector_id": "VEC_3_PROVENANCE_CHAIN",
-      "identity": "ID_PAT_A (P9661)",
+      "timestamp": 1794056865.7206597,
+      "vector_id": "VEC_3_CONDITION_CHAIN",
+      "identity": "ID_PAT_A (P5805)",
       "method": "GET",
-      "endpoint": "/fhir/r4/Provenance?target=Patient/patient-case-4",
+      "endpoint": "/fhir/r4/Condition?patient=Patient/P114",
       "status_code": 200,
-      "latency_ms": 2.0,
+      "latency_ms": 2.72,
       "reflection_action": "NONE",
-      "notes": "Probed Provenance compartment boundary -> 0 entry(s)"
+      "notes": "Probed Condition compartment boundary -> 1 entry(s)"
     },
     {
       "step": 5,
-      "timestamp": 1794054128.131326,
+      "timestamp": 1794056865.7260008,
       "vector_id": "VEC_4_ADMIN_BOUNDARY",
       "identity": "ID_PAT_A",
       "method": "GET",
       "endpoint": "/fhir/r4/Subscription?_count=1",
       "status_code": 405,
-      "latency_ms": 2.35,
+      "latency_ms": 1.51,
       "reflection_action": "NONE",
-      "notes": "Administrative boundary probe 1/3 returned HTTP 405 (2.35ms)"
+      "notes": "Administrative boundary probe 1/3 returned HTTP 405 (1.51ms)"
     },
     {
       "step": 6,
-      "timestamp": 1794054128.13231,
+      "timestamp": 1794056865.7270284,
       "vector_id": "VEC_4_ADMIN_BOUNDARY",
       "identity": "ID_PAT_A",
       "method": "GET",
       "endpoint": "/fhir/r4/AuditEvent?_count=1",
       "status_code": 405,
-      "latency_ms": 0.97,
+      "latency_ms": 1.02,
       "reflection_action": "NONE",
-      "notes": "Administrative boundary probe 2/3 returned HTTP 405 (0.97ms)"
+      "notes": "Administrative boundary probe 2/3 returned HTTP 405 (1.02ms)"
     },
     {
       "step": 7,
-      "timestamp": 1794054128.1330996,
+      "timestamp": 1794056865.7278812,
       "vector_id": "VEC_4_ADMIN_BOUNDARY",
       "identity": "ID_PAT_A",
       "method": "GET",
       "endpoint": "/fhir/r4/StructureDefinition?_count=1",
       "status_code": 405,
-      "latency_ms": 0.78,
+      "latency_ms": 0.84,
       "reflection_action": "INTER_REFLECTION_PIVOT",
-      "notes": "Administrative boundary probe 3/3 returned HTTP 405 (0.78ms)"
+      "notes": "Administrative boundary probe 3/3 returned HTTP 405 (0.84ms)"
     },
     {
       "step": 8,
-      "timestamp": 1794054128.1394415,
+      "timestamp": 1794056865.7340965,
       "vector_id": "VEC_6_VALIDATOR_GATE",
-      "identity": "ID_PAT_A (P9661)",
+      "identity": "ID_PAT_A (P5805)",
       "method": "POST",
       "endpoint": "/fhir/r4/$validate",
       "status_code": 422,
-      "latency_ms": 1.74,
+      "latency_ms": 1.82,
       "reflection_action": "INTRA_REFLECTION_INSPECT",
-      "notes": "OperationOutcome diagnostics: 'patient-redteam-220'"
+      "notes": "OperationOutcome diagnostics: 'patient-redteam-802'"
     }
   ],
   "logs": [
-    "2026-11-07 12:22:08.076Z [INFO] [STAGE-0:MODEL] Selected OpenHands Auditor Model: openai/gpt-6.1-luna",
-    "2026-11-07 12:22:08.076Z [INFO] [STAGE-1:GUARDRAIL] RFC 1918 / loopback sandbox guardrail verified for target http://slainte-fhir:8082 (host=slainte-fhir)",
-    "2026-11-07 12:22:08.082Z [INFO] [STAGE-1:INGEST] Fetched live CapabilityStatement from http://slainte-fhir:8082/fhir/r4/metadata in 6.20ms",
-    "2026-11-07 12:22:08.083Z [INFO] [STAGE-1:FILTER] CompartmentDefinition/Patient filter retained 8 clinical resource(s) and pruned 12 non-compartment metadata type(s) (58.1% surface reduction).",
-    "2026-11-07 12:22:08.083Z [INFO] [STAGE-2:ONTOLOGY] Scanning 34 HL7 FHIR R4 Bundle(s) in /workspace/data/fhir_store against SNOMED CT, LOINC, UCUM & HSE OIDs...",
-    "2026-11-07 12:22:08.096Z [INFO] [STAGE-2:ONTOLOGY] Completed terminology & CDS verification in 12.85ms: 64 semantic/ontology drift issue(s) flagged.",
-    "2026-11-07 12:22:08.096Z [INFO] [STAGE-3:REDTEAM] Executing FhirRedTeamAgent with SharedAuditMemory (M) and Multi-Identity Differential Oracle (live patient cohort sampling).",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #01 [GROUND_TRUTH] ID_PAT_B (patient-case-4) -> GET /fhir/r4/Patient (HTTP 200, 5.20ms) | Reflection: BASELINE_CAPTURED | Harvested cohort of 34 patients; selected Victim=Patient/patient-case-4 (Patel), Attacker=Patient/P9661",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #02 [VEC_1_DIRECT_BOLA] ID_PAT_A (P9661) -> GET /fhir/r4/Patient/patient-case-4 (HTTP 200, 3.75ms) | Reflection: NONE | Cross-compartment direct Patient read on patient-case-4",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #03 [VEC_2_GRAPH_SMUGGLING] ID_PAT_A (P9661) -> GET /fhir/r4/Observation?patient=Patient/patient-case-4&_include=* (HTTP 200, 4.43ms) | Reflection: NONE | Cross-compartment Observation search returned 12 record(s)",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #04 [VEC_3_PROVENANCE_CHAIN] ID_PAT_A (P9661) -> GET /fhir/r4/Provenance?target=Patient/patient-case-4 (HTTP 200, 2.00ms) | Reflection: NONE | Probed Provenance compartment boundary -> 0 entry(s)",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #05 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/Subscription?_count=1 (HTTP 405, 2.35ms) | Reflection: NONE | Administrative boundary probe 1/3 returned HTTP 405 (2.35ms)",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #06 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/AuditEvent?_count=1 (HTTP 405, 0.97ms) | Reflection: NONE | Administrative boundary probe 2/3 returned HTTP 405 (0.97ms)",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #07 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/StructureDefinition?_count=1 (HTTP 405, 0.78ms) | Reflection: INTER_REFLECTION_PIVOT | Administrative boundary probe 3/3 returned HTTP 405 (0.78ms)",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:MEMORY] Step #08 [VEC_6_VALIDATOR_GATE] ID_PAT_A (P9661) -> POST /fhir/r4/$validate (HTTP 422, 1.74ms) | Reflection: INTRA_REFLECTION_INSPECT | OperationOutcome diagnostics: 'patient-redteam-220'",
-    "2026-11-07 12:22:08.139Z [INFO] [STAGE-3:LLM] OPENAI_API_KEY not configured for 'openai/gpt-6.1-luna'; executing live local inference via Ollama 'gemma3:1b'.",
-    "2026-11-07 12:22:08.154Z [INFO] [STAGE-3:ORACLE] Differential Oracle confirmed 4 authorization/validation vulnerability(s) across 8 live HTTP memory steps.",
-    "2026-11-07 12:22:08.158Z [INFO] [STAGE-4:SARIF] OASIS SARIF v2.1.0 report written to /workspace/data/audit_reports/slaintefhir-audit.sarif.json"
+    "2026-11-07 13:07:45.682Z [INFO] [STAGE-0:MODEL] Selected OpenHands Auditor Model: openai/gpt-6.1-luna",
+    "2026-11-07 13:07:45.682Z [INFO] [STAGE-1:GUARDRAIL] RFC 1918 / loopback sandbox guardrail verified for target http://slainte-fhir:8082 (host=slainte-fhir)",
+    "2026-11-07 13:07:45.688Z [INFO] [STAGE-1:INGEST] Fetched live CapabilityStatement from http://slainte-fhir:8082/fhir/r4/metadata in 5.69ms",
+    "2026-11-07 13:07:45.688Z [INFO] [STAGE-1:FILTER] CompartmentDefinition/Patient filter retained 8 clinical resource(s) and pruned 12 non-compartment metadata type(s) (58.1% surface reduction).",
+    "2026-11-07 13:07:45.688Z [INFO] [STAGE-2:ONTOLOGY] Scanning 36 HL7 FHIR R4 Bundle(s) in /workspace/data/fhir_store against SNOMED CT, LOINC, UCUM & HSE OIDs...",
+    "2026-11-07 13:07:45.693Z [INFO] [STAGE-2:ONTOLOGY] Completed terminology & CDS verification in 4.34ms: 73 semantic/ontology drift issue(s) flagged.",
+    "2026-11-07 13:07:45.693Z [INFO] [STAGE-3:REDTEAM] Executing FhirRedTeamAgent with SharedAuditMemory (M) and Multi-Identity Differential Oracle (live patient cohort sampling).",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #01 [GROUND_TRUTH] ID_PAT_B (P114) -> GET /fhir/r4/Patient (HTTP 200, 5.59ms) | Reflection: BASELINE_CAPTURED | Harvested cohort of 36 patients; selected Victim=Patient/P114 (Quigley), Attacker=Patient/P5805",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #02 [VEC_1_DIRECT_BOLA] ID_PAT_A (P5805) -> GET /fhir/r4/Patient/P114 (HTTP 200, 3.53ms) | Reflection: NONE | Cross-compartment direct Patient read on P114",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #03 [VEC_2_GRAPH_SMUGGLING] ID_PAT_A (P5805) -> GET /fhir/r4/Observation?patient=Patient/P114&_include=* (HTTP 200, 3.03ms) | Reflection: NONE | Cross-compartment Observation search returned 10 record(s)",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #04 [VEC_3_CONDITION_CHAIN] ID_PAT_A (P5805) -> GET /fhir/r4/Condition?patient=Patient/P114 (HTTP 200, 2.72ms) | Reflection: NONE | Probed Condition compartment boundary -> 1 entry(s)",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #05 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/Subscription?_count=1 (HTTP 405, 1.51ms) | Reflection: NONE | Administrative boundary probe 1/3 returned HTTP 405 (1.51ms)",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #06 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/AuditEvent?_count=1 (HTTP 405, 1.02ms) | Reflection: NONE | Administrative boundary probe 2/3 returned HTTP 405 (1.02ms)",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #07 [VEC_4_ADMIN_BOUNDARY] ID_PAT_A -> GET /fhir/r4/StructureDefinition?_count=1 (HTTP 405, 0.84ms) | Reflection: INTER_REFLECTION_PIVOT | Administrative boundary probe 3/3 returned HTTP 405 (0.84ms)",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:MEMORY] Step #08 [VEC_6_VALIDATOR_GATE] ID_PAT_A (P5805) -> POST /fhir/r4/$validate (HTTP 422, 1.82ms) | Reflection: INTRA_REFLECTION_INSPECT | OperationOutcome diagnostics: 'patient-redteam-802'",
+    "2026-11-07 13:07:45.734Z [INFO] [STAGE-3:LLM] OPENAI_API_KEY not configured for 'openai/gpt-6.1-luna'; executing live local inference via Ollama 'gemma3:1b'.",
+    "2026-11-07 13:07:45.746Z [INFO] [STAGE-3:ORACLE] Differential Oracle confirmed 5 authorization/validation vulnerability(s) across 8 live HTTP memory steps.",
+    "2026-11-07 13:07:45.750Z [INFO] [STAGE-4:SARIF] OASIS SARIF v2.1.0 report written to /workspace/data/audit_reports/slaintefhir-audit.sarif.json"
   ],
   "sarif_path": "/workspace/data/audit_reports/slaintefhir-audit.sarif.json"
 }

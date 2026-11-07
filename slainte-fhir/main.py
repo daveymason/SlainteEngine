@@ -96,30 +96,111 @@ async def health_check():
         "resource_breakdown": counts
     }
 
+@app.get("/.well-known/smart-configuration")
+@app.get("/fhir/r4/.well-known/smart-configuration")
+async def smart_configuration(request: Request):
+    """HL7 SMART App Launch v2.0 Discovery Document (.well-known/smart-configuration)."""
+    public_dash = os.getenv("SLAINTE_DASH_PUBLIC_URL", "http://localhost:8000").rstrip("/")
+    issuer = str(request.base_url).rstrip("/") + "/fhir/r4"
+    return {
+        "issuer": issuer,
+        "jwks_uri": f"{public_dash}/smart/.well-known/jwks.json",
+        "authorization_endpoint": f"{public_dash}/smart/authorize",
+        "token_endpoint": f"{public_dash}/smart/token",
+        "introspection_endpoint": f"{public_dash}/smart/introspect",
+        "management_endpoint": f"{public_dash}/settings/smart",
+        "grant_types_supported": ["authorization_code", "client_credentials"],
+        "response_types_supported": ["code"],
+        "scopes_supported": [
+            "openid",
+            "fhirUser",
+            "profile",
+            "launch",
+            "launch/patient",
+            "launch/encounter",
+            "patient/*.cruds",
+            "patient/*.rs",
+            "user/*.cruds",
+            "system/*.rs",
+            "offline_access",
+        ],
+        "code_challenge_methods_supported": ["S256"],
+        "token_endpoint_auth_methods_supported": [
+            "none",
+            "client_secret_basic",
+            "private_key_jwt",
+        ],
+        "capabilities": [
+            "launch-ehr",
+            "launch-standalone",
+            "authorize-post",
+            "client-public",
+            "client-confidential-symmetric",
+            "client-confidential-asymmetric",
+            "sso-openid-connect",
+            "context-banner",
+            "context-style",
+            "context-ehr-patient",
+            "context-ehr-encounter",
+            "context-standalone-patient",
+            "permission-offline",
+            "permission-patient",
+            "permission-user",
+            "permission-v1",
+            "permission-v2",
+        ],
+    }
+
+
 @app.get("/metadata")
 @app.get("/fhir/r4/metadata")
 async def capability_statement():
-    """HL7 FHIR R4 CapabilityStatement declaring server features."""
+    """HL7 FHIR R4 CapabilityStatement declaring server features & SMART-on-FHIR v2 security."""
+    public_dash = os.getenv("SLAINTE_DASH_PUBLIC_URL", "http://localhost:8000").rstrip("/")
     return {
         "resourceType": "CapabilityStatement",
         "status": "active",
-        "date": "2026-10-18T00:00:00Z",
-        "publisher": "Slainte Clinical Interoperability Systems",
+        "date": "2026-11-07T00:00:00Z",
+        "publisher": "SlainteTech AI Security Labs",
         "kind": "instance",
         "software": {
             "name": "SlainteFHIR",
-            "version": "1.0.0"
+            "version": "1.2.0"
         },
         "fhirVersion": "4.0.1",
         "format": ["json"],
         "rest": [
             {
                 "mode": "server",
+                "security": {
+                    "cors": True,
+                    "service": [
+                        {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/restful-security-service",
+                                    "code": "SMART-on-FHIR",
+                                    "display": "SMART-on-FHIR v2.0 OAuth2 / OIDC"
+                                }
+                            ],
+                            "text": "HL7 SMART App Launch v2.0 + OIDC PKCE"
+                        }
+                    ],
+                    "extension": [
+                        {
+                            "url": "http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris",
+                            "extension": [
+                                {"url": "authorize", "valueUri": f"{public_dash}/smart/authorize"},
+                                {"url": "token", "valueUri": f"{public_dash}/smart/token"}
+                            ]
+                        }
+                    ]
+                },
                 "resource": [
-                    {"type": "Patient", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "Observation", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "Condition", "interaction": [{"code": "read"}, {"code": "search-type"}]},
-                    {"type": "Encounter", "interaction": [{"code": "read"}, {"code": "search-type"}]},
+                    {"type": "Patient", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "Observation", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "Condition", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
+                    {"type": "Encounter", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
                     {"type": "MedicationRequest", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
                     {"type": "AllergyIntolerance", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},
                     {"type": "DocumentReference", "interaction": [{"code": "read"}, {"code": "search-type"}, {"code": "create"}, {"code": "update"}]},

@@ -16,7 +16,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
               },
               "fullDescription": {
-                "text": "Critical BOLA confirmed: Caller scoped to Patient/P9661 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (3.75ms)."
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/P5805 read foreign compartment resource Patient/P114 (Quigley) with HTTP 200 OK (3.53ms)."
               },
               "properties": {
                 "tags": [
@@ -54,7 +54,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
               },
               "fullDescription": {
-                "text": "Cross-patient Observation leakage: Caller P9661 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (4.43ms)."
+                "text": "Cross-patient Observation leakage: Caller P5805 retrieved 10 clinical Observation resource(s) belonging to Victim Patient/P114 (3.03ms)."
               },
               "properties": {
                 "tags": [
@@ -67,13 +67,32 @@
               }
             },
             {
+              "id": "SLAINTE-BOLA-COND",
+              "name": "VEC_3_CONDITION_CHAIN",
+              "shortDescription": {
+                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-COND"
+              },
+              "fullDescription": {
+                "text": "Unauthorized Condition compartment access: Caller P5805 retrieved 1 Condition resource(s) for Victim P114."
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "fhir-r4",
+                  "CWE-639",
+                  "API1:2023"
+                ],
+                "security-severity": "7.5"
+              }
+            },
+            {
               "id": "SLAINTE-VAL-CRASH-004",
               "name": "VEC_6_VALIDATOR_GATE",
               "shortDescription": {
                 "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
               },
               "fullDescription": {
-                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-220' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-220') in 1.74ms."
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-802' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-802') in 1.82ms."
               },
               "properties": {
                 "tags": [
@@ -143,6 +162,25 @@
               }
             },
             {
+              "id": "SNOMED-SYS-001",
+              "name": "FHIR-Semantic-Conformance",
+              "shortDescription": {
+                "text": "FHIR R4 Semantic & Ontology Rule SNOMED-SYS-001"
+              },
+              "fullDescription": {
+                "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+              },
+              "properties": {
+                "tags": [
+                  "clinical-interoperability",
+                  "snomed-ct",
+                  "loinc",
+                  "ucum",
+                  "CWE-20"
+                ]
+              }
+            },
+            {
               "id": "CDS-CONTRAINDICATION-001",
               "name": "FHIR-Semantic-Conformance",
               "shortDescription": {
@@ -167,7 +205,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-11-07T12:22:08.155175+00:00"
+          "endTimeUtc": "2026-11-07T13:07:45.748279+00:00"
         }
       ],
       "results": [
@@ -175,20 +213,20 @@
           "ruleId": "SLAINTE-BOLA-001",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P9661 read foreign compartment resource Patient/patient-case-4 (Patel) with HTTP 200 OK (3.75ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Identity: P9661 -> Target: patient-case-4]`)"
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P5805 read foreign compartment resource Patient/P114 (Quigley) with HTTP 200 OK (3.53ms). (Reproduce: `GET /fhir/r4/Patient/P114 [Identity: P5805 -> Target: P114]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P114"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (Patient/P9661)",
-            "victim_resource": "Patient/patient-case-4",
+            "attacker_identity": "ID_PAT_A (Patient/P5805)",
+            "victim_resource": "Patient/P114",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -197,20 +235,20 @@
           "ruleId": "SLAINTE-CORS-002",
           "level": "error",
           "message": {
-            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/patient-case-4 [Origin: untrusted-origin, Allow-Credentials: true]`)"
+            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/P114 [Origin: untrusted-origin, Allow-Credentials: true]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-4"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P114"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P9661)",
-            "victim_resource": "Patient/patient-case-4",
+            "attacker_identity": "ID_PAT_A (P5805)",
+            "victim_resource": "Patient/P114",
             "cwe": "CWE-942",
             "owasp": "API8:2023"
           }
@@ -219,20 +257,42 @@
           "ruleId": "SLAINTE-BOLA-003",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P9661 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-4 (4.43ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-4&_include=* [Identity: P9661 -> Foreign Patient Reference]`)"
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P5805 retrieved 10 clinical Observation resource(s) belonging to Victim Patient/P114 (3.03ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/P114&_include=* [Identity: P5805 -> Foreign Patient Reference]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-4&_include=*"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/P114&_include=*"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P9661)",
-            "victim_resource": "Observation?patient=Patient/patient-case-4",
+            "attacker_identity": "ID_PAT_A (P5805)",
+            "victim_resource": "Observation?patient=Patient/P114",
+            "cwe": "CWE-639",
+            "owasp": "API1:2023"
+          }
+        },
+        {
+          "ruleId": "SLAINTE-BOLA-COND",
+          "level": "error",
+          "message": {
+            "text": "[HIGH] Unauthorized Condition compartment access: Caller P5805 retrieved 1 Condition resource(s) for Victim P114. (Reproduce: `GET /fhir/r4/Condition?patient=Patient/P114`)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Condition?patient=Patient/P114"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "attacker_identity": "ID_PAT_A (P5805)",
+            "victim_resource": "Condition?patient=Patient/P114",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -241,7 +301,7 @@
           "ruleId": "SLAINTE-VAL-CRASH-004",
           "level": "warning",
           "message": {
-            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-220' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-220') in 1.74ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-220 -> OperationOutcome 422]`)"
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-802' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-802') in 1.82ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-802 -> OperationOutcome 422]`)"
           },
           "locations": [
             {
@@ -253,8 +313,8 @@
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P9661)",
-            "victim_resource": "Patient/patient-redteam-220",
+            "attacker_identity": "ID_PAT_A (P5805)",
+            "victim_resource": "Patient/patient-redteam-802",
             "cwe": "CWE-755",
             "owasp": "API8:2023"
           }
@@ -1520,6 +1580,66 @@
           }
         },
         {
+          "ruleId": "SNOMED-SYS-001",
+          "level": "error",
+          "message": {
+            "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056421327"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056421327"
+          }
+        },
+        {
+          "ruleId": "SNOMED-SYS-001",
+          "level": "error",
+          "message": {
+            "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056470091"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056470091"
+          }
+        },
+        {
+          "ruleId": "SNOMED-SYS-001",
+          "level": "error",
+          "message": {
+            "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056529997"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_patient-case-1.json :: cond-hipe-patient-case-1-1794056529997"
+          }
+        },
+        {
           "ruleId": "CDS-CONTRAINDICATION-001",
           "level": "error",
           "message": {
@@ -1537,6 +1657,126 @@
           "properties": {
             "resource_type": "MedicationRequest",
             "resource_id": "bundle_patient-case-7.json :: medreq-case-7-coamoxiclav"
+          }
+        },
+        {
+          "ruleId": "SNOMED-SYS-001",
+          "level": "error",
+          "message": {
+            "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_pt-gms-7731044.json :: cond-hipe-pt-gms-7731044-1794056530802"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_pt-gms-7731044.json :: cond-hipe-pt-gms-7731044-1794056530802"
+          }
+        },
+        {
+          "ruleId": "SNOMED-FALLBACK-002",
+          "level": "warning",
+          "message": {
+            "text": "Condition/cond-pt-gms-8849201-4 uses generic fallback SNOMED CT code '404684003' ('Acute subendocardial myocardial infarction'), indicating an unmapped clinical complaint."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4"
+          }
+        },
+        {
+          "ruleId": "SNOMED-SYS-001",
+          "level": "error",
+          "message": {
+            "text": "Condition coding system must be 'http://snomed.info/sct', got 'http://hl7.org/fhir/sid/icd-10'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Condition/bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Condition",
+            "resource_id": "bundle_pt-gms-8849201.json :: cond-pt-gms-8849201-4"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-pt-gms-8849201-7-2139 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-2139"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-2139"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-pt-gms-8849201-7-7014 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-7014"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-7014"
+          }
+        },
+        {
+          "ruleId": "LOINC-DRIFT-001",
+          "level": "warning",
+          "message": {
+            "text": "Observation/obs-pt-gms-8849201-7-3004 uses pulse-oximetry SpO2 LOINC '59408-5', which conflicts with SlainteFHIR's strict '2708-6' validator map."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Observation/bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-3004"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "resource_type": "Observation",
+            "resource_id": "bundle_pt-gms-8849201.json :: obs-pt-gms-8849201-7-3004"
           }
         }
       ]
