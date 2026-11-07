@@ -52,3 +52,9 @@ data/raw/*
 # Docker / Logs
 *.log
 docker-compose.override.yml
+
+# Website / Next.js
+website/node_modules/
+website/.next/
+website/tsconfig.tsbuildinfo
+

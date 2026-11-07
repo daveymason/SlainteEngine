@@ -1,0 +1,39 @@
+# SlainteTech AI Security Labs — Sovereign Healthcare AI & HL7 FHIR R4 Platform
+
+> SlainteTech builds 11 autonomous clinical, governance, and cybersecurity health-tech agents governed by deterministic Python FastMCP guardrails on HL7 FHIR R4 across 8 responsive healthcare verticals (desktop, tablet, ambulance ePCR, and mobile care-at-home nursing).
+
+## Core Architectural Principle
+- **Zero Hallucinated Clinical Math**: Royal College of Physicians NEWS2 (0-20), Manchester Triage System (Cat 1-5), and 3-Tier Pharmacology (Allergy cross-reactivity, ISMP High-Alert DDI, LOINC eGFR & Potassium renal gating) execute 100% in deterministic Python FastMCP tools — never inside probabilistic LLM weights.
+- **Sovereign & Air-Gap Capable**: Runs locally on 3B quantized Ollama models alongside SlainteFHIR (:8082) and FastMCP (:8081), or connects via BAA-gated cloud providers with GDPR Art. 9 pre-inference PII redaction.
+
+## 8 Industry Verticals (`/verticals/<domain>/`)
+- [For Emergency Departments (SlainteED)](/verticals/emergency-departments/): Deterministic MTS Cat 1-5, 24h RCP NEWS2 sepsis tracking, 3-Tier Rx-Guard, and cited consultant shift handovers.
+- [For General Practitioners & Community Nursing (SlainteGP)](/verticals/general-practice/): Ambient Voice Scribe SOAP notes, HSE Chronic Disease Management, PCRS GMS export, and mobile smartphone/tablet UX for Care-at-Home Nurses.
+- [For Psychiatrists & Mental Health (SlaintePsych)](/verticals/psychiatry/): Structured MSE composer, LOINC PHQ-9 (44261-6) & GAD-7 (70274-6) tracking, psychotropic renal/DDI screening, and GDPR Art. 9 compartment isolation.
+- [For Dental Surgeons & DSOs (SlainteDent)](/verticals/dentistry/): Interactive 32-tooth FDI Odontogram (11-48), 6-sextant BPE charting, and chairside Penicillin/anticoagulant clearance.
+- [For Clinical & Community Pharmacies (SlaintePharm)](/verticals/pharmacy/): Risk-sorted dispensing queue, 3-Tier pharmacology verification, PSI Provenance sign-off, and HSE PCRS claim export.
+- [For Ambulance & Paramedic Services (SlainteEMS)](/verticals/ambulance-ems/): Glove-friendly 44px rugged tablet ePCR, sub-10ms MTS/NEWS2 acuity scoring, and 1-tap receiving ED FHIR R4 bundle push.
+- [For Elite Sports Clubs & Federations (SlainteSport)](/verticals/sports-medicine/): Squad physiological readiness, SCAT6 concussion SHA-256 Return-to-Play Provenance, TUE screening, and BOLA athlete privacy.
+- [For Astronaut & Aerospace Medicine (SlainteAstro)](/verticals/astronaut-health/): 100% air-gapped onboard autonomous medical bay running all 11 agents with zero Earth-cloud dependency.
+
+## 11 Autonomous Health-Tech Agents (`/health-tech-agents/<agent-real-name>/`)
+- [BOLA & Role-Boundary Red-Team Agent (SlainteShield-BOLA)](/health-tech-agents/bola-authorization-red-team-agent/)
+- [FHIR R4 Conformance & Terminology Agent (SlainteShield-FHIR)](/health-tech-agents/fhir-r4-conformance-terminology-agent/)
+- [Healthcare Supply-Chain & CVE Vulnerability Agent (SlainteShield-CVE)](/health-tech-agents/healthcare-cve-vulnerability-agent/)
+- [GDPR Art. 9 Clinical Privacy & De-Identification Agent (SlainteGov-GDPR)](/health-tech-agents/gdpr-clinical-privacy-deidentification-agent/)
+- [Immutable Clinical & AI Audit Ledger Agent (SlainteGov-Audit)](/health-tech-agents/immutable-clinical-ai-audit-agent/)
+- [Autonomous HIPE, ICD-10-AM & DRG Clinical Coding Agent (SlainteRev-Coding)](/health-tech-agents/autonomous-icd10-drg-clinical-coding-agent/)
+- [Multimodal & HL7v2-to-FHIR R4 Ingestion Agent (SlainteEngine-Ingest)](/health-tech-agents/multimodal-hl7v2-fhir-ingestion-agent/)
+- [Cited Clinical Handover Summariser Agent (SlainteScribe-Brief)](/health-tech-agents/cited-patient-handover-summariser-agent/)
+- [3-Tier Pharmacotherapy, Allergy & Renal Safety Agent (SlainteRx-Guard)](/health-tech-agents/pharmacotherapy-allergy-renal-safety-agent/)
+- [Manchester Triage & RCP NEWS2 Acuity Agent (SlainteDx-Triage)](/health-tech-agents/manchester-triage-news2-acuity-agent/)
+- [Ambient Clinical Voice Scribe & Order Drafter Agent (SlainteScribe-Voice)](/health-tech-agents/ambient-clinical-voice-scribe-agent/)
+
+## Company & Technical Pages
+- [Platform Architecture](/platform/)
+- [Security, NIS2, EU AI Act & GDPR Art. 9 Matrix](/security-compliance/)
+- [Commercial Pricing & Licensing](/pricing/)
+- [Investor Thesis & Defensibility](/investors/)
+- [Developer & SMART-on-FHIR v2 Documentation](/docs/)
+- [About SlainteTech](/about/)
+- [Contact & Hospital Pilot Booking](/contact/)

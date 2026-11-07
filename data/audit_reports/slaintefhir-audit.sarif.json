@@ -16,7 +16,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
               },
               "fullDescription": {
-                "text": "Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/pt-gms-7731044 (Byrne) with HTTP 200 OK (3.10ms)."
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/P106 read foreign compartment resource Patient/patient-case-5 (Gallagher) with HTTP 200 OK (6.06ms)."
               },
               "properties": {
                 "tags": [
@@ -35,7 +35,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
               },
               "fullDescription": {
-                "text": "Cross-patient Observation leakage: Caller P118 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/pt-gms-7731044 (4.22ms)."
+                "text": "Cross-patient Observation leakage: Caller P106 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-5 (8.43ms)."
               },
               "properties": {
                 "tags": [
@@ -54,7 +54,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-COND"
               },
               "fullDescription": {
-                "text": "Unauthorized Condition compartment access: Caller P118 retrieved 1 Condition resource(s) for Victim pt-gms-7731044."
+                "text": "Unauthorized Condition compartment access: Caller P106 retrieved 1 Condition resource(s) for Victim patient-case-5."
               },
               "properties": {
                 "tags": [
@@ -73,7 +73,7 @@
                 "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
               },
               "fullDescription": {
-                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-479' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-479') in 2.06ms."
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-852' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-852') in 2.22ms."
               },
               "properties": {
                 "tags": [
@@ -186,7 +186,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-11-07T16:05:14.022100+00:00"
+          "endTimeUtc": "2026-11-07T16:42:50.312628+00:00"
         }
       ],
       "results": [
@@ -194,20 +194,20 @@
           "ruleId": "SLAINTE-BOLA-001",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/pt-gms-7731044 (Byrne) with HTTP 200 OK (3.10ms). (Reproduce: `GET /fhir/r4/Patient/pt-gms-7731044 [Identity: P118 -> Target: pt-gms-7731044]`)"
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P106 read foreign compartment resource Patient/patient-case-5 (Gallagher) with HTTP 200 OK (6.06ms). (Reproduce: `GET /fhir/r4/Patient/patient-case-5 [Identity: P106 -> Target: patient-case-5]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/pt-gms-7731044"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/patient-case-5"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (Patient/P118)",
-            "victim_resource": "Patient/pt-gms-7731044",
+            "attacker_identity": "ID_PAT_A (Patient/P106)",
+            "victim_resource": "Patient/patient-case-5",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -216,20 +216,20 @@
           "ruleId": "SLAINTE-BOLA-003",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P118 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/pt-gms-7731044 (4.22ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/pt-gms-7731044&_include=* [Identity: P118 -> Foreign Patient Reference]`)"
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P106 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/patient-case-5 (8.43ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/patient-case-5&_include=* [Identity: P106 -> Foreign Patient Reference]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/pt-gms-7731044&_include=*"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/patient-case-5&_include=*"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Observation?patient=Patient/pt-gms-7731044",
+            "attacker_identity": "ID_PAT_A (P106)",
+            "victim_resource": "Observation?patient=Patient/patient-case-5",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -238,20 +238,20 @@
           "ruleId": "SLAINTE-BOLA-COND",
           "level": "error",
           "message": {
-            "text": "[HIGH] Unauthorized Condition compartment access: Caller P118 retrieved 1 Condition resource(s) for Victim pt-gms-7731044. (Reproduce: `GET /fhir/r4/Condition?patient=Patient/pt-gms-7731044`)"
+            "text": "[HIGH] Unauthorized Condition compartment access: Caller P106 retrieved 1 Condition resource(s) for Victim patient-case-5. (Reproduce: `GET /fhir/r4/Condition?patient=Patient/patient-case-5`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Condition?patient=Patient/pt-gms-7731044"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Condition?patient=Patient/patient-case-5"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Condition?patient=Patient/pt-gms-7731044",
+            "attacker_identity": "ID_PAT_A (P106)",
+            "victim_resource": "Condition?patient=Patient/patient-case-5",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -260,7 +260,7 @@
           "ruleId": "SLAINTE-VAL-CRASH-004",
           "level": "warning",
           "message": {
-            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-479' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-479') in 2.06ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-479 -> OperationOutcome 422]`)"
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-852' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-852') in 2.22ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-852 -> OperationOutcome 422]`)"
           },
           "locations": [
             {
@@ -272,8 +272,8 @@
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P118)",
-            "victim_resource": "Patient/patient-redteam-479",
+            "attacker_identity": "ID_PAT_A (P106)",
+            "victim_resource": "Patient/patient-redteam-852",
             "cwe": "CWE-755",
             "owasp": "API8:2023"
           }
