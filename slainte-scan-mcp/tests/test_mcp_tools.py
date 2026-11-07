@@ -3,15 +3,37 @@ import unittest
 import os
 import json
 import sys
+import importlib.util
 
-# Ensure src is in python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# Ensure slainte-scan-mcp root is in python path with isolated imports
+_MCP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if _MCP_ROOT not in sys.path:
+    sys.path.insert(0, _MCP_ROOT)
 
-from src.clinical_rules import calculate_mts_category, get_mts_details
-from src.terminology import resolve_terminology
-from src.schema_scanner import scan_clinical_schema
-from src.fhir_ie_core import generate_fhir_bundle, IRISH_GMS_OID
-from src.fhir_validator import validate_fhir_resource
+def _load_tool_module(module_name):
+    mod_path = os.path.join(_MCP_ROOT, "src", f"{module_name}.py")
+    spec = importlib.util.spec_from_file_location(f"slainte_scan_mcp.{module_name}", mod_path)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[f"slainte_scan_mcp.{module_name}"] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+_clinical_rules = _load_tool_module("clinical_rules")
+calculate_mts_category = _clinical_rules.calculate_mts_category
+get_mts_details = _clinical_rules.get_mts_details
+
+_terminology = _load_tool_module("terminology")
+resolve_terminology = _terminology.resolve_terminology
+
+_schema_scanner = _load_tool_module("schema_scanner")
+scan_clinical_schema = _schema_scanner.scan_clinical_schema
+
+_fhir_ie_core = _load_tool_module("fhir_ie_core")
+generate_fhir_bundle = _fhir_ie_core.generate_fhir_bundle
+IRISH_GMS_OID = _fhir_ie_core.IRISH_GMS_OID
+
+_fhir_validator = _load_tool_module("fhir_validator")
+validate_fhir_resource = _fhir_validator.validate_fhir_resource
 
 class TestClinicalRules(unittest.TestCase):
     def test_category_1_immediate(self):

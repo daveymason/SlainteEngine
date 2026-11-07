@@ -50,9 +50,15 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+cors_origins_env = os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:8000,http://127.0.0.1:8000,http://localhost:5000,http://127.0.0.1:5000,http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001"
+)
+cors_origins = [o.strip() for o in cors_origins_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -255,6 +261,21 @@ async def get_patient(patient_id: str):
         )
     return patient
 
+@app.get("/fhir/r4/Patient/{patient_id}/$everything")
+async def patient_everything(patient_id: str):
+    """HL7 FHIR R4 $everything operation: returns patient compartment resources as a Bundle."""
+    patient = await db.get_resource("Patient", patient_id)
+    if not patient:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"Patient/{patient_id} not found")
+        )
+    resources = [patient]
+    for rtype in ["Observation", "Condition", "MedicationRequest", "AllergyIntolerance", "Encounter", "DocumentReference", "Provenance"]:
+        entries = await db.query_resources(rtype, patient_ref=patient_id, limit=200)
+        resources.extend(entries)
+    return create_bundle_searchset(resources, total=len(resources))
+
 # =============================================================================
 # 3. OBSERVATION & CLINICAL ENDPOINTS
 # =============================================================================
@@ -277,6 +298,11 @@ async def search_observations(
             "8480-6", "8462-4", "85354-9", "55284-4", "8867-4",
             "59408-5", "2708-6", "9279-1", "8310-5", "72514-3", "9269-2"
         }
+        survey_or_exam_loincs = {
+            "44261-6",  # PHQ-9
+            "70274-6",  # GAD-7
+            "75540-5",  # Manchester Triage System
+        }
         filtered_by_cat = []
         for o in obs_list:
             cats = o.get("category", [])
@@ -291,12 +317,17 @@ async def search_observations(
                 if isinstance(c, dict) and c.get("code")
             }
             is_vital = bool(obs_loincs & vital_loincs)
+            obs_id = str(o.get("id", ""))
             if cat_target in cat_codes:
                 filtered_by_cat.append(o)
             elif not cat_codes:
                 if cat_target == "vital-signs" and is_vital:
                     filtered_by_cat.append(o)
-                elif cat_target == "laboratory" and not is_vital and "75540-5" not in obs_loincs:
+                elif cat_target == "laboratory" and not is_vital and not (obs_loincs & survey_or_exam_loincs) and not obs_id.startswith("obs-dental") and not obs_id.startswith("obs-psych"):
+                    filtered_by_cat.append(o)
+                elif cat_target == "survey" and (obs_loincs & survey_or_exam_loincs or obs_id.startswith("obs-psych")):
+                    filtered_by_cat.append(o)
+                elif cat_target == "exam" and obs_id.startswith("obs-dental"):
                     filtered_by_cat.append(o)
         obs_list = filtered_by_cat
 
@@ -458,9 +489,63 @@ async def get_observation(obs_id: str):
         )
     return obs
 
+@app.get("/fhir/r4/AuditEvent")
+async def search_audit_events(
+    patient: Optional[str] = Query(None),
+    subject: Optional[str] = Query(None),
+    _count: Optional[int] = Query(None),
+    limit: int = Query(50, le=200)
+):
+    patient_ref = patient or subject
+    effective_limit = _count if _count is not None else limit
+    events = await db.query_resources("AuditEvent", patient_ref=patient_ref, limit=effective_limit)
+    return create_bundle_searchset(events)
+
+@app.get("/fhir/r4/AuditEvent/{event_id}")
+async def get_audit_event(event_id: str):
+    evt = await db.get_resource("AuditEvent", event_id)
+    if not evt:
+        return JSONResponse(
+            status_code=status.HTTP_404_NOT_FOUND,
+            content=create_operation_outcome("error", "not-found", f"AuditEvent/{event_id} not found")
+        )
+    return evt
+
+@app.get("/fhir/r4/Subscription")
+async def search_subscriptions(
+    _count: Optional[int] = Query(None),
+    limit: int = Query(50, le=200)
+):
+    effective_limit = _count if _count is not None else limit
+    subs = await db.query_resources("Subscription", limit=effective_limit)
+    return create_bundle_searchset(subs)
+
+@app.get("/fhir/r4/CompartmentDefinition/Patient")
+async def get_patient_compartment_definition():
+    """HL7 FHIR R4 CompartmentDefinition for Patient."""
+    return {
+        "resourceType": "CompartmentDefinition",
+        "id": "patient",
+        "url": "http://hl7.org/fhir/CompartmentDefinition/patient",
+        "name": "PatientCompartment",
+        "status": "active",
+        "code": "Patient",
+        "search": True,
+        "resource": [
+            {"code": "Observation", "param": ["subject", "patient"]},
+            {"code": "Condition", "param": ["subject", "patient"]},
+            {"code": "MedicationRequest", "param": ["subject", "patient"]},
+            {"code": "AllergyIntolerance", "param": ["patient"]},
+            {"code": "Encounter", "param": ["subject", "patient"]},
+            {"code": "DocumentReference", "param": ["subject", "patient"]},
+            {"code": "Provenance", "param": ["target"]},
+        ]
+    }
+
 SUPPORTED_MUTABLE_RESOURCES = {
     "Patient", "Encounter", "Condition", "Observation",
-    "MedicationRequest", "AllergyIntolerance", "DocumentReference", "Provenance"
+    "MedicationRequest", "AllergyIntolerance", "DocumentReference", "Provenance",
+    "AuditEvent", "Subscription"
 }
 
 @app.post("/fhir/r4/{resource_type}", status_code=status.HTTP_201_CREATED)

@@ -16,7 +16,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-001"
               },
               "fullDescription": {
-                "text": "Critical BOLA confirmed: Caller scoped to Patient/P105 read foreign compartment resource Patient/P103 (Kelly) with HTTP 200 OK (3.31ms)."
+                "text": "Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/pt-gms-7731044 (Byrne) with HTTP 200 OK (3.10ms)."
               },
               "properties": {
                 "tags": [
@@ -26,25 +26,6 @@
                   "API1:2023"
                 ],
                 "security-severity": "9.1"
-              }
-            },
-            {
-              "id": "SLAINTE-CORS-002",
-              "name": "VEC_1_DIRECT_BOLA",
-              "shortDescription": {
-                "text": "API8:2023 / CWE-942: SLAINTE-CORS-002"
-              },
-              "fullDescription": {
-                "text": "Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint."
-              },
-              "properties": {
-                "tags": [
-                  "security",
-                  "fhir-r4",
-                  "CWE-942",
-                  "API8:2023"
-                ],
-                "security-severity": "7.5"
               }
             },
             {
@@ -54,7 +35,7 @@
                 "text": "API1:2023 / CWE-639: SLAINTE-BOLA-003"
               },
               "fullDescription": {
-                "text": "Cross-patient Observation leakage: Caller P105 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/P103 (3.76ms)."
+                "text": "Cross-patient Observation leakage: Caller P118 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/pt-gms-7731044 (4.22ms)."
               },
               "properties": {
                 "tags": [
@@ -67,13 +48,13 @@
               }
             },
             {
-              "id": "SLAINTE-BOLA-ENCO",
-              "name": "VEC_3_ENCOUNTER_CHAIN",
+              "id": "SLAINTE-BOLA-COND",
+              "name": "VEC_3_CONDITION_CHAIN",
               "shortDescription": {
-                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-ENCO"
+                "text": "API1:2023 / CWE-639: SLAINTE-BOLA-COND"
               },
               "fullDescription": {
-                "text": "Unauthorized Encounter compartment access: Caller P105 retrieved 1 Encounter resource(s) for Victim P103."
+                "text": "Unauthorized Condition compartment access: Caller P118 retrieved 1 Condition resource(s) for Victim pt-gms-7731044."
               },
               "properties": {
                 "tags": [
@@ -92,7 +73,7 @@
                 "text": "API8:2023 / CWE-755: SLAINTE-VAL-CRASH-004"
               },
               "fullDescription": {
-                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-108' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-108') in 1.61ms."
+                "text": "Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-479' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-479') in 2.06ms."
               },
               "properties": {
                 "tags": [
@@ -205,7 +186,7 @@
       "invocations": [
         {
           "executionSuccessful": true,
-          "endTimeUtc": "2026-11-07T14:22:57.707761+00:00"
+          "endTimeUtc": "2026-11-07T16:05:14.022100+00:00"
         }
       ],
       "results": [
@@ -213,86 +194,64 @@
           "ruleId": "SLAINTE-BOLA-001",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P105 read foreign compartment resource Patient/P103 (Kelly) with HTTP 200 OK (3.31ms). (Reproduce: `GET /fhir/r4/Patient/P103 [Identity: P105 -> Target: P103]`)"
+            "text": "[CRITICAL] Critical BOLA confirmed: Caller scoped to Patient/P118 read foreign compartment resource Patient/pt-gms-7731044 (Byrne) with HTTP 200 OK (3.10ms). (Reproduce: `GET /fhir/r4/Patient/pt-gms-7731044 [Identity: P118 -> Target: pt-gms-7731044]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P103"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/pt-gms-7731044"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (Patient/P105)",
-            "victim_resource": "Patient/P103",
+            "attacker_identity": "ID_PAT_A (Patient/P118)",
+            "victim_resource": "Patient/pt-gms-7731044",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
-          }
-        },
-        {
-          "ruleId": "SLAINTE-CORS-002",
-          "level": "error",
-          "message": {
-            "text": "[HIGH] Permissive CORS policy reflects Origin 'https://malicious-third-party.example' with Access-Control-Allow-Credentials: true on clinical FHIR endpoint. (Reproduce: `GET /fhir/r4/Patient/P103 [Origin: untrusted-origin, Allow-Credentials: true]`)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Patient/P103"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "attacker_identity": "ID_PAT_A (P105)",
-            "victim_resource": "Patient/P103",
-            "cwe": "CWE-942",
-            "owasp": "API8:2023"
           }
         },
         {
           "ruleId": "SLAINTE-BOLA-003",
           "level": "error",
           "message": {
-            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P105 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/P103 (3.76ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/P103&_include=* [Identity: P105 -> Foreign Patient Reference]`)"
+            "text": "[CRITICAL] Cross-patient Observation leakage: Caller P118 retrieved 12 clinical Observation resource(s) belonging to Victim Patient/pt-gms-7731044 (4.22ms). (Reproduce: `GET /fhir/r4/Observation?patient=Patient/pt-gms-7731044&_include=* [Identity: P118 -> Foreign Patient Reference]`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/P103&_include=*"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Observation?patient=Patient/pt-gms-7731044&_include=*"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P105)",
-            "victim_resource": "Observation?patient=Patient/P103",
+            "attacker_identity": "ID_PAT_A (P118)",
+            "victim_resource": "Observation?patient=Patient/pt-gms-7731044",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
         },
         {
-          "ruleId": "SLAINTE-BOLA-ENCO",
+          "ruleId": "SLAINTE-BOLA-COND",
           "level": "error",
           "message": {
-            "text": "[HIGH] Unauthorized Encounter compartment access: Caller P105 retrieved 1 Encounter resource(s) for Victim P103. (Reproduce: `GET /fhir/r4/Encounter?patient=Patient/P103`)"
+            "text": "[HIGH] Unauthorized Condition compartment access: Caller P118 retrieved 1 Condition resource(s) for Victim pt-gms-7731044. (Reproduce: `GET /fhir/r4/Condition?patient=Patient/pt-gms-7731044`)"
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "http://slainte-fhir:8082/fhir/r4/Encounter?patient=Patient/P103"
+                  "uri": "http://slainte-fhir:8082/fhir/r4/Condition?patient=Patient/pt-gms-7731044"
                 }
               }
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P105)",
-            "victim_resource": "Encounter?patient=Patient/P103",
+            "attacker_identity": "ID_PAT_A (P118)",
+            "victim_resource": "Condition?patient=Patient/pt-gms-7731044",
             "cwe": "CWE-639",
             "owasp": "API1:2023"
           }
@@ -301,7 +260,7 @@
           "ruleId": "SLAINTE-VAL-CRASH-004",
           "level": "warning",
           "message": {
-            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-108' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-108') in 1.61ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-108 -> OperationOutcome 422]`)"
+            "text": "[MEDIUM] Hardcoded cohort lookup KeyError in verification_engine.py: validating syntactically valid FHIR R4 bundle with Patient.id='patient-redteam-479' outside EXPECTED_COHORT_SCORES ('patient-case-1'..'patient-case-8') raises an unhandled KeyError ('patient-redteam-479') in 2.06ms. (Reproduce: `POST /fhir/r4/$validate [Patient.id: patient-redteam-479 -> OperationOutcome 422]`)"
           },
           "locations": [
             {
@@ -313,8 +272,8 @@
             }
           ],
           "properties": {
-            "attacker_identity": "ID_PAT_A (P105)",
-            "victim_resource": "Patient/patient-redteam-108",
+            "attacker_identity": "ID_PAT_A (P118)",
+            "victim_resource": "Patient/patient-redteam-479",
             "cwe": "CWE-755",
             "owasp": "API8:2023"
           }
