@@ -164,8 +164,33 @@ services:
       slainte-mcp:
         condition: service_healthy
 
+  # ---------------------------------------------------------------------------
+  # 6. Slainte-Ingress: Caddy 2 Automated TLS Reverse Proxy
+  # ---------------------------------------------------------------------------
+  slainte-ingress:
+    image: caddy:2-alpine
+    container_name: slainte-ingress
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./website/public-site:/srv/website/public-site:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - slainte-net
+    depends_on:
+      slainte-dashboard:
+        condition: service_healthy
+      slainte-fhir:
+        condition: service_healthy
+
 volumes:
   dashboard-data:
+  caddy-data:
+  caddy-config:
 
 networks:
   slainte-net:

@@ -1,0 +1,109 @@
+{
+	admin off
+}
+
+# ---------------------------------------------------------------------------
+# HTTP Ingress (:80)
+# ---------------------------------------------------------------------------
+:80 {
+	encode zstd gzip
+
+	# 1. Autonomous Clinical FHIR R4 Server API
+	handle /fhir/r4* {
+		reverse_proxy slainte-fhir:8082 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
+	# 2. Public Marketing, Investor & Spec Site
+	handle /site* {
+		uri strip_prefix /site
+		root * /srv/website/public-site
+		file_server
+		try_files {path} {path}/ {path}.html /index.html
+	}
+
+	# 3. Slainte-Scan-MCP Server SSE Streaming
+	handle /mcp* {
+		uri strip_prefix /mcp
+		reverse_proxy slainte-mcp:8081 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+			flush_interval -1
+		}
+	}
+
+	# 4. Slainte Clinical Dashboard (HTMX + Flask)
+	handle {
+		reverse_proxy slainte-dashboard:8000 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+			header_up Connection {>Connection}
+			header_up Upgrade {>Upgrade}
+		}
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}
+
+# ---------------------------------------------------------------------------
+# HTTPS Ingress with Automated TLS (:443)
+# ---------------------------------------------------------------------------
+:443 {
+	tls internal
+
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+
+	# 1. Autonomous Clinical FHIR R4 Server API
+	handle /fhir/r4* {
+		reverse_proxy slainte-fhir:8082 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
+	# 2. Public Marketing, Investor & Spec Site
+	handle /site* {
+		uri strip_prefix /site
+		root * /srv/website/public-site
+		file_server
+		try_files {path} {path}/ {path}.html /index.html
+	}
+
+	# 3. Slainte-Scan-MCP Server SSE Streaming
+	handle /mcp* {
+		uri strip_prefix /mcp
+		reverse_proxy slainte-mcp:8081 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+			flush_interval -1
+		}
+	}
+
+	# 4. Slainte Clinical Dashboard (HTMX + Flask)
+	handle {
+		reverse_proxy slainte-dashboard:8000 {
+			header_up Host {upstream_hostport}
+			header_up X-Real-IP {remote_host}
+			header_up Connection {>Connection}
+			header_up Upgrade {>Upgrade}
+		}
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}
