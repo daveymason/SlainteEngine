@@ -2,7 +2,7 @@
 
 **Audit Date:** November 2026  
 **Audited Monorepo:** `/home/adman-voids/Desktop/Code/slainte-engine`  
-**Automated Verification Status:** `347 / 347` passing `pytest` tests (`329` frontend + `6` auditor + `12` FastMCP) + live end-to-end HTTP verification across `slainte-dashboard:8000`, `slainte-fhir:8082`, and `slainte-mcp:8081`.
+**Automated Verification Status:** `348 / 348` passing `pytest` tests (`330` frontend + `6` auditor + `12` FastMCP) + live end-to-end HTTP verification across `slainte-dashboard:8000`, `slainte-fhir:8082`, `slainte-mcp:8081`, and `33/33` Next.js + MUI static pages in `SlaintePages`.
 
 ---
 
@@ -15,12 +15,13 @@ All items in **Step 1.5 (Buckets A, B, and C)** have been implemented end-to-end
    - **Physiological Vital Signs Entry + Live NEWS2 Recalculation** (`POST /fhir/VitalSigns/<id>/add` & `GET /fhir/News2Card/<id>`): Persists LOINC/UCUM `Observation`s (`8480-6`, `8462-4`, `8867-4`, `59408-5`, `9279-1`, `8310-5`, `72514-3`) and emits `HX-Trigger: vitalsUpdated` to dynamically refresh both Vital Signs charts and the 24-hour RCP NEWS2 deterioration sparkline.
    - **Problem List & Allergy Recording** (`POST /fhir/Conditions/<id>/add`, `/status`, & `POST /fhir/Allergies/<id>/add`): SNOMED-CT diagnosis and allergen pickers with active/resolved lifecycle controls.
    - **Structured Clinical Consultation & Handover Notes** (`GET/POST /fhir/Notes/<id>`): Persists base64-encoded HL7 FHIR R4 `DocumentReference` resources (`SOAP`, `ED Handover`, `Dental Operative`, `Pharmacist Intervention`, `Flight Surgeon / Sports Clearance`).
-2. **Bucket B — Interactive Specialty Workspaces Across All 7 Vertical Cockpits (`GET /fhir/CockpitWorkspace`):**
+2. **Bucket B — Interactive Specialty Workspaces Across All 8 Clinical Verticals (`GET /fhir/VerticalWorkspace`):**
    - **`SlainteDent`:** Interactive **32-Tooth FDI Odontogram (11–48)** + **6-Sextant BPE Periodontal Scorer (`0–4*`)** + Pre-Op Antibiotic/Anticoagulant safety banner persisted to FHIR R4 (`Observation/obs-dental-chart-<id>`).
    - **`SlaintePharm`:** Cohort-wide **Clinical Prescription Dispensing Queue** with live `SlainteRx-Guard` cross-reactivity screening, Irish GMS verification, and 1-click **Dispense Verified** / **Hold Rx** / **Re-Queue** actions.
    - **`SlainteGP`:** **HSE Chronic Disease Management (CDM) & SOAP Consultation Workspace** with biomarker strip, structured `S/O/A/P` + clinic BP filing, and 1-click **28-Day Repeat Prescription** renewal.
    - **`SlainteEMS` & `SlainteED`:** **Rapid Field ePCR & Resuscitation Pre-Alert Console** computing deterministic MTS Cat 1–5 + NEWS2 acuity and pushing full FHIR R4 `Bundle`s to the receiving ED.
    - **`SlainteSport` & `SlainteAstro`:** **Squad Readiness / Crew Bio-Telemetry Clearance Board** with 1-click cryptographic **SCAT6 Return-to-Play / EVA Flight Surgeon (`Provenance`)** sign-off.
+   - **`SlaintePsych`:** **Psychiatry & Community Mental Health MSE + LOINC Scales Workspace** persisting `PHQ-9` (`44261-6`), `GAD-7` (`70274-6`), structured MSE `DocumentReference`s, and 3-Tier psychotropic/renal safety checks.
 3. **Bucket C — Workstation UI Cleanup & Global Display Preferences:**
    - Redesigned `patient_details.html` (compact clinical banner, square monogram, zero redundant `"View ..."` buttons, flush single-border clinical tables).
    - Wired real browser-persisted Display Preferences (`100%/115%/130%` clinical font scaling, WCAG High-Contrast Priority Mode, and `5s/15s/30s/manual` HTMX triage polling) in `static/htmx-setup.js` and `static/styles.css`.
@@ -35,7 +36,7 @@ All items in **Step 1.5 (Buckets A, B, and C)** have been implemented end-to-end
 
 | Service / Directory | Runtime & Port | Responsibility | Code Quality Assessment |
 | :--- | :--- | :--- | :--- |
-| `frontend/` (`SlainteDash`) | Python 3.12 + Flask 3.1.3 + Gunicorn 26.2.0 (`:8000`) | Server-rendered HTMX clinical workstation, 7 vertical cockpits, 11 agent command dashboards, SMART-on-FHIR v2 / OIDC SSO, granular clinical RBAC + Break-the-Glass, SIEM & audit ledger (`enterprise_bp.py` + `enterprise_engine.py`) | **Strong** clinical safety separation and modular `enterprise_bp` Blueprint separation. |
+| `frontend/` (`SlainteDash`) | Python 3.12 + Flask 3.1.3 + Gunicorn 26.2.0 (`:8000`) | Responsive HTMX clinical workstation (desktop, tablet & mobile home-care), 8 clinical verticals, 11 agent command dashboards, SMART-on-FHIR v2 / OIDC SSO, granular clinical RBAC + Break-the-Glass, SIEM & audit ledger (`enterprise_bp.py` + `enterprise_engine.py`) | **Strong** clinical safety separation and modular `enterprise_bp` Blueprint separation. |
 | `slainte-fhir/` (`SlainteFHIR`) | Python 3.12 + FastAPI + `aiosqlite` WAL (`127.0.0.1:8082`) | Sovereign HL7 FHIR R4 Micro-EHR v1.2.0 (`/.well-known/smart-configuration`, `Patient`, `Observation`, `Condition`, `MedicationRequest`, `AllergyIntolerance`, `DocumentReference`, `Provenance`, `$validate`) | **Clean, fast, asynchronous.** Supports SMART v2 discovery, `GET`, `POST`, `PUT`, compartment pruning, and `$validate`; PostgreSQL 16 RLS schema ready in `deploy/postgres_rls_schema.sql`. |
 | `slainte-scan-mcp/` (`SlainteScan`) | Python 3.12 + FastMCP SSE (`127.0.0.1:8081`) | Deterministic clinical rules engine (RCP NEWS2, Manchester Triage Cat 1–5, SNOMED/LOINC/UCUM validation, drug-allergy cross-reactivity) | **Architectural highlight:** Prevents LLM math/clinical hallucinations; clean repo tree with pinned dependencies. |
 | `slainte-auditor/` (`SlainteShield`) | Python 3.12 Autonomous Verifier | 4-stage BOLA reflection agent (`SharedAuditMemory`), terminology conformance scanner, OASIS SARIF v2.1.0 generator | **Strong differentiation:** Dual-phase HTTP BOLA probing + RFC 1918 sandbox target guardrails. |
@@ -47,7 +48,7 @@ During this stopgap review, **two real runtime synchronization bugs were caught 
 - *Fixed during audit:* `run.sh` startup banner still printed the deprecated `/?view=/pipeline/status` URL; updated to `/agents` and `/fhir/r4/metadata`.
 
 **Remaining Code Maintenance Items:**
-1. **Modularize `frontend/app.py` (~3,680 LOC) into Flask Blueprints:** Split `app.py` into `blueprints/auth.py`, `blueprints/patients.py`, `blueprints/cockpits.py`, `blueprints/agents.py`, `blueprints/intake.py`, and `blueprints/settings.py`.
+1. **Modularize `frontend/app.py` (~3,750 LOC) into Flask Blueprints:** Split `app.py` into `blueprints/auth.py`, `blueprints/patients.py`, `blueprints/verticals.py`, `blueprints/agents.py`, `blueprints/intake.py`, and `blueprints/settings.py`.
 2. **Pin Exact Versions Across All Microservices:** `frontend/requirements.txt` uses strict `==` pins, whereas `slainte-fhir/requirements.txt` and `slainte-scan-mcp/requirements.txt` use `>=` floating bounds (`fastapi>=0.110.0`, `fastmcp>=0.1.0`). Freeze exact hashes (`pip-compile --generate-hashes`) for reproducible supply-chain builds.
 3. **Remove Scratch Files in `slainte-scan-mcp/`:** Delete `scratch.py`, `test_fastmcp_types.py`, `test_genai.py`, `test_image.py`, and `test_list_tools*.py` from root of `slainte-scan-mcp/` (already excluded from Docker image via `COPY src/ ./src/`, but cluttering the repo).
 4. **Workspace Consolidation:** `/home/adman-voids/Desktop/Code/SlainteDash` is a symlink to `Patient-Dashboard-htmx-python-fhir`, while `slainte-engine/frontend/` is the integrated monorepo copy. Treat `slainte-engine` as the single canonical repository going forward to eliminate manual `rsync` drift.
@@ -153,12 +154,12 @@ When handing `Slainte-Engine` over to an acquirer, strategic health-tech buyer, 
 4. **Architecture & Cryptographic Custody Handover:**
    - Rotate all `.env` keys, Docker Hub / GHCR container registry tokens, domain DNS records, and hand over the `Operator Runbook` (Section 4 above).
 5. **90-Day Knowledge Transfer & Pilot Playbook:**
-   - Walkthrough of adding a new vertical cockpit (`frontend/verticals.py` + `templates/cockpit_workspace.html`) and registering a new autonomous agent (`frontend/agents_catalog.py` + `slainte-scan-mcp/src/`).
+   - Walkthrough of adding a new clinical vertical (`frontend/verticals.py` + `templates/cockpit_workspace.html`) and registering a new autonomous agent (`frontend/agents_catalog.py` + `slainte-scan-mcp/src/`).
 
 ### 5.2 How to Actually Implement This in a Real Hospital, GP Group, or Clinic
 Hospitals and clinics **do not rip-and-replace** their core PAS/EHR on Day 1. You deploy `Slainte-Engine` in one of two proven clinical topologies:
 
-#### Mode 1: "Sidecar AI Governance & Specialty Cockpit Overlay" (For Hospitals Already Running Epic, Cerner/Oracle, MEDITECH, or HSE PAS)
+#### Mode 1: "Sidecar AI Governance & Specialty Vertical Overlay" (For Hospitals Already Running Epic, Cerner/Oracle, MEDITECH, or HSE PAS)
 1. **Network Placement:** Deploy `Slainte-Engine` on a dedicated Ubuntu VM (or Kubernetes namespace) inside the hospital's internal clinical VLAN behind an Nginx/Caddy TLS 1.3 ingress, paired with an on-premise Ollama GPU server so **zero PHI leaves the hospital perimeter**.
 2. **EHR Integration (`FHIR_SERVER_URL` + Mirth Connect):**
    - If the hospital exposes an HL7 FHIR R4 endpoint (Epic FHIR / Cerner Ignite / Azure Health Data Services), point `/settings/data` (`FHIR_SERVER_URL`) at the hospital's FHIR R4 endpoint with OAuth2 client credentials.
@@ -184,8 +185,8 @@ All Pre-Phase-12 hardening items and all 7 Killer Enterprise Features have been 
    - [x] Bound internal ports `8081` and `8082` to `127.0.0.1` in `docker-compose.yml` and updated `run.sh` to auto-generate cryptographic `SECRET_KEY` and `LOG_HASH_SALT` values on initial `.env` creation.
 2. **Step 1.6 (Phase 11.5) 7 Killer Enterprise Features — ✅ COMPLETED (`347/347` Tests + Live Docker HTTP Verified):**
    - [x] Expanded platform from 9 to **11 Autonomous Agents** (`Agent 10: SlainteScribe-Voice` + `Agent 11: SlainteRev-Coding`) and verified all 7 enterprise capabilities end-to-end.
-3. **Next Immediate Milestone — Phase 12 (`SlaintePages`):**
-   - [ ] Build `/home/adman-voids/Desktop/Code/SlaintePages` showcasing the **11-Agent Enterprise Platform**, **7 Role-Adaptive Specialty Cockpits**, **3-Tier `SlainteRx-Guard`**, **SMART-on-FHIR v2 + Hospital SSO**, and **Zero-Hallucination FastMCP Guardrails**.
+3. **Phase 12 (`SlaintePages`) — ✅ COMPLETED:**
+   - [x] Built `/home/adman-voids/Desktop/Code/SlaintePages` (Next.js 15 + `@mui/material` v6 static export synced to `public-site/`) showcasing all **11 Health-Tech Agents (`/health-tech-agents/<agent-real-name>/`)**, **8 Unique Industry Verticals (`/verticals/<domain>/`)**, **3-Tier `SlainteRx-Guard`**, **SMART-on-FHIR v2 + Hospital SSO**, and **WCAG 2.2 AA Responsive Mobile/Tablet UX**.
 
 ---
 
