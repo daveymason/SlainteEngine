@@ -10,6 +10,9 @@ from agents.governance.immutable_audit import (
     build_signed_audit_snapshot,
 )
 
+from agents.governance.onboarding import ClinicOnboardingAgent
+from agents.governance.nis2_compliance import Nis2ComplianceAgent
+
 __all__ = [
     "BolaRedTeamAgent",
     "FhirConformanceAgent",
@@ -21,4 +24,6 @@ __all__ = [
     "run_immutable_audit_scan",
     "verify_sqlite_immutability_live",
     "build_signed_audit_snapshot",
+    "ClinicOnboardingAgent",
+    "Nis2ComplianceAgent",
 ]

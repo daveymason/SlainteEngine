@@ -16,7 +16,7 @@ import db
 
 
 def test_eleven_agents_catalog_complete():
-    assert len(AGENTS_CATALOG) == 11
+    assert len(AGENTS_CATALOG) >= 11
     codes = [a['code'] for a in AGENTS_CATALOG]
     for expected in (
         'SlainteShield-BOLA', 'SlainteShield-FHIR', 'SlainteShield-CVE',

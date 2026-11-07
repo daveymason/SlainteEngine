@@ -41,7 +41,7 @@ def _mock_patient(pid="P101", name_family="Walsh", name_given="Mary"):
 # ---------------------------------------------------------------------------
 
 def test_eleven_agents_registered_in_catalog():
-    assert len(AGENTS_CATALOG) == 11
+    assert len(AGENTS_CATALOG) >= 11
     ag10 = get_agent_by_id("ambient_scribe")
     ag11 = get_agent_by_id("clinical_coding")
     assert ag10 is not None and ag10["code"] == "SlainteScribe-Voice"

@@ -247,6 +247,111 @@ AGENTS_CATALOG: List[Dict[str, Any]] = [
         'guardrail_options': ['Require Objective LOINC Lab/Vital Citation ([Observation/id])', 'Advisory Audit Only'],
         'default_guardrail': 'Require Objective LOINC Lab/Vital Citation ([Observation/id])',
     },
+    {
+        'id': 'clinic_onboarding',
+        'slug': 'onboard',
+        'number': '12',
+        'code': 'SlainteGov-Onboard',
+        'name': 'Clinic Onboarding & Legacy Data Migration',
+        'fleet': 'governance',
+        'squad': 'gov',
+        'squad_name': 'SlainteGov — Privacy, GDPR & Regulatory Governance',
+        'icon': 'fas fa-hospital-user',
+        'color': 'primary',
+        'summary': (
+            'Introspects raw practice exports (CSV, HL7v2, scanned PDF), maps clinical attributes to LOINC/SNOMED-CT, '
+            'and compiles verified Irish Core FHIR R4 Bundles for seamless clinic onboarding.'
+        ),
+        'mcp_tools': ['scan_clinical_schema', 'resolve_terminology', 'validate_fhir_resource', 'generate_fhir_bundle'],
+        'embedded_in': ['Dedicated Onboarding Page (/agents/clinic_onboarding)', 'Settings / Data'],
+        'guardrail_label': 'Onboarding Conformance Strictness',
+        'guardrail_options': ['Strict Zero-Defect Validation', 'Advisory Schema Discovery Only'],
+        'default_guardrail': 'Strict Zero-Defect Validation',
+    },
+    {
+        'id': 'discharge_transfer',
+        'slug': 'discharge',
+        'number': '13',
+        'code': 'SlainteCare-Transfer',
+        'name': 'Discharge & Clinical Handover Coordinator',
+        'fleet': 'clinical',
+        'squad': 'clinical',
+        'squad_name': 'SlainteClinical — Bedside Intelligence & Ingestion Copilots',
+        'icon': 'fas fa-door-open',
+        'color': 'primary',
+        'summary': (
+            'Verifies patient physiological stability (NEWS2 <= 2), performs discharge medication reconciliation against documented '
+            'allergies, and drafts structured electronic transfer letters for primary care continuity.'
+        ),
+        'mcp_tools': ['calculate_news2_score', 'check_drug_allergy_contraindications', 'Structured Transfer Drafter'],
+        'embedded_in': ['Dedicated Discharge Page (/agents/discharge_transfer)', 'Patient Details Page', 'GP Vertical'],
+        'guardrail_label': 'Discharge Physiological Stability Gate',
+        'guardrail_options': ['Hard Hold on NEWS2 >= 3 or Unchecked Meds', 'Clinician Override with Sign-Off'],
+        'default_guardrail': 'Hard Hold on NEWS2 >= 3 or Unchecked Meds',
+    },
+    {
+        'id': 'ems_prealert',
+        'slug': 'prealert',
+        'number': '14',
+        'code': 'SlainteEMS-Alert',
+        'name': 'Emergency Pre-Hospital Pre-Alert Agent',
+        'fleet': 'clinical',
+        'squad': 'clinical',
+        'squad_name': 'SlainteClinical — Bedside Intelligence & Ingestion Copilots',
+        'icon': 'fas fa-ambulance',
+        'color': 'primary',
+        'summary': (
+            'Evaluates pre-hospital vitals and chief complaints on ambulance tablets to determine Manchester Triage / NEWS2 '
+            'urgency and beam structured pre-arrival clinical alerts with ETA to receiving Emergency Departments.'
+        ),
+        'mcp_tools': ['calculate_mts_category', 'calculate_news2_score', 'ED Pre-Alert Telemetry Beacon'],
+        'embedded_in': ['Dedicated Pre-Alert Page (/agents/ems_prealert)', 'EMS Vertical Cockpit', 'ED Triage Queue'],
+        'guardrail_label': 'Pre-Alert Auto-Dispatch Threshold',
+        'guardrail_options': ['Automatic Dispatch on MTS Cat 1/2 or NEWS2 >= 7', 'Paramedic Manual Confirmation Required'],
+        'default_guardrail': 'Automatic Dispatch on MTS Cat 1/2 or NEWS2 >= 7',
+    },
+    {
+        'id': 'chronic_surveillance',
+        'slug': 'surveillance',
+        'number': '15',
+        'code': 'SlainteCare-CDM',
+        'name': 'Chronic Disease & Quality Care Surveillance',
+        'fleet': 'clinical',
+        'squad': 'clinical',
+        'squad_name': 'SlainteClinical — Bedside Intelligence & Ingestion Copilots',
+        'icon': 'fas fa-stethoscope',
+        'color': 'primary',
+        'summary': (
+            'Continuously audits patient panels for diabetes, hypertension, and CKD to detect overdue surveillance markers '
+            '(HbA1c > 12m, eGFR drop, uncontrolled SBP >= 150 mmHg) and surface proactive care-gap alerts.'
+        ),
+        'mcp_tools': ['CDM Quality Metric Auditor', 'eGFR Trend Evaluator', 'Care-Gap Flagging Engine'],
+        'embedded_in': ['Dedicated Surveillance Page (/agents/chronic_surveillance)', 'GP Vertical', 'Patient Details'],
+        'guardrail_label': 'Care Gap Escalation Policy',
+        'guardrail_options': ['HSE CDM Contract Guidelines (Strict)', 'Advisory Quality Surveillance Only'],
+        'default_guardrail': 'HSE CDM Contract Guidelines (Strict)',
+    },
+    {
+        'id': 'nis2_compliance',
+        'slug': 'nis2',
+        'number': '16',
+        'code': 'SlainteGov-NIS2',
+        'name': 'EU NIS2 Directive & Continuous Compliance Auditor',
+        'fleet': 'governance',
+        'squad': 'gov',
+        'squad_name': 'SlainteGov — Privacy, GDPR & Regulatory Governance',
+        'icon': 'fas fa-clipboard-check',
+        'color': 'primary',
+        'summary': (
+            'Audits hospital appliance operational controls against EU Directive 2022/2555 (NIS2) Article 21, verifying '
+            'SIEM dispatch readiness, supply-chain pin integrity, and cryptographic Provenance sign-offs.'
+        ),
+        'mcp_tools': ['NIS2 Article 21 Control Auditor', 'SIEM Dispatch Verifier', 'Provenance Ledger Inspector'],
+        'embedded_in': ['Dedicated NIS2 Page (/agents/nis2_compliance)', 'Security Settings', 'Compliance Certificate'],
+        'guardrail_label': 'NIS2 Regulatory Posture',
+        'guardrail_options': ['Continuous Automated Control Verification (Strict)', 'Weekly Attestation Snapshot Only'],
+        'default_guardrail': 'Continuous Automated Control Verification (Strict)',
+    },
 ]
 
 
@@ -336,5 +441,20 @@ def get_agent_instance(agent_id: str):
     elif cid == 'clinical_coding':
         from agents.clinical.clinical_coding import ClinicalCodingAgent
         return ClinicalCodingAgent()
+    elif cid == 'clinic_onboarding':
+        from agents.governance.onboarding import ClinicOnboardingAgent
+        return ClinicOnboardingAgent()
+    elif cid == 'discharge_transfer':
+        from agents.clinical.discharge_transfer import DischargeTransferAgent
+        return DischargeTransferAgent()
+    elif cid == 'ems_prealert':
+        from agents.clinical.ems_prealert import EmsPrealertAgent
+        return EmsPrealertAgent()
+    elif cid == 'chronic_surveillance':
+        from agents.clinical.chronic_surveillance import ChronicSurveillanceAgent
+        return ChronicSurveillanceAgent()
+    elif cid == 'nis2_compliance':
+        from agents.governance.nis2_compliance import Nis2ComplianceAgent
+        return Nis2ComplianceAgent()
     return None
 

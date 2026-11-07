@@ -1,4 +1,4 @@
-"""Unit and integration tests for the unified SlainteTech 11-Agent Fleet."""
+"""Unit and integration tests for the unified SlainteTech 16-Agent Fleet."""
 import pytest
 from agents.base import BaseAgent, AgentExecutionResult
 from agents.registry import (
@@ -19,6 +19,8 @@ from agents.governance import (
     run_immutable_audit_scan,
     verify_sqlite_immutability_live,
     build_signed_audit_snapshot,
+    ClinicOnboardingAgent,
+    Nis2ComplianceAgent,
 )
 from agents.clinical import (
     MultimodalIngestAgent,
@@ -27,28 +29,33 @@ from agents.clinical import (
     AcuityTriageAgent,
     AmbientScribeAgent,
     ClinicalCodingAgent,
+    DischargeTransferAgent,
+    EmsPrealertAgent,
+    ChronicSurveillanceAgent,
 )
+from agents.runner import run_agent, health_check_all, run_all_governance_agents
 
 
 def test_agents_catalog_integrity():
-    assert len(AGENTS_CATALOG) == 11
+    assert len(AGENTS_CATALOG) == 16
     ids = [a['id'] for a in AGENTS_CATALOG]
-    assert len(set(ids)) == 11
+    assert len(set(ids)) == 16
     numbers = [a['number'] for a in AGENTS_CATALOG]
-    assert numbers == ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11']
+    expected = [f"{i:02d}" for i in range(1, 17)]
+    assert numbers == expected
 
 
 def test_get_agent_by_id():
-    for num in ('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11'):
+    for i in range(1, 17):
+        num = f"{i:02d}"
         ag = get_agent_by_id(num)
         assert ag is not None
         assert ag['number'] == num
-        # Test lookup by id and slug
         assert get_agent_by_id(ag['id'])['id'] == ag['id']
         assert get_agent_by_id(ag['slug'])['id'] == ag['id']
 
 
-def test_instantiate_all_11_agents():
+def test_instantiate_all_16_agents():
     for ag_meta in AGENTS_CATALOG:
         instance = get_agent_instance(ag_meta['id'])
         assert instance is not None, f"Failed to instantiate agent {ag_meta['id']}"
@@ -57,6 +64,52 @@ def test_instantiate_all_11_agents():
         assert instance.number == ag_meta['number']
         assert instance.code == ag_meta['code']
         assert instance.health_check() in (True, False)
+
+
+def test_runner_unified_interface():
+    res = run_agent("clinic_onboarding")
+    assert isinstance(res, AgentExecutionResult)
+    assert res.agent_id == "clinic_onboarding"
+    assert res.status == "pass"
+
+    healths = health_check_all()
+    assert len(healths) == 16
+
+    unknown = run_agent("non_existent_agent")
+    assert unknown.status == "fail"
+
+
+def test_new_agents_execution():
+    # 12 Onboarding
+    onboard = ClinicOnboardingAgent()
+    r12 = onboard.run()
+    assert r12.agent_id == "clinic_onboarding"
+    assert r12.status == "pass"
+
+    # 13 Discharge
+    discharge = DischargeTransferAgent()
+    r13 = discharge.run({"vitals": {"sbp": 118, "hr": 70, "spo2": 99, "rr": 14, "temp": 36.6}})
+    assert r13.agent_id == "discharge_transfer"
+    assert r13.status == "pass"
+
+    # 14 EMS Prealert
+    ems = EmsPrealertAgent()
+    r14 = ems.run({"vitals": {"sbp": 85, "hr": 130, "spo2": 88, "rr": 30, "temp": 39.5}})
+    assert r14.agent_id == "ems_prealert"
+    assert r14.status == "warning"
+
+    # 15 Chronic Surveillance
+    cdm = ChronicSurveillanceAgent()
+    r15 = cdm.run()
+    assert r15.agent_id == "chronic_surveillance"
+    assert "care gap" in r15.summary.lower()
+
+    # 16 NIS2 Compliance
+    nis2 = Nis2ComplianceAgent()
+    r16 = nis2.run()
+    assert r16.agent_id == "nis2_compliance"
+    assert r16.status == "pass"
+
 
 
 def test_cve_vulnerability_agent():

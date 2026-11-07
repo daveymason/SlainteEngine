@@ -5,6 +5,9 @@ from agents.clinical.medication_safety import MedicationSafetyAgent
 from agents.clinical.acuity_triage import AcuityTriageAgent
 from agents.clinical.ambient_scribe import AmbientScribeAgent
 from agents.clinical.clinical_coding import ClinicalCodingAgent
+from agents.clinical.discharge_transfer import DischargeTransferAgent
+from agents.clinical.ems_prealert import EmsPrealertAgent
+from agents.clinical.chronic_surveillance import ChronicSurveillanceAgent
 
 __all__ = [
     "MultimodalIngestAgent",
@@ -13,4 +16,7 @@ __all__ = [
     "AcuityTriageAgent",
     "AmbientScribeAgent",
     "ClinicalCodingAgent",
+    "DischargeTransferAgent",
+    "EmsPrealertAgent",
+    "ChronicSurveillanceAgent",
 ]
