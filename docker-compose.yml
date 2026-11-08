@@ -31,8 +31,8 @@ services:
   # ---------------------------------------------------------------------------
   slainte-dashboard:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     container_name: slainte-dashboard
     restart: unless-stopped
     ports:
@@ -42,6 +42,7 @@ services:
       - ./data/fhir_store:/workspace/data/fhir_store
       - ./data/audit_reports:/workspace/data/audit_reports
       - ./slainte-auditor:/workspace/slainte-auditor
+      - ./agents:/app/agents:ro
       - dashboard-data:/app/instance
     environment:
       - FLASK_ENV=production

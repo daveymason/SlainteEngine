@@ -7,10 +7,11 @@ WORKDIR /app
 
 RUN adduser --disabled-password --gecos '' --uid 10001 appuser
 
-COPY requirements.txt .
+COPY frontend/requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY frontend/ .
+COPY agents/ ./agents/
 
 # The SQLite user store and audit log live here; mount a volume to persist them.
 RUN mkdir -p /app/instance && chown -R appuser:appuser /app

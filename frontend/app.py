@@ -112,14 +112,18 @@ class DynamicFhirProxy:
                 effective_url = url
                 if 'slainte-fhir:8082' in effective_url and not os.path.exists('/.dockerenv'):
                     effective_url = effective_url.replace('slainte-fhir:8082', 'localhost:8082')
-                is_local_slainte = ('8082' in effective_url) or ('localhost' in effective_url) or ('127.0.0.1' in effective_url)
+                is_local_slainte = ('8082' in effective_url) or ('localhost' in effective_url) or ('127.0.0.1' in effective_url) or ('slainte-fhir' in effective_url)
                 if is_local_slainte:
+                    from urllib.parse import urlparse
+                    parsed = urlparse(effective_url)
+                    target_host = parsed.hostname or '127.0.0.1'
+                    target_port = parsed.port or 8082
                     import socket
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    sock.settimeout(0.2)
+                    sock.settimeout(0.3)
                     port_open = False
                     try:
-                        sock.connect(('127.0.0.1', 8082))
+                        sock.connect((target_host, target_port))
                         port_open = True
                     except Exception:
                         port_open = False
@@ -127,7 +131,7 @@ class DynamicFhirProxy:
                         sock.close()
                     if not port_open:
                         from local_fhir_store import LocalFhirStore
-                        eng_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'fhir_store'))
+                        eng_path = os.environ.get('FHIR_STORE_PATH') or os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'fhir_store'))
                         cached_client = LocalFhirStore(eng_path)
                     else:
                         cached_client = FhirClient(effective_url, timeout=app.config.get('FHIR_TIMEOUT', 4.0))
