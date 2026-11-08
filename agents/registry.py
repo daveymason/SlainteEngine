@@ -357,6 +357,29 @@ def get_agent_by_id(agent_id: str) -> Optional[Dict[str, Any]]:
     if not agent_id:
         return None
     norm = agent_id.strip().lower()
+    alias_map = {
+        'discharge_readiness': 'discharge_transfer',
+        'discharge': 'discharge_transfer',
+        'ems': 'ems_prealert',
+        'ems_alert': 'ems_prealert',
+        'cve': 'cve_vulnerability',
+        'vuln': 'cve_vulnerability',
+        'gdpr': 'gdpr_privacy',
+        'privacy': 'gdpr_privacy',
+        'audit': 'immutable_audit',
+        'immutability': 'immutable_audit',
+        'triage': 'acuity_triage',
+        'news2': 'acuity_triage',
+        'fhir': 'fhir_conformance',
+        'conformance': 'fhir_conformance',
+        'summariser': 'patient_summariser',
+        'summary': 'patient_summariser',
+        'scribe': 'ambient_scribe',
+        'ambient': 'ambient_scribe',
+        'rxguard': 'medication_safety',
+        'rx_guard': 'medication_safety',
+    }
+    norm = alias_map.get(norm, norm)
     for agent in AGENTS_CATALOG:
         if agent['id'] == norm or agent['slug'] == norm or agent['number'] == norm:
             return agent

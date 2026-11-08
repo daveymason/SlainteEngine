@@ -1401,3 +1401,38 @@ def register_patients_routes(app):
             setTimeout(function() {{ if (window.htmx) {{ htmx.trigger('#triage-queue-container', 'refreshQueue'); }} }}, 600);
         </script>
         '''
+
+    @app.route('/fhir/Patient/<patient_id>/agent/<agent_id>', methods=['POST'], endpoint='run_patient_agent')
+    @login_required
+    def run_patient_agent(patient_id, agent_id):
+        """Execute a patient-level clinical or governance agent directly from the patient chart."""
+        audit(f'agent.{agent_id}.run', outcome='success', resource_type='Patient',
+              resource_id=pseudonymize(patient_id), detail={'agent': agent_id})
+
+        from agents.runner import run_agent
+        from agents.registry import get_agent_by_id
+
+        store_path = app.config.get('FHIR_STORE_PATH', '/workspace/data/fhir_store')
+        res = run_agent(agent_id, context={
+            'patient_id': patient_id,
+            'fhir': fhir,
+            'app_config': dict(app.config),
+            'db': db,
+            'fhir_store_path': store_path,
+        })
+
+        meta = get_agent_by_id(agent_id) or {
+            'id': agent_id,
+            'number': '00',
+            'code': agent_id,
+            'name': agent_id.replace('_', ' ').title(),
+            'icon': 'fas fa-robot',
+            'color': 'primary',
+        }
+
+        return render_template(
+            'partials/patient_agent_result.html',
+            agent=meta,
+            result=res,
+            patient_id=patient_id,
+        )

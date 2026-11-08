@@ -22,12 +22,13 @@ class FhirConformanceAgent(BaseAgent):
         """Verify presence of FHIR bundle storage directory."""
         return os.path.isdir(self.fhir_store_path)
 
-    def inspect_bundle(self, patient_id: str) -> Optional[Dict[str, Any]]:
+    def inspect_bundle(self, patient_id: str, store_path: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Inspect bundle for GMS OIDs, LOINC, SNOMED-CT, and UCUM units."""
-        if not os.path.isdir(self.fhir_store_path):
+        target_store = store_path or self.fhir_store_path
+        if not os.path.isdir(target_store):
             return None
         bfile = f"bundle_{patient_id}.json"
-        bpath = os.path.join(self.fhir_store_path, bfile)
+        bpath = os.path.join(target_store, bfile)
         if not os.path.isfile(bpath):
             return None
 
@@ -88,8 +89,9 @@ class FhirConformanceAgent(BaseAgent):
 
     def run(self, context: Optional[Dict[str, Any]] = None, **kwargs) -> AgentExecutionResult:
         context = context or {}
-        patient_id = context.get("patient_id", "patient-case-1")
-        inspected = self.inspect_bundle(patient_id)
+        patient_id = context.get("patient_id") or kwargs.get("patient_id") or "patient-case-1"
+        store_path = context.get("fhir_store_path") or kwargs.get("fhir_store_path") or self.fhir_store_path
+        inspected = self.inspect_bundle(patient_id, store_path=store_path)
         findings = []
         if inspected and not inspected.get("gms_valid"):
             findings.append({

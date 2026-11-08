@@ -186,112 +186,56 @@ def _build_agent_detail_context(app, agent_id, force_run=False, form_data=None):
         'coding_total_uplift': 0,
     }
 
-    if agent_id == 'bola_redteam' and force_run:
-        ctx['action_banner'] = (
-            f"Executed 4-stage BOLA & AuthZ adversarial cycle ({ctx['telemetry']['stats']['memory_steps_count']} HTTP reflection vectors)."
-        )
+    if agent_id == 'bola_redteam':
+        from agents.runner import run_agent
+        target_endpoint = request.host_url.rstrip('/') if request else 'http://127.0.0.1:8000'
+        res = run_agent('bola_redteam', context={'target_url': target_endpoint})
+        ctx['telemetry'] = res.telemetry
+        if force_run:
+            ctx['action_banner'] = f"Agent 01 (SlainteShield-BOLA) live audit completed: {res.summary}"
 
     elif agent_id == 'fhir_conformance':
         inspect_pid = (form_data.get('inspect_patient_id') or (patient_options[0]['id'] if patient_options else '')).strip()
-        if inspect_pid and store_dir and os.path.isdir(store_dir):
-            bfile = f'bundle_{inspect_pid}.json'
-            bpath = os.path.join(store_dir, bfile)
-            if os.path.isfile(bpath):
-                try:
-                    with open(bpath, 'r', encoding='utf-8') as f:
-                        bdata = json.load(f)
-                    res_rows = []
-                    gms_valid = False
-                    gms_val = 'None'
-                    pt_name = inspect_pid
-                    for entry in bdata.get('entry') or []:
-                        res = entry.get('resource') or {}
-                        rtype = res.get('resourceType', 'Resource')
-                        rid = res.get('id', 'unknown')
-                        sys_str = 'HL7 FHIR R4 Core'
-                        disp_str = rtype
-                        valid = True
-                        if rtype == 'Patient':
-                            pt_name = patient_display_name(res)
-                            for ident in res.get('identifier') or []:
-                                if '54392' in (ident.get('system') or '') or '113883' in (ident.get('system') or ''):
-                                    gms_valid = True
-                                    gms_val = ident.get('value', 'GMS')
-                                    sys_str = ident.get('system', '')
-                            disp_str = f"{pt_name} ({res.get('gender', '')}, {res.get('birthDate', '')})"
-                            valid = gms_valid
-                        elif rtype in ('Observation', 'Condition', 'AllergyIntolerance'):
-                            coding = ((res.get('code') or {}).get('coding') or [{}])[0]
-                            sys_str = coding.get('system') or 'Unmapped'
-                            disp_str = coding.get('display') or (res.get('code') or {}).get('text') or rtype
-                            valid = bool(coding.get('code') and coding.get('system'))
-                        elif rtype == 'MedicationRequest':
-                            coding = ((res.get('medicationCodeableConcept') or {}).get('coding') or [{}])[0]
-                            sys_str = coding.get('system') or 'SNOMED/RxNorm'
-                            disp_str = (res.get('medicationCodeableConcept') or {}).get('text') or coding.get('display') or 'Medication'
-                        res_rows.append({
-                            'resourceType': rtype,
-                            'id': rid,
-                            'system': sys_str,
-                            'display': disp_str,
-                            'valid': valid,
-                        })
-                    ctx['inspected_bundle'] = {
-                        'filename': bfile,
-                        'patient_id': inspect_pid,
-                        'patient_name': pt_name,
-                        'gms_valid': gms_valid,
-                        'gms_value': gms_val,
-                        'resources': res_rows,
-                    }
-                except Exception:
-                    pass
+        from agents.runner import run_agent
+        res = run_agent('fhir_conformance', context={'patient_id': inspect_pid, 'fhir_store_path': store_dir})
+        if res and res.telemetry and res.telemetry.get('inspected_bundle'):
+            ctx['inspected_bundle'] = res.telemetry['inspected_bundle']
         if force_run:
-            ctx['action_banner'] = f"Verified {ctx['telemetry']['stats']['bundles_audited']} HL7 FHIR R4 bundles and inspected {inspect_pid or 'cohort'}."
+            ctx['action_banner'] = f"Agent 02 (SlainteShield-FHIR) audit completed: {res.summary}"
 
-    elif agent_id == 'cve_vulnerability' and force_run:
-        ctx['action_banner'] = (
-            f"Verified {ctx['cve_scan']['pinned_count']}/{ctx['cve_scan']['total_packages']} pinned dependencies and {ctx['cve_scan']['sri_assets_verified']} SRI sha384 hashes."
-        )
+    elif agent_id == 'cve_vulnerability':
+        from agents.runner import run_agent
+        target_endpoint = request.host_url.rstrip('/') if request else 'http://127.0.0.1:8000'
+        res = run_agent('cve_vulnerability', context={'app_config': {**dict(app.config), 'TARGET_URL': target_endpoint}})
+        ctx['cve_scan'] = res.telemetry
+        if force_run:
+            ctx['action_banner'] = f"Agent 03 (SlainteShield-CVE) audit completed: {res.summary}"
 
     elif agent_id == 'gdpr_privacy':
         preview_pid = (form_data.get('preview_patient_id') or (patient_options[0]['id'] if patient_options else '')).strip()
-        if preview_pid:
-            pt_match = next((p for p in patient_options if p['id'] == preview_pid), None)
-            if pt_match:
-                from ai.context import _render_patient
-                p_res = {'resourceType': 'Patient', 'id': preview_pid, 'gender': pt_match['gender'], 'birthDate': pt_match['birthDate']}
-                if not app.testing:
-                    pt_raw = fhir.get(f'Patient/{preview_pid}')
-                    if pt_raw.ok and pt_raw.data:
-                        p_res = pt_raw.data
-                sanitized_lines = _render_patient(p_res, deidentify=True)
-                sanitized_payload = {
-                    'subject_pseudonym': pseudonymize(preview_pid),
-                    'deidentified_header': sanitized_lines,
-                    'conditions': [pt_match.get('primary_condition', 'None')],
-                    'allergies': pt_match.get('allergies', []),
-                    'medications': pt_match.get('medications', []),
-                    'note_prose_included': False,
-                    'gdpr_art9_compliant': True,
-                }
-                ctx['deid_preview'] = {
-                    'patient_id': preview_pid,
-                    'raw_name': pt_match['name'],
-                    'raw_dob': pt_match['birthDate'],
-                    'age_years': pt_match.get('age') or 'Redacted',
-                    'raw_address': pt_match['address'],
-                    'raw_telecom': pt_match['telecom'],
-                    'salted_hash': pseudonymize(preview_pid),
-                    'sanitized_json': json.dumps(sanitized_payload, indent=2),
-                }
+        from agents.runner import run_agent
+        res = run_agent('gdpr_privacy', context={
+            'app_config': dict(app.config),
+            'db': db,
+            'patient_id': preview_pid,
+            'fhir': fhir,
+            'fhir_store_path': store_dir,
+        })
+        ctx['gdpr_scan'] = res.telemetry
+        ctx['deid_preview'] = res.telemetry.get('deid_preview')
         if force_run:
-            ctx['action_banner'] = f"GDPR Art. 9 compliance verified and PII redaction preview generated for {preview_pid}."
+            ctx['action_banner'] = f"Agent 04 (SlainteGov-GDPR) audit completed: {res.summary}"
 
     elif agent_id == 'immutable_audit':
-        ctx['tamper_proof'] = verify_sqlite_immutability_live(db)
+        from agents.runner import run_agent
+        res = run_agent('immutable_audit', context={
+            'db': db,
+            'fhir_store_path': store_dir,
+        })
+        ctx['audit_scan'] = res.telemetry
+        ctx['tamper_proof'] = res.telemetry.get('tamper_proof')
         if force_run:
-            ctx['action_banner'] = ctx['tamper_proof']['message']
+            ctx['action_banner'] = f"Agent 05 (SlainteGov-Audit) audit completed: {res.summary}"
 
     elif agent_id == 'multimodal_ingest' and force_run:
         ctx['action_banner'] = (
