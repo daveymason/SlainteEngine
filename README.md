@@ -87,7 +87,7 @@ slainte-engine/
 1. **Pluggable AI Provider Configuration**:
    - **Mode A: Local Ollama** (100% air-gapped, zero external egress, offline private hospital deployment).
    - **Mode B: Google Gemini API** (Gemini 3.8 Flash / 1.5 Pro multimodal processing).
-   - **Mode C: Frontier Cloud** (Anthropic Claude 3.7 Sonnet / OpenAI GPT-4o).
+   - **Mode C: Frontier Cloud** (Anthropic Claude 3.7 Sonnet / OpenAI GPT-6.1).
 2. **Deterministic Manchester Triage System (MTS)**:
    - Strict mathematical thresholds evaluating Category 1 (Immediate / Red) through Category 5 (Non-Urgent / Blue).
 3. **Official Terminology Resolution**:

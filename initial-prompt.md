@@ -18,7 +18,7 @@ An autonomous, zero-trust clinical ingestion appliance that allows healthcare te
 #### 1. Pluggable AI Provider Configuration
 The appliance MUST allow the operator to bring their own model via environment variables or a configuration file (`.env` or `config.toml`):
 - Local Models: Ollama (e.g., `ollama/qwen2.5-coder:32b`, `ollama/deepseek-r1`, `ollama/llama3.3`) via local host networking (`http://host.docker.internal:11434` or local bridge).
-- Frontier Cloud Providers: Google Gemini (`gemini-3.8-flash`, `gemini-1.5-pro`), Anthropic (`claude-3-7-sonnet`), and OpenAI (`o3-mini`, `gpt-4o`).
+- Frontier Cloud Providers: Google Gemini (`gemini-3.8-flash`, `gemini-1.5-pro`), Anthropic (`claude-3-7-sonnet`), and OpenAI (`gpt-6.1-luna`).
 - LiteLLM / OpenHands native model routing must be configured cleanly so the agent loop respects user choice without requiring code edits.
 
 #### 2. MCP Integration & Agent Binding
