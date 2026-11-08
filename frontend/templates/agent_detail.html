@@ -1291,7 +1291,7 @@
                             <td><code>{{ f.source or selected_source_file }}</code></td>
                             <td><span class="badge bg-light text-dark border">{{ f.fhir_target or 'Resource' }}</span></td>
                             <td class="small">{{ f.standard or 'Irish Core FHIR R4' }}</td>
-                            <td><span class="status-pill status-pass">COMPLIANT</span></td>
+                            <td><span class="status-pill status-pass">VALIDATED</span></td>
                         </tr>
                         {% else %}
                         <tr>
@@ -1623,7 +1623,7 @@
                             <td class="fw-semibold">{{ f.control or f.requirement or 'Technical Safeguard' }}</td>
                             <td><code>{{ f.mechanism or f.implementation or 'Verified' }}</code></td>
                             <td class="small">{{ f.evidence or 'Deterministic Log / Cryptographic Hash' }}</td>
-                            <td><span class="status-pill status-pass">COMPLIANT</span></td>
+                            <td><span class="status-pill status-pass">VALIDATED</span></td>
                         </tr>
                         {% else %}
                         <tr>
