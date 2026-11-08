@@ -59,6 +59,9 @@ services:
       - HEALTH_SHOW_BACKEND=true
       - LOG_HASH_SALT=${LOG_HASH_SALT:-slainte-secure-audit-salt-2026-prod}
       - FHIR_SERVER_URL=http://slainte-fhir:8082/fhir/r4
+      - OLLAMA_API_BASE=http://172.19.0.1:11435
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - slainte-net
     depends_on:

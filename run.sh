@@ -77,6 +77,14 @@ start_appliance() {
     print_banner
     ensure_environment
 
+    # Ensure Ollama host bridge is active if Ollama is listening on 11434
+    if curl -s -m 1 http://localhost:11434/api/tags >/dev/null 2>&1; then
+        if ! curl -s -m 1 http://localhost:11435/api/tags >/dev/null 2>&1; then
+            echo -e "${CYAN}[SETUP] Starting host Ollama bridge (11435 -> 11434) for Docker containers...${NC}"
+            nohup python3 deploy/ollama_bridge.py >/dev/null 2>&1 &
+        fi
+    fi
+
     echo -e "${BLUE}[1/3] Building and starting containerized services...${NC}"
     ${DOCKER_COMPOSE} up -d --build
 
