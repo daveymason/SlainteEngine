@@ -512,34 +512,158 @@ def _build_agent_detail_context(app, agent_id, force_run=False, form_data=None):
     elif agent_id == 'ems_prealert':
         from agents.runner import run_agent
         receiving_hospitals = [
-            "Mater Misericordiae University Hospital ED",
-            "St. James's Hospital Adult ED",
-            "Tallaght University Hospital ED",
-            "Beaumont Hospital ED",
-            "St. Vincent's University Hospital ED",
+            "Mater Misericordiae University Hospital ED (Dublin - Model 4)",
+            "St. James's Hospital Adult ED (Dublin - Model 4)",
+            "Tallaght University Hospital ED (Dublin - Model 4)",
+            "Beaumont Hospital ED (Dublin - Model 4 National Neurosurgical)",
+            "St. Vincent's University Hospital ED (Dublin - Model 4)",
+            "Connolly Hospital ED (Blanchardstown - Model 3)",
+            "Cork University Hospital ED (CUH - Model 4 Major Trauma Centre)",
+            "University Hospital Galway ED (UHG - Model 4 Trauma Centre)",
+            "University Hospital Limerick ED (UHL - Model 4)",
+            "University Hospital Waterford ED (UHW - Model 4)",
+        ]
+        ems_presets = [
+            {
+                "key": "stemi_resus",
+                "label": "🔴 STEMI / Cardiogenic Shock — SBP 82, HR 124, SpO2 89, Severe Chest Pain",
+                "complaint": "Acute crushing substernal chest pain radiating to left jaw, diaphoresis and syncope in transit",
+                "sbp": 82, "dbp": 52, "hr": 124, "spo2": 89, "rr": 28, "temp": 36.4, "eta": 8,
+            },
+            {
+                "key": "septic_shock",
+                "label": "🔴 Severe Sepsis / Septic Shock — SBP 78, HR 135, RR 32, Temp 39.6",
+                "complaint": "Deteriorating confusion, mottled extremities, productive purulent cough and severe rigors",
+                "sbp": 78, "dbp": 44, "hr": 135, "spo2": 91, "rr": 32, "temp": 39.6, "eta": 12,
+            },
+            {
+                "key": "asthma_hypoxia",
+                "label": "🟠 Acute Severe Asthma / Hypoxemia — SpO2 86, RR 34, HR 122",
+                "complaint": "Severe acute bronchospasm, silent chest, exhaustion, inability to complete full sentences",
+                "sbp": 138, "dbp": 88, "hr": 122, "spo2": 86, "rr": 34, "temp": 37.0, "eta": 15,
+            },
+            {
+                "key": "trauma_rtc",
+                "label": "🟠 High-Speed RTC Casualty — SBP 102, HR 118, Blunt Thoracic Trauma",
+                "complaint": "Unrestrained driver in high-velocity MVC, steering wheel impact, paradoxical chest wall movement",
+                "sbp": 102, "dbp": 68, "hr": 118, "spo2": 93, "rr": 26, "temp": 35.8, "eta": 18,
+            },
+            {
+                "key": "stable_low_acuity",
+                "label": "🟢 Stable Ambulatory Transfer — SBP 124, HR 72, SpO2 98, NEWS2: 0",
+                "complaint": "Isolated closed Colles fracture following ground-level fall, neurovascularly intact",
+                "sbp": 124, "dbp": 78, "hr": 72, "spo2": 98, "rr": 16, "temp": 36.8, "eta": 25,
+            },
         ]
         ed_target = form_data.get('receiving_ed') or receiving_hospitals[0]
-        eta_min = int(form_data.get('eta_minutes') or 12)
+        preset_key = form_data.get('preset_key', '')
+        chosen_preset = next((p for p in ems_presets if p['key'] == preset_key), None)
+
+        target_pid = (form_data.get('patient_id') or (patient_options[0]['id'] if patient_options else 'Casualty-01')).strip()
+        pt_match = next((p for p in patient_options if p['id'] == target_pid), None)
+        pt_name = pt_match.get('name') if pt_match else 'Pre-Hospital Emergency Casualty'
+        pt_gender = pt_match.get('gender', 'unknown') if pt_match else 'unknown'
+        pt_dob = pt_match.get('birthDate', '1980-01-01') if pt_match else '1980-01-01'
+
+        def _val(k, fallback):
+            v = form_data.get(k)
+            if v not in (None, ''):
+                try:
+                    return float(v)
+                except ValueError:
+                    pass
+            if chosen_preset and k in chosen_preset:
+                return float(chosen_preset[k])
+            return float(fallback)
+
+        sbp = _val('sbp', 85 if force_run else 120)
+        dbp = _val('dbp', 55 if force_run else 80)
+        hr = _val('hr', 128 if force_run else 75)
+        spo2 = _val('spo2', 89 if force_run else 98)
+        rr = _val('rr', 28 if force_run else 16)
+        temp = _val('temp', 39.2 if force_run else 36.8)
+        eta_min = int(form_data.get('eta_minutes') or (chosen_preset['eta'] if chosen_preset else 15))
+        complaint = (form_data.get('chief_complaint') or (chosen_preset['complaint'] if chosen_preset else 'Acute respiratory distress and hypotension')).strip()
+
         vitals = {
-            'respiratory_rate': float(form_data.get('rr') or 24),
-            'spo2': float(form_data.get('spo2') or 92),
-            'systolic_bp': float(form_data.get('sbp') or 98),
-            'heart_rate': float(form_data.get('hr') or 118),
-            'temperature': float(form_data.get('temp') or 37.8),
+            'respiratory_rate': rr,
+            'spo2': spo2,
+            'systolic_bp': sbp,
+            'diastolic_bp': dbp,
+            'heart_rate': hr,
+            'temperature': temp,
         }
         res = run_agent('ems_prealert', context={
+            'patient_id': target_pid,
+            'patient_name': pt_name,
             'vitals': vitals,
             'eta_minutes': eta_min,
             'receiving_ed': ed_target,
-            'chief_complaint': form_data.get('chief_complaint') or 'Acute respiratory distress and hypotension',
+            'chief_complaint': complaint,
         })
+
+        # Real FHIR R4 Encounter resource staging
+        enc_id = f"enc-ems-{int(datetime.now(timezone.utc).timestamp())}"
+        fhir_encounter = {
+            "resourceType": "Encounter",
+            "id": enc_id,
+            "status": "in-progress",
+            "class": {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                "code": "EMER",
+                "display": "emergency",
+            },
+            "priority": {
+                "coding": [{
+                    "system": "http://snomed.info/sct",
+                    "code": "103391001",
+                    "display": res.telemetry.get("alert_tier", "URGENT PRE-ALERT"),
+                }],
+                "text": f"Manchester Triage Category {res.telemetry.get('mts_category')}",
+            },
+            "subject": {
+                "reference": f"Patient/{target_pid}",
+                "display": pt_name,
+            },
+            "serviceProvider": {
+                "display": ed_target,
+            },
+            "period": {
+                "start": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            },
+            "reasonCode": [{
+                "text": complaint,
+            }],
+        }
+
+        # HL7v2 Pipe-Hat Pre-Alert Broadcast representation
+        ts_hl7 = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+        hosp_short = ed_target.split()[0].upper()
+        hl7v2_payload = (
+            f"MSH|^~\\&|SLAINTE_EMS_AMB|AMBULANCE_04|HSE_ED_PAS|{hosp_short}|{ts_hl7}||ADT^A01|EMS{ts_hl7[-6:]}|P|2.5\r\n"
+            f"PID|1||{target_pid}^^^IE_GMS||{pt_name.replace(' ', '^')}||{pt_dob.replace('-', '')}|{pt_gender[0].upper() if pt_gender else 'U'}\r\n"
+            f"PV1|1|E|ED^RESUS_BAY1^{hosp_short}|||||||||||||||EMER|||||||||||||||||||||||||{ts_hl7}\r\n"
+            f"DG1|1||EMS-TRIAGE^{complaint[:60]}^I9C|||A\r\n"
+            f"OBX|1|NM|8867-4^Heart rate^LN||{int(hr)}|/min|60-100|{'H' if hr > 100 else 'N'}|||F\r\n"
+            f"OBX|2|NM|8480-6^Systolic BP^LN||{int(sbp)}|mmHg|90-140|{'L' if sbp < 90 else 'N'}|||F\r\n"
+            f"OBX|3|NM|2708-6^SpO2^LN||{int(spo2)}|%|95-100|{'L' if spo2 < 92 else 'N'}|||F\r\n"
+            f"OBX|4|NM|9279-1^Respiratory rate^LN||{int(rr)}|/min|12-20|{'H' if rr > 20 else 'N'}|||F\r\n"
+            f"OBX|5|NM|8310-5^Body temperature^LN||{temp:.1f}|Cel|36.0-37.5|{'H' if temp >= 38.0 else 'N'}|||F"
+        )
+
         ctx['ems_result'] = res
         ctx['ems_hospitals'] = receiving_hospitals
         ctx['ems_selected_hospital'] = ed_target
-        ctx['ems_vitals'] = vitals
+        ctx['ems_presets'] = ems_presets
+        ctx['ems_selected_preset'] = preset_key
+        ctx['ems_target_patient'] = pt_match or {'id': target_pid, 'name': pt_name}
+        ctx['ems_vitals'] = {'sbp': sbp, 'dbp': dbp, 'hr': hr, 'spo2': spo2, 'rr': rr, 'temp': temp}
         ctx['ems_eta'] = eta_min
+        ctx['ems_complaint'] = complaint
+        ctx['ems_fhir_encounter'] = json.dumps(fhir_encounter, indent=2)
+        ctx['ems_hl7v2_payload'] = hl7v2_payload
         if force_run:
-            ctx['action_banner'] = f"Agent 14 (SlainteEMS-Alert) dispatched pre-alert to {ed_target}: {res.summary}"
+            ctx['action_banner'] = f"Agent 14 (SlainteEMS-Alert) dispatched pre-alert to {ed_target} for {pt_name} ({target_pid}): {res.summary}"
 
     elif agent_id == 'chronic_surveillance':
         from agents.runner import run_agent
