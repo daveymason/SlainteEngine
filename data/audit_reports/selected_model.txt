@@ -1,1 +1,1 @@
-ollama/k9/Doggo:3b
+ollama/k9/lime:latest

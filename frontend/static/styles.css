@@ -152,20 +152,82 @@ body {
     color: #FFFFFF;
 }
 
-/* Consistent HTMX Loading States and Spinners */
+/* Consistent HTMX Loading States, Buttons & Spinners */
 .htmx-indicator {
     display: none !important;
 }
 
 .htmx-request .htmx-indicator,
-.htmx-request.htmx-indicator {
+.htmx-request.htmx-indicator,
+.is-loading .htmx-indicator {
     display: inline-block !important;
 }
 
+/* Default state: hide spinner inside button when idle */
+button .spinner-border.htmx-indicator,
+.btn .spinner-border.htmx-indicator,
+button:not(.htmx-request):not(.is-loading) .spinner-border.htmx-indicator,
+.btn:not(.htmx-request):not(.is-loading) .spinner-border.htmx-indicator,
+form:not(.htmx-request):not(.is-loading) button .spinner-border.htmx-indicator,
+form:not(.htmx-request):not(.is-loading) .btn .spinner-border.htmx-indicator {
+    display: none !important;
+}
+
+/* Button Loading & Microfeedback: disable clicks and show wait cursor during execution */
 button.htmx-request,
-.btn.htmx-request {
-    pointer-events: none;
-    opacity: 0.75;
+.btn.htmx-request,
+button.is-loading,
+.btn.is-loading,
+form.htmx-request button[type="submit"],
+form.htmx-request .btn[type="submit"],
+form.is-loading button[type="submit"],
+form.is-loading .btn[type="submit"] {
+    pointer-events: none !important;
+    opacity: 0.82 !important;
+    cursor: wait !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Icon-to-spinner replacement: HIDE static icon in active button during action */
+button.htmx-request > i,
+button.htmx-request > svg,
+button.htmx-request .svg-inline--fa,
+.btn.htmx-request > i,
+.btn.htmx-request > svg,
+.btn.htmx-request .svg-inline--fa,
+button.is-loading > i,
+button.is-loading > svg,
+button.is-loading .svg-inline--fa,
+.btn.is-loading > i,
+.btn.is-loading > svg,
+.btn.is-loading .svg-inline--fa,
+form.htmx-request button[type="submit"] > i,
+form.htmx-request button[type="submit"] > svg,
+form.htmx-request button[type="submit"] .svg-inline--fa,
+form.htmx-request .btn[type="submit"] > i,
+form.htmx-request .btn[type="submit"] > svg,
+form.htmx-request .btn[type="submit"] .svg-inline--fa,
+form.is-loading button[type="submit"] > i,
+form.is-loading button[type="submit"] > svg,
+form.is-loading button[type="submit"] .svg-inline--fa,
+form.is-loading .btn[type="submit"] > i,
+form.is-loading .btn[type="submit"] > svg,
+form.is-loading .btn[type="submit"] .svg-inline--fa {
+    display: none !important;
+}
+
+/* Icon-to-spinner replacement: SHOW loading spinner in place of icon */
+button.htmx-request .spinner-border,
+.btn.htmx-request .spinner-border,
+button.is-loading .spinner-border,
+.btn.is-loading .spinner-border,
+form.htmx-request button[type="submit"] .spinner-border,
+form.htmx-request .btn[type="submit"] .spinner-border,
+form.is-loading button[type="submit"] .spinner-border,
+form.is-loading .btn[type="submit"] .spinner-border {
+    display: inline-block !important;
+    vertical-align: -0.125em !important;
 }
 
 .loading-overlay {
@@ -481,19 +543,7 @@ thead.table-clinical {
     transition: opacity 0.15s ease-out;
 }
 
-.htmx-indicator {
-    display: none !important;
-}
-.htmx-request .htmx-indicator,
-.htmx-request.htmx-indicator {
-    display: block !important;
-}
-span.htmx-indicator.htmx-request,
-.htmx-request span.htmx-indicator,
-.htmx-request.spinner-border,
-span.spinner-border.htmx-indicator.htmx-request {
-    display: inline-block !important;
-}
+
 
 /* Accent borders */
 .border-left-primary {
