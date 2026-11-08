@@ -17,11 +17,18 @@ logger = logging.getLogger(__name__)
 class LocalFhirStore:
     def __init__(self, store_path: str = "/workspace/data/fhir_store"):
         self.store_path = store_path
+        candidate = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'fhir_store'))
+        if self.store_path == "/workspace/data/fhir_store" or not os.path.isdir(self.store_path):
+            if os.path.isdir(candidate) and glob.glob(os.path.join(candidate, "*.json")):
+                self.store_path = candidate
         try:
             os.makedirs(self.store_path, exist_ok=True)
         except OSError:
-            self.store_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'fhir_store'))
-            os.makedirs(self.store_path, exist_ok=True)
+            if os.path.isdir(candidate):
+                self.store_path = candidate
+            else:
+                os.makedirs(candidate, exist_ok=True)
+                self.store_path = candidate
         self._last_scan_time = 0.0
         self._cache_patients: Dict[str, Dict[str, Any]] = {}
         self._cache_observations: Dict[str, List[Dict[str, Any]]] = {} # pid -> list
