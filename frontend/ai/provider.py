@@ -78,8 +78,10 @@ class OpenAIProvider:
         status = ProviderStatus(model=self.model)
 
         if not self.api_key:
-            status.message = ('No API key is configured. Set OPENAI_API_KEY in '
-                              'the environment and restart.')
+            status.message = (
+                f'No API key is configured for cloud model "{self.model}". Set OPENAI_API_KEY in '
+                '.env and restart, or switch to a Local Sovereign Ollama model (e.g. k9/lime:latest) which requires no key.'
+            )
             return status
         status.key_configured = True
 

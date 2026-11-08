@@ -55,7 +55,7 @@ services:
       - INITIAL_ADMIN_USERNAME=${INITIAL_ADMIN_USERNAME:-admin}
       - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:-ClinicalAdmin2026!}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - AI_MODEL=${AI_MODEL:-gpt-6.1-luna}
+      - AI_MODEL=${AI_MODEL:-ollama/k9/lime:latest}
       - HEALTH_SHOW_BACKEND=true
       - LOG_HASH_SALT=${LOG_HASH_SALT:-slainte-secure-audit-salt-2026-prod}
       - FHIR_SERVER_URL=http://slainte-fhir:8082/fhir/r4

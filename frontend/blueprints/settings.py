@@ -69,8 +69,15 @@ def register_settings_routes(app, limiter=None):
     @login_required
     @auth.require_role(db.ROLE_ADMIN)
     def test_ai_provider():
+        req_model = (
+            request.form.get('selected_model')
+            or request.form.get('model')
+            or request.args.get('model')
+            or ((request.get_json(silent=True) or {}).get('model'))
+            or ''
+        ).strip()
         saved_model = db.get_system_setting('ai_model', '') if not app.config.get('TESTING') else ''
-        active_model = saved_model or app.config['AI_MODEL']
+        active_model = req_model or saved_model or app.config['AI_MODEL']
         status = ai_provider.from_config(app.config, model_override=active_model).check()
         audit('settings.ai_provider_tested',
               outcome='success' if status.ok else 'failure',
