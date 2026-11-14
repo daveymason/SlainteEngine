@@ -9,7 +9,7 @@ from flask_login import current_user, login_required
 import db
 from logging_setup import pseudonymize
 from blueprints.common import audit, process_patient_results
-from verticals import VERTICALS_CATALOG, get_active_vertical, get_vertical_list
+from verticals import VERTICALS_CATALOG, filter_patients_for_vertical, get_active_vertical, get_vertical_list
 from fhir_utils import (
     first_coding_display,
     format_fhir_date,
@@ -50,8 +50,9 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
         v_key = 'ed'
     vert_meta = VERTICALS_CATALOG[v_key]
 
-    pt_res = fhir.get('Patient', params={'_count': 40})
-    cohort_patients = process_patient_results(pt_res.entries) if pt_res.ok else []
+    pt_res = fhir.get('Patient', params={'_count': 100})
+    all_patients = process_patient_results(pt_res.entries) if pt_res.ok else []
+    cohort_patients = filter_patients_for_vertical(all_patients, vert_meta)
     patients_by_id = {p['id']: p for p in cohort_patients}
 
     ctx = {
@@ -65,7 +66,7 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
     }
 
     if v_key == 'dentist':
-        default_pid = 'patient-case-8' if 'patient-case-8' in patients_by_id else (cohort_patients[0]['id'] if cohort_patients else 'patient-case-8')
+        default_pid = cohort_patients[0]['id'] if cohort_patients else 'patient-case-8'
         selected_pid = (patient_id_override or request.args.get('patient_id') or default_pid).strip()
         sub = fhir.get_many({
             'obs': ('Observation', {'patient': selected_pid, '_count': 30}),
@@ -113,8 +114,8 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
         })
 
     elif v_key == 'pharmacy':
-        med_res = fhir.get('MedicationRequest', params={'_count': 60})
-        alg_res = fhir.get('AllergyIntolerance', params={'_count': 80})
+        med_res = fhir.get('MedicationRequest', params={'_count': 150})
+        alg_res = fhir.get('AllergyIntolerance', params={'_count': 150})
         allergies_by_pt = {}
         if alg_res.ok:
             for a in alg_res.entries:
@@ -131,6 +132,8 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
                 if not isinstance(m, dict):
                     continue
                 p_ref = ((m.get('subject') or {}).get('reference') or '').replace('Patient/', '')
+                if patients_by_id and p_ref not in patients_by_id:
+                    continue
                 pt_info = patients_by_id.get(p_ref, {})
                 pt_name = pt_info.get('name') or p_ref or 'Patient'
                 gms = pt_info.get('identifier') or 'Unverified'
@@ -168,7 +171,7 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
         })
 
     elif v_key == 'gp':
-        default_pid = 'patient-case-6' if 'patient-case-6' in patients_by_id else (cohort_patients[0]['id'] if cohort_patients else 'patient-case-6')
+        default_pid = cohort_patients[0]['id'] if cohort_patients else 'patient-case-6'
         selected_pid = (patient_id_override or request.args.get('patient_id') or default_pid).strip()
         sub = fhir.get_many({
             'labs': ('Observation', {'patient': selected_pid, 'category': 'laboratory', '_count': 12}),
@@ -220,7 +223,7 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
 
     elif v_key == 'psychiatry':
         from enterprise_engine import evaluate_clinical_pharmacology_3tier
-        default_pid = 'patient-case-4' if 'patient-case-4' in patients_by_id else (cohort_patients[0]['id'] if cohort_patients else 'patient-case-4')
+        default_pid = 'PSY101' if 'PSY101' in patients_by_id else (cohort_patients[0]['id'] if cohort_patients else 'patient-case-4')
         selected_pid = (patient_id_override or request.args.get('patient_id') or default_pid).strip()
         sub = fhir.get_many({
             'obs': ('Observation', {'patient': selected_pid, '_count': 30}),
@@ -299,17 +302,7 @@ def _render_cockpit_workspace(app, patient_id_override=None, flash_message=None,
                     t_ref = (tgt.get('reference') or '').replace('Patient/', '')
                     if t_ref:
                         signed_by_pt[t_ref] = pr
-        preferred_ids = ['patient-case-7', 'P104', 'P105', 'P102', 'P103', 'P106', 'patient-case-4', 'patient-case-1']
-        ordered = []
-        seen = set()
-        for pid in preferred_ids:
-            if pid in patients_by_id:
-                ordered.append(patients_by_id[pid])
-                seen.add(pid)
-        for p in cohort_patients:
-            if p['id'] not in seen and len(ordered) < 8:
-                ordered.append(p)
-                seen.add(p['id'])
+        ordered = cohort_patients[:8]
 
         roster_board = []
         for p in ordered:

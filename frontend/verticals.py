@@ -1,14 +1,14 @@
 """Multi-Vertical Clinical Platform Registry (Phase 11 & 11.6).
 
 Powers "Sign in as..." role-based clinical verticals across 8 healthcare & aerospace domains:
-1. ed         — SlainteED (Emergency Department & Acute Triage)
-2. gp         — SlainteGP (General Practice, Primary Care CDM & Community Nursing)
-3. psychiatry — SlaintePsych (Psychiatry & Community Mental Health Services)
-4. dentist    — SlainteDent (Dental Surgery & Periodontics)
-5. pharmacy   — SlaintePharm (Clinical Dispensing & Pharmacotherapy Gate)
-6. ems        — SlainteEMS (Pre-Hospital Ambulance & Paramedic ePCR)
-7. sports     — SlainteSport (Elite Sports Club & Athlete Medicine)
-8. astro      — SlainteAstro (Astronaut & Deep-Space Bio-Telemetry)
+1. ed         - SlainteED (Emergency Department & Acute Triage)
+2. gp         - SlainteGP (General Practice, Primary Care CDM & Community Nursing)
+3. psychiatry - SlaintePsych (Psychiatry & Community Mental Health Services)
+4. dentist    - SlainteDent (Dental Surgery & Periodontics)
+5. pharmacy   - SlaintePharm (Clinical Dispensing & Pharmacotherapy Gate)
+6. ems        - SlainteEMS (Pre-Hospital Ambulance & Paramedic ePCR)
+7. sports     - SlainteSport (Elite Sports Club & Athlete Medicine)
+8. astro      - SlainteAstro (Astronaut & Deep-Space Bio-Telemetry)
 """
 
 VERTICALS_CATALOG = {
@@ -21,6 +21,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'danger',
         'accent_hex': '#ef4444',
         'default_view': 'triage',
+        'cohort_ids': ['patient-case-1', 'patient-case-2', 'patient-case-3', 'P101', 'P102', 'P103', 'P106', 'P107', 'P108', 'P109', 'P110', 'P111', 'P112', 'P113'],
         'tagline': 'Manchester Triage System (MTS Cat 1–5), 24h RCP NEWS2 Deterioration Tracking & Rapid Bedside Intake.',
         'active_agents': ['acuity_triage', 'multimodal_ingest', 'patient_summariser', 'ambient_scribe', 'medication_safety', 'clinical_coding', 'bola_redteam', 'immutable_audit'],
         'kpis': [
@@ -44,6 +45,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'primary',
         'accent_hex': '#0ea5e9',
         'default_view': 'patients',
+        'cohort_ids': ['patient-case-6', 'patient-case-5', 'P105', 'P116', 'P117', 'P118', 'P120'],
         'tagline': 'SOAP Consultations, HSE Chronic Disease Management (CDM), Mobile Care-at-Home Nursing & Repeat Prescribing.',
         'active_agents': ['ambient_scribe', 'patient_summariser', 'medication_safety', 'clinical_coding', 'multimodal_ingest', 'gdpr_privacy', 'fhir_conformance'],
         'kpis': [
@@ -67,6 +69,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'info',
         'accent_hex': '#6d28d9',
         'default_view': 'insights',
+        'cohort_ids': ['PSY101', 'PSY102', 'PSY103'],
         'tagline': 'Psychotropic Renal/DDI Safety Gate, Standardized PHQ-9 & GAD-7 Scoring, MSE Notes & Strict BOLA Confidentiality.',
         'active_agents': ['ambient_scribe', 'medication_safety', 'patient_summariser', 'gdpr_privacy', 'bola_redteam', 'immutable_audit'],
         'kpis': [
@@ -90,6 +93,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'info',
         'accent_hex': '#06b6d4',
         'default_view': 'insights',
+        'cohort_ids': ['patient-case-8', 'DENT101', 'DENT102', 'DENT103'],
         'tagline': '32-Tooth FDI Odontogram Charting, 6-Sextant BPE Periodontal Matrix & Pre-Operative Medical Clearance.',
         'active_agents': ['medication_safety', 'multimodal_ingest', 'patient_summariser', 'gdpr_privacy'],
         'kpis': [
@@ -113,6 +117,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'success',
         'accent_hex': '#10b981',
         'default_view': 'patients',
+        'cohort_ids': ['patient-case-7', 'P114', 'P115'],
         'tagline': 'MedicationRequest Dispensing Queue, Deterministic 3-Tier Pharmacology Interception & HSE PCRS Reimbursement.',
         'active_agents': ['medication_safety', 'fhir_conformance', 'immutable_audit', 'gdpr_privacy'],
         'kpis': [
@@ -136,6 +141,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'warning',
         'accent_hex': '#f59e0b',
         'default_view': 'triage',
+        'cohort_ids': ['EMS101', 'EMS102'],
         'tagline': 'Touch-First Tablet Field ePCR Intake, Instant Ambulance MTS/NEWS2 Acuity Scoring & Zero-Latency ED Handoff.',
         'active_agents': ['acuity_triage', 'multimodal_ingest', 'patient_summariser', 'immutable_audit'],
         'kpis': [
@@ -159,6 +165,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'success',
         'accent_hex': '#22c55e',
         'default_view': 'insights',
+        'cohort_ids': ['SPT101', 'SPT102', 'SPT103', 'P104', 'patient-case-4'],
         'tagline': 'Squad Readiness Telemetry, SCAT6 Concussion Return-to-Play Sign-Off & BOLA-Verified Athlete Privacy.',
         'active_agents': ['acuity_triage', 'medication_safety', 'bola_redteam', 'gdpr_privacy'],
         'kpis': [
@@ -182,6 +189,7 @@ VERTICALS_CATALOG = {
         'badge_color': 'dark',
         'accent_hex': '#6366f1',
         'default_view': 'agents',
+        'cohort_ids': ['AST101', 'AST102', 'AST103', 'AST104'],
         'tagline': '100% Air-Gapped Deep-Space Medical Autonomy: Local 3B Models + Deterministic FastMCP Diagnostics.',
         'active_agents': [
             'bola_redteam', 'fhir_conformance', 'cve_vulnerability',
@@ -202,6 +210,27 @@ VERTICALS_CATALOG = {
         ],
     },
 }
+
+
+def filter_patients_for_vertical(items, vertical, id_key='id'):
+    """Filter patient/queue dicts by the active vertical's cohort_ids while keeping mocked single-patient tests intact."""
+    if not items:
+        return []
+    if isinstance(vertical, dict):
+        cohort_ids = vertical.get('cohort_ids') or []
+    elif isinstance(vertical, str):
+        cohort_ids = (VERTICALS_CATALOG.get(vertical) or {}).get('cohort_ids') or []
+    else:
+        cohort_ids = []
+    if not cohort_ids:
+        return list(items)
+
+    order = {pid: idx for idx, pid in enumerate(cohort_ids)}
+    matched = [item for item in items if isinstance(item, dict) and item.get(id_key) in order]
+    if not matched:
+        return list(items)
+    matched.sort(key=lambda item: order.get(item.get(id_key), 9999))
+    return matched
 
 
 def get_vertical_list():

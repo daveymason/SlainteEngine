@@ -43,7 +43,7 @@
                             <span class="status-pill status-fail me-1">{{ alg }}</span>
                             {% endfor %}
                             {% if penicillin_flag %}
-                            <div class="text-danger fw-semibold mt-1">AVOID Amoxicillin / Co-Amoxiclav &mdash; consider Clarithromycin or Metronidazole.</div>
+                            <div class="text-danger fw-semibold mt-1">AVOID Amoxicillin / Co-Amoxiclav: consider Clarithromycin or Metronidazole.</div>
                             {% endif %}
                         {% else %}
                             <span class="status-pill status-pass">NKDA Verified</span> No documented antibiotic or latex allergies.
@@ -395,19 +395,19 @@
                     </div>
                     <div class="row g-2 mb-2">
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold mb-1">S &mdash; Subjective / Presenting History</label>
+                            <label class="form-label small fw-bold mb-1">S: Subjective / Presenting History</label>
                             <textarea name="soap_s" class="form-control form-control-sm" rows="2" placeholder="Symptoms, home glucose/BP diary, medication adherence..."></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold mb-1">O &mdash; Objective / Examination</label>
+                            <label class="form-label small fw-bold mb-1">O: Objective / Examination</label>
                             <textarea name="soap_o" class="form-control form-control-sm" rows="2" placeholder="Chest clear, HS dual + nil, foot pulses intact..."></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold mb-1">A &mdash; Assessment / CDM Coding</label>
+                            <label class="form-label small fw-bold mb-1">A: Assessment / CDM Coding</label>
                             <input type="text" name="soap_a" class="form-control form-control-sm" placeholder="e.g. T2DM &amp; HTN biannual CDM review">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold mb-1">P &mdash; Plan / Follow-up &amp; Referral</label>
+                            <label class="form-label small fw-bold mb-1">P: Plan / Follow-up &amp; Referral</label>
                             <input type="text" name="soap_p" class="form-control form-control-sm" placeholder="e.g. Continue Metformin/Ramipril, repeat HbA1c in 6m">
                         </div>
                     </div>
@@ -607,7 +607,7 @@
                 <div>
                     <span class="status-pill status-fail me-1">MTS Cat {{ epcr_result.mts_cat }}: {{ epcr_result.mts_name }} ({{ epcr_result.mts_target }}m)</span>
                     <span class="status-pill status-warn me-1">NEWS2: {{ epcr_result.news2_score }}/20 ({{ epcr_result.news2_tier }})</span>
-                    <strong>{{ epcr_result.full_name }}</strong> (<code>{{ epcr_result.patient_id }}</code>) &mdash; {{ epcr_result.complaint }}
+                    <strong>{{ epcr_result.full_name }}</strong> (<code>{{ epcr_result.patient_id }}</code>): {{ epcr_result.complaint }}
                 </div>
                 <button type="button" class="btn btn-sm btn-primary py-0 px-2"
                         hx-get="/fhir/Patient/{{ epcr_result.patient_id }}"

@@ -9,6 +9,7 @@ from markupsafe import escape
 
 from ai import provider as ai_provider
 import db
+from verticals import filter_patients_for_vertical, get_active_vertical
 from logging_setup import pseudonymize
 from charts import demographics_charts, vitals_charts
 from blueprints.common import (
@@ -105,7 +106,7 @@ def register_patients_routes(app):
             return render_template('index.html', initial_view='/fhir/Patients')
         page_size = app.config['FHIR_PAGE_SIZE']
         current_sort = _validate_sort(request.args.get('sort'))
-        params = {'_count': page_size}
+        params = {'_count': max(page_size, 100)}
         if current_sort:
             params['_sort'] = current_sort
         result = fhir.get('Patient', params=params)
@@ -114,13 +115,21 @@ def register_patients_routes(app):
             return render_template('patients.html', patients=[], error=result.error,
                                    total=None, next_url=None, current_sort=current_sort)
 
+        active_vert = get_active_vertical(session, db)
+        all_patients = process_patient_results(result.entries)
+        filtered_patients = filter_patients_for_vertical(all_patients, active_vert)
+        is_filtered = bool(all_patients) and len(filtered_patients) < len(all_patients)
+        server_total = fhir.count('Patient')
+        total = len(filtered_patients) if is_filtered else server_total
+        next_url = None if is_filtered else _bundle_next_link(result)
+
         audit('patient.list')
         return render_template(
             'patients.html',
-            patients=process_patient_results(result.entries),
+            patients=filtered_patients,
             error=None,
-            total=fhir.count('Patient'),
-            next_url=_bundle_next_link(result),
+            total=total,
+            next_url=next_url,
             current_sort=current_sort,
         )
 
@@ -1018,8 +1027,9 @@ def register_patients_routes(app):
     def get_dashboard():
         if not request.headers.get('HX-Request') and not app.testing:
             return render_template('index.html', initial_view='/fhir/Dashboard')
+        active_vert = get_active_vertical(session, db)
         results = fhir.get_many({
-            'patients': ('Patient', {'_count': 20}),
+            'patients': ('Patient', {'_count': 100}),
             'patient_count': ('Patient', {'_summary': 'count'}),
             'observation_count': ('Observation', {'_summary': 'count'}),
         })
@@ -1027,14 +1037,21 @@ def register_patients_routes(app):
         gender_counts = {'male': 0, 'female': 0, 'other': 0, 'unknown': 0}
         recent_patients = []
         sampled = 0
-        if patients_result.ok:
+        filtered_ids = None
+        if patients_result.ok and patients_result.entries:
+            all_processed = process_patient_results(patients_result.entries)
+            filtered_patients = filter_patients_for_vertical(all_processed, active_vert)
+            recent_patients = filtered_patients[:5]
+            if len(filtered_patients) < len(all_processed):
+                filtered_ids = {p['id'] for p in filtered_patients}
             for resource in patients_result.entries:
+                if filtered_ids is not None and resource.get('id') not in filtered_ids:
+                    continue
                 gender = (resource.get('gender') or '').lower()
                 gender_counts[gender if gender in gender_counts else 'unknown'] += 1
                 sampled += 1
-            recent_patients = process_patient_results(patients_result.entries[:5])
 
-        patient_total = results['patient_count'].total
+        patient_total = len(filtered_ids) if filtered_ids is not None else results['patient_count'].total
         observation_total = results['observation_count'].total
         audit('dashboard.view')
         return render_template(

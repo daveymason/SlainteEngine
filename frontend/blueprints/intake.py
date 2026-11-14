@@ -6,12 +6,13 @@ import os
 import time
 from collections import Counter
 from datetime import datetime
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, session
 from flask_login import login_required
 from markupsafe import escape as h_escape
 from werkzeug.utils import secure_filename
 
 import db
+from verticals import filter_patients_for_vertical, get_active_vertical
 from blueprints.common import audit
 from logging_setup import pseudonymize
 from clinical_intake import (
@@ -65,6 +66,7 @@ def register_intake_routes(app, csrf):
         queue = []
         if hasattr(app.fhir, 'get_triage_queue'):
             queue = app.fhir.get_triage_queue()
+        queue = filter_patients_for_vertical(queue, get_active_vertical(session, db), id_key='patient_id')
         cat_counts = Counter(p.get('mts_category', 3) for p in queue)
         refreshed_time = datetime.now().strftime('%H:%M:%S')
         return render_template('triage.html', queue=queue, cat_counts=cat_counts, refreshed_time=refreshed_time)
@@ -75,6 +77,7 @@ def register_intake_routes(app, csrf):
         queue = []
         if hasattr(app.fhir, 'get_triage_queue'):
             queue = app.fhir.get_triage_queue()
+        queue = filter_patients_for_vertical(queue, get_active_vertical(session, db), id_key='patient_id')
         cat_counts = Counter(p.get('mts_category', 3) for p in queue)
         refreshed_time = datetime.now().strftime('%H:%M:%S')
         return render_template('triage_fragment.html', queue=queue, cat_counts=cat_counts, refreshed_time=refreshed_time)
