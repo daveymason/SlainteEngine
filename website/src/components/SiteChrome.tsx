@@ -22,13 +22,14 @@ import Grid from '@mui/material/Grid2';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ShieldRoundedIcon from '@mui/icons-material/ShieldRounded';
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import { INDUSTRY_VERTICALS } from '@/data/verticalsData';
 
 const PRIMARY_NAV = [
   { label: 'Platform', href: '/platform/' },
-  { label: 'Health-Tech Agents', href: '/health-tech-agents/' },
+  { label: 'Agents', href: '/health-tech-agents/' },
   { label: 'Verticals', href: '/verticals/' },
-  { label: 'Security & NIS2', href: '/security-compliance/' },
+  { label: 'Security', href: '/security-compliance/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Investors', href: '/investors/' },
   { label: 'Docs', href: '/docs/' },
@@ -62,6 +63,8 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 1.25,
+                flexShrink: 0,
+                whiteSpace: 'nowrap',
                 color: '#FFFFFF',
                 textDecoration: 'none',
                 fontWeight: 800,
@@ -83,9 +86,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
               >
                 <ShieldRoundedIcon sx={{ fontSize: 20, color: '#FFFFFF' }} aria-hidden="true" />
               </Box>
-              <span>
-                SlainteTech <Box component="span" sx={{ color: '#7DD3FC', fontWeight: 600 }}>AI Security Labs</Box>
-              </span>
+              <span>SlainteTech</span>
             </Box>
 
             {/* Desktop Primary Navigation */}
@@ -104,6 +105,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
                     fontWeight: 600,
                     fontSize: '0.9rem',
                     px: 1.4,
+                    whiteSpace: 'nowrap',
                     '&:hover': { bgcolor: 'rgba(56, 189, 248, 0.14)', color: '#FFFFFF' },
                   }}
                 >
@@ -115,9 +117,10 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
                 href="/contact/"
                 variant="contained"
                 color="primary"
-                sx={{ ml: 1, border: '1px solid #38BDF8' }}
+                startIcon={<MailOutlineRoundedIcon sx={{ fontSize: 18 }} aria-hidden="true" />}
+                sx={{ ml: 1, border: '1px solid #38BDF8', whiteSpace: 'nowrap' }}
               >
-                Book Pilot / Data Room
+                Contact
               </Button>
             </Box>
 
@@ -179,9 +182,10 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
                 color="primary"
                 component={Link}
                 href="/contact/"
+                startIcon={<MailOutlineRoundedIcon sx={{ fontSize: 18 }} aria-hidden="true" />}
                 onClick={() => setMobileOpen(false)}
               >
-                Book Pilot / Data Room
+                Contact
               </Button>
             </ListItem>
           </List>
