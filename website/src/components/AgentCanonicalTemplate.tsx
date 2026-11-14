@@ -27,12 +27,12 @@ import { AgentSchematicSvg } from '@/components/VisualSchematics';
 import { AgentSolutionCard } from '@/components/AgentSolutionCard';
 
 /**
- * Canonical, identical layout template shared across all 11 `/health-tech-agents/<agent-real-name>/` pages:
+ * Canonical, identical layout template shared across all 16 `/health-tech-agents/<agent-real-name>/` pages:
  * 1. Hero + Architecture Schematic
  * 2. 3-Column Deterministic Capabilities & Guardrails
  * 3. Full-Width Page Break featuring a verified real-world Vertical Use Case + direct Vertical link
  * 4. Technical Specification & HL7 FHIR R4 Binding Table
- * 5. End-of-page 3-Column Solution Grid showcasing the other 10 Health-Tech Agents
+ * 5. End-of-page 3-Column Solution Grid showcasing the other 15 Health-Tech Agents
  */
 export function AgentCanonicalTemplate({ agent }: { agent: AgentRecord }) {
   const otherAgents = HEALTH_TECH_AGENTS.filter((item) => item.slug !== agent.slug);
@@ -399,14 +399,14 @@ export function AgentCanonicalTemplate({ agent }: { agent: AgentRecord }) {
                 variant="overline"
                 sx={{ color: '#134E68', fontWeight: 800, letterSpacing: '0.08em', display: 'block' }}
               >
-                Unified 11-Agent Sovereign Fleet
+                Unified 16-Agent Sovereign Fleet
               </Typography>
               <Typography component="h2" variant="h2" id="other-agents-heading" sx={{ color: '#0F172A' }}>
-                Explore the Other 10 Health-Tech Agents
+                Explore the Other 15 Health-Tech Agents
               </Typography>
             </Box>
             <Button component={Link} href="/health-tech-agents/" variant="outlined" color="primary">
-              View All 11 Agents Directory
+              View All 16 Agents Directory
             </Button>
           </Stack>
 

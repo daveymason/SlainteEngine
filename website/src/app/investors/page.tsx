@@ -71,7 +71,7 @@ export default function InvestorsPage() {
               },
               {
                 title: '3. 1 Codebase Powering 8 Distinct Verticals',
-                body: 'Emergency Medicine, GP & Mobile Home Nursing, Psychiatry, Dentistry, Pharmacy, Ambulance Tablet ePCR, Elite Sports, and Air-Gapped Aerospace all share one HL7 FHIR R4 + 11-Agent core — multiplying TAM with near-zero marginal R&D.',
+                body: 'Emergency Medicine, GP & Mobile Home Nursing, Psychiatry, Dentistry, Pharmacy, Ambulance Tablet ePCR, Elite Sports, and Air-Gapped Aerospace all share one HL7 FHIR R4 + 16-Agent core — multiplying TAM with near-zero marginal R&D.',
               },
               {
                 title: '4. Sovereign Air-Gap & Local 3B Readiness',
@@ -98,7 +98,7 @@ export default function InvestorsPage() {
               Due-Diligence Ready Today
             </Typography>
             <Typography variant="body1" sx={{ color: '#CBD5E1', mb: 3, maxWidth: 740 }}>
-              Technical due diligence requires working code, not slideware. Our repository ships with 330+ automated security/clinical tests, reproducible Docker Compose appliance builds, OASIS SARIF v2.1.0 outputs, and live interactive workspaces for all 8 verticals and 11 agents.
+              Technical due diligence requires working code, not slideware. Our repository ships with 344+ automated security/clinical tests, reproducible Docker Compose appliance builds, OASIS SARIF v2.1.0 outputs, and live interactive workspaces for all 8 verticals and 16 agents.
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5}>
               <Button

@@ -357,6 +357,9 @@ def get_agent_by_id(agent_id: str) -> Optional[Dict[str, Any]]:
     if not agent_id:
         return None
     norm = agent_id.strip().lower()
+    for agent in AGENTS_CATALOG:
+        if agent['id'] == norm or agent['slug'] == norm or agent['number'] == norm:
+            return agent
     alias_map = {
         'discharge_readiness': 'discharge_transfer',
         'discharge': 'discharge_transfer',

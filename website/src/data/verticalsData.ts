@@ -507,14 +507,14 @@ export const INDUSTRY_VERTICALS: VerticalRecord[] = [
     },
     seoTitle: 'For Astronaut & Aerospace Medicine (SlainteAstro) — Air-Gapped Clinical AI | SlainteTech',
     seoDescription:
-      '100% air-gapped autonomous medical bay running all 11 SlainteTech agents on local 3B sovereign models alongside SlainteFHIR and FastMCP with zero Earth-cloud dependency.',
+      '100% air-gapped autonomous medical bay running all 16 SlainteTech agents on local 3B sovereign models alongside SlainteFHIR and FastMCP with zero Earth-cloud dependency.',
     heroHeadline: '100% Air-Gapped Autonomous Medical Decision Support — Zero Bytes to Earth Required',
     heroLead:
-      'On lunar, Martian, submarine, or remote polar deployments, 22-minute communication blackouts make cloud LLMs useless and LLM clinical hallucinations fatal. SlainteAstro runs all 11 agents locally on sovereign 3B models bound by deterministic Python FastMCP guardrails.',
+      'On lunar, Martian, submarine, or remote polar deployments, 22-minute communication blackouts make cloud LLMs useless and LLM clinical hallucinations fatal. SlainteAstro runs all 16 agents locally on sovereign 3B models bound by deterministic Python FastMCP guardrails.',
     mobileReadyNote: 'Runs self-contained on habitat workstations and crew medical tablets over local spacecraft Wi-Fi / Ethernet.',
     kpis: [
       { label: 'Earth Uplink Required', value: '0 Bytes', detail: '100% offline local Ollama 3B inference + local SlainteFHIR :8082' },
-      { label: 'Autonomous Fleet', value: 'All 11 Agents', detail: 'Full security, audit, triage, scribe & 3-Tier pharmacology onboard' },
+      { label: 'Autonomous Fleet', value: 'All 16 Agents', detail: 'Full security, audit, triage, scribe & 3-Tier pharmacology onboard' },
       { label: 'EVA Flight Clearance', value: 'SHA-256 Signed', detail: 'Cryptographic Flight Surgeon & Crew Medical Officer logs' },
     ],
     painPointsSolved: [

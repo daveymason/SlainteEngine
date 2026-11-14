@@ -4,7 +4,7 @@ import type { VerticalLayoutVariant } from '@/data/verticalsData';
 
 /**
  * Bespoke factual architecture schematic per Health-Tech Agent.
- * Same clean SVG frame across all 11 agent pages, customized with each agent's exact pipeline & badges.
+ * Same clean SVG frame across all 16 agent pages, customized with each agent's exact pipeline & badges.
  */
 export function AgentSchematicSvg({ agent }: { agent: AgentRecord }) {
   const accent =
@@ -379,7 +379,7 @@ export function VerticalUniqueGraphic({
 
           <rect x="24" y="164" width="412" height="90" rx="10" fill="#0F172A" stroke="#4F46E5" />
           <text x="38" y="190" fill="#86EFAC" fontSize="11.5" fontFamily="monospace" fontWeight="700">
-            ✓ ALL 11 AUTONOMOUS AGENTS ACTIVE IN LOCAL AIR-GAP
+            ✓ ALL 16 AUTONOMOUS AGENTS ACTIVE IN LOCAL AIR-GAP
           </text>
           <text x="38" y="214" fill="#E0E7FF" fontSize="12" fontFamily="sans-serif">
             EVA Hypoxia NEWS2 Drift Monitoring • Onboard Kit 3-Tier Rx-Guard

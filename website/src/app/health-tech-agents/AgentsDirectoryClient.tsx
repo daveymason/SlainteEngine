@@ -7,10 +7,10 @@ import { HEALTH_TECH_AGENTS, type AgentSquad } from '@/data/agentsData';
 import { AgentSolutionCard } from '@/components/AgentSolutionCard';
 
 const SQUAD_FILTERS: Array<{ label: string; value: 'ALL' | AgentSquad }> = [
-  { label: 'All 11 Agents', value: 'ALL' },
+  { label: 'All 16 Agents', value: 'ALL' },
   { label: 'SlainteShield Security (3)', value: 'SlainteShield Security' },
-  { label: 'SlainteGov Governance & Coding (3)', value: 'SlainteGov Governance' },
-  { label: 'SlainteClinical Care (5)', value: 'SlainteClinical Care' },
+  { label: 'SlainteGov Governance & Coding (5)', value: 'SlainteGov Governance' },
+  { label: 'SlainteClinical Care (8)', value: 'SlainteClinical Care' },
 ];
 
 export function AgentsDirectoryClient() {

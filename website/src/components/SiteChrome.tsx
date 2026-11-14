@@ -244,7 +244,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
                 </Typography>
                 <Stack component="ul" role="list" spacing={1} sx={{ listStyle: 'none', p: 0, m: 0 }}>
                   {[
-                    { label: 'All 11 Health-Tech Agents', href: '/health-tech-agents/' },
+                    { label: 'All 16 Health-Tech Agents', href: '/health-tech-agents/' },
                     { label: 'Platform & FastMCP Architecture', href: '/platform/' },
                     { label: 'Security, GDPR Art. 9 & NIS2', href: '/security-compliance/' },
                     { label: 'Commercial Pricing (Land & Expand)', href: '/pricing/' },

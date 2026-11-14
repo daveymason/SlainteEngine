@@ -9,7 +9,7 @@ import { AgentSolutionCard } from '@/components/AgentSolutionCard';
 
 export const metadata: Metadata = {
   title: 'Autonomous Agents Directory | SlainteTech AI Security Labs',
-  description: 'Direct index to all 11 SlainteTech autonomous health-tech agents at /health-tech-agents/.',
+  description: 'Direct index to all 16 SlainteTech autonomous health-tech agents at /health-tech-agents/.',
 };
 
 export default function AgentsAliasPage() {
@@ -31,7 +31,7 @@ export default function AgentsAliasPage() {
             SlainteTech Autonomous Health-Tech Agents
           </Typography>
           <Typography variant="body1" sx={{ color: '#CBD5E1', mb: 3, maxWidth: 680 }}>
-            Each of our 11 autonomous clinical, governance, and security agents has a dedicated technical page under <code>/health-tech-agents/</code>.
+            Each of our 16 autonomous clinical, governance, and security agents has a dedicated technical page under <code>/health-tech-agents/</code>.
           </Typography>
           <Button
             component={Link}
@@ -45,7 +45,7 @@ export default function AgentsAliasPage() {
         </Container>
       </Box>
 
-      <Box component="section" aria-label="All 11 agents" sx={{ py: { xs: 6, md: 8 } }}>
+      <Box component="section" aria-label="All 16 agents" sx={{ py: { xs: 6, md: 8 } }}>
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             {HEALTH_TECH_AGENTS.map((agent) => (

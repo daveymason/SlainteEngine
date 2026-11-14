@@ -91,14 +91,14 @@ export default function DocsPage() {
                   GEO &amp; Machine-Readable Manifest
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#334155', mb: 2 }}>
-                  Inspect our structured <code>/llms.txt</code> manifest indexing all 11 <code>/health-tech-agents/</code> and 8 <code>/verticals/</code> endpoints.
+                  Inspect our structured <code>/llms.txt</code> manifest indexing all 16 <code>/health-tech-agents/</code> and 8 <code>/verticals/</code> endpoints.
                 </Typography>
                 <Stack direction="row" spacing={1.5}>
                   <Button component={Link} href="/llms.txt" variant="outlined" color="primary" size="small">
                     View /llms.txt
                   </Button>
                   <Button component={Link} href="/health-tech-agents/" variant="contained" color="primary" size="small">
-                    Browse All 11 Agents
+                    Browse All 16 Agents
                   </Button>
                 </Stack>
               </Paper>

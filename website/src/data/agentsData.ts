@@ -884,7 +884,7 @@ export const HEALTH_TECH_AGENTS: AgentRecord[] = [
         'When a patient is scheduled for discharge but their respiratory rate elevates to 24 with SpO2 at 93% (NEWS2: 4), SlainteCare-Transfer places an automated clinical hold, preventing premature step-down.',
       outcomeMetric: '100% of Discharged Patients Meet Verified Stability Criteria',
       verticalTitle: 'For Hospital Inpatient Wards & ED',
-      verticalHref: '/verticals/emergency/',
+      verticalHref: '/verticals/emergency-departments/',
     },
     technicalSpecs: [
       {
@@ -950,7 +950,7 @@ export const HEALTH_TECH_AGENTS: AgentRecord[] = [
         'A paramedic crew enters vital signs for a suspected stroke patient (BP 185/105, HR 105, RR 22, MTS Cat 2). SlainteEMS-Alert immediately transmits an AMBER alert to the receiving ED, allowing the stroke team to prepare the CT scanner.',
       outcomeMetric: 'Reduced ED Door-to-Needle Time by Pre-Alerting Trauma Teams',
       verticalTitle: 'For Emergency Medical Services & Paramedics',
-      verticalHref: '/verticals/ems/',
+      verticalHref: '/verticals/ambulance-ems/',
     },
     technicalSpecs: [
       {

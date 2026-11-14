@@ -172,8 +172,8 @@ export default function HomePage() {
                       desc: '8 role-specific workspaces (ED, GP & Home Nursing, Psychiatry, Dentistry, Pharmacy, Ambulance Tablet ePCR, Elite Sport, Aerospace).',
                     },
                     {
-                      layer: 'Layer 2 • 11 Autonomous Health-Tech Agents',
-                      desc: '3 specialized squads: SlainteShield Security (BOLA, FHIR, CVE), SlainteGov Governance (GDPR, Audit, HIPE Coding), and SlainteClinical Care.',
+                      layer: 'Layer 2 • 16 Autonomous Health-Tech Agents',
+                      desc: '3 specialized squads: SlainteShield Security (3), SlainteGov Governance (5), and SlainteClinical Care (8).',
                     },
                     {
                       layer: 'Layer 3 • FastMCP Deterministic Safety Kernel (:8081)',
@@ -374,7 +374,7 @@ export default function HomePage() {
         </Container>
       </Box>
 
-      {/* ALL 11 AUTONOMOUS HEALTH-TECH AGENTS GRID */}
+      {/* ALL 16 AUTONOMOUS HEALTH-TECH AGENTS GRID */}
       <Box component="section" aria-labelledby="agents-fleet-heading" sx={{ py: { xs: 7, md: 9 } }}>
         <Container maxWidth="lg">
           <Stack

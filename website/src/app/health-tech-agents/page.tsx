@@ -4,9 +4,9 @@ import { Box, Container, Typography } from '@mui/material';
 import { AgentsDirectoryClient } from './AgentsDirectoryClient';
 
 export const metadata: Metadata = {
-  title: '11 Autonomous Health-Tech Agents | SlainteTech AI Security Labs',
+  title: '16 Autonomous Health-Tech Agents | SlainteTech AI Security Labs',
   description:
-    'Explore all 11 deterministic health-tech security, governance, and clinical agents built on HL7 FHIR R4 and Python FastMCP.',
+    'Explore all 16 deterministic health-tech security, governance, and clinical agents built on HL7 FHIR R4 and Python FastMCP.',
 };
 
 export default function HealthTechAgentsIndexPage() {
@@ -34,7 +34,7 @@ export default function HealthTechAgentsIndexPage() {
             tabIndex={-1}
             sx={{ color: '#FFFFFF', mb: 2, outline: 'none' }}
           >
-            11 Specialized Agents. Zero Hallucinated Clinical Math.
+            16 Specialized Agents. Zero Hallucinated Clinical Math.
           </Typography>
           <Typography variant="body1" sx={{ color: '#E2E8F0', maxWidth: 740 }}>
             Every SlainteTech agent operates against structured HL7 FHIR R4 compartments, enforces deterministic Python FastMCP guardrails, and writes immutable SHA-256 audit records. Select any agent below to inspect its architecture, vertical use case, and technical specification.

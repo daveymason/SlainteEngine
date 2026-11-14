@@ -165,9 +165,11 @@
   - [ ] Initial live pilot vertical lead: **SlainteED & SlainteEMS** (Acute Emergency Department and Ambulance Triage queue with real-time pre-alerts).
   - [ ] Connect selected free-tier PostgreSQL instance and execute `deploy/postgres_rls_schema.sql` (`FORCE ROW LEVEL SECURITY` across hospital trust boundaries, clinical roles, and patients).
   - [ ] Run high-concurrency benchmarks under multi-worker gunicorn.
-- [ ] **Production Domain & Automated Public Ingress TLS**:
-  - [ ] Purchase commercial domain (Target: `slaintetech.com` or `slainte.io`).
-  - [ ] Point DNS A/AAAA records to Caddy ingress host for automated Let's Encrypt / ZeroSSL TLS certificates with automatic renewal.
+- [ ] **Production Domain & Automated Public Ingress TLS (`https://slainte-tech.com/`)**:
+  - [x] Purchase commercial domain on Hostinger (`https://slainte-tech.com/`) with email (`hello@slainte-tech.com`).
+  - [x] Prepare `SlaintePages` production build & GitHub Pages CI/CD (`.github/workflows/deploy-pages.yml`, `public/.nojekyll`, `public/CNAME`, 16-agent parity, `hello@slainte-tech.com`, `sitemap.xml`, `robots.txt`, `llms.txt`, `icon.svg`).
+  - [ ] Push `SlaintePages` / `SlainteEngine` to GitHub, enable GitHub Pages (`Source: GitHub Actions`, custom domain `slainte-tech.com`, `Enforce HTTPS`), and point Hostinger DNS (`A` / `AAAA` / `www CNAME`, preserving Hostinger MX/SPF/DKIM email records).
+  - [ ] Point application/FHIR subdomain DNS records (e.g., `app.slainte-tech.com`, `fhir.slainte-tech.com`) to Caddy ingress host for automated Let's Encrypt / ZeroSSL TLS certificates with automatic renewal.
 
 ### Future Standalone Project (Deferred Post-Funding)
 - [ ] **Phase 10 (Standalone Mobile/Laptop Patient App)**: Dedicated patient-facing mobile & web client sharing the `SlainteFHIR` backend.

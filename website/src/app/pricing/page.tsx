@@ -60,10 +60,10 @@ const TIERS = [
     price: 'Custom Enterprise',
     unit: 'dedicated VPC or air-gapped hardware',
     summary:
-      'Full 8-vertical, 11-agent sovereign deployment with local 3B Ollama models, HL7v2 bridge, and zero external network dependency.',
+      'Full 8-vertical, 16-agent sovereign deployment with local 3B Ollama models, HL7v2 bridge, and zero external network dependency.',
     features: [
       'All 8 Clinical Verticals (incl. Emergency Dept, Ambulance ePCR & Aerospace)',
-      'All 11 Autonomous Health-Tech Agents + FastMCP :8081 + SlainteFHIR :8082',
+      'All 16 Autonomous Health-Tech Agents + FastMCP :8081 + SlainteFHIR :8082',
       'Native HL7v2 Pipe-Hat (ADT, ORU, RDE) Legacy PAS/LIS Hospital Bridge',
       '100% Air-Gapped Local 3B Inference (0 bytes transmitted off-premise)',
       'Dedicated clinical safety engineering (DCB0129/0160) onboarding',

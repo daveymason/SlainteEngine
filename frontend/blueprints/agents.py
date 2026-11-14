@@ -82,7 +82,16 @@ def _get_auditor_telemetry(app, force_run=False, model_name=None):
     if os.path.isfile(telemetry_path):
         try:
             with open(telemetry_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+            if isinstance(data, dict):
+                data.setdefault('terminology_findings', [])
+                data.setdefault('security_findings', [])
+                data.setdefault('memory_entries', [])
+                stats = data.setdefault('stats', {})
+                if isinstance(stats, dict):
+                    stats.setdefault('terminology_findings_count', len(data['terminology_findings']))
+                    stats.setdefault('bundles_audited', 0)
+                return data
         except Exception as exc:
             logger.warning(f"Failed to read audit_telemetry.json: {exc}")
 

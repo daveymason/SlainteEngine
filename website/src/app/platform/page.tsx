@@ -18,7 +18,7 @@ import { CopyCodeBlock } from '@/components/CopyCodeBlock';
 export const metadata: Metadata = {
   title: 'Platform & FastMCP Architecture | SlainteTech AI Security Labs',
   description:
-    'Explore the 4-layer SlainteTech architecture: Responsive Clinical Verticals, 11 Autonomous Agents, Python FastMCP Safety Guardrails, and Sovereign HL7 FHIR R4.',
+    'Explore the 4-layer SlainteTech architecture: Responsive Clinical Verticals, 16 Autonomous Agents, Python FastMCP Safety Guardrails, and Sovereign HL7 FHIR R4.',
 };
 
 const DOCKER_SNIPPET = `# Air-gapped or on-premise hospital deployment (under 5 minutes)
@@ -80,8 +80,8 @@ export default function PlatformPage() {
               },
               {
                 step: 'LAYER 02',
-                title: '11 Autonomous Health-Tech Agents',
-                desc: 'Three coordinated squads — SlainteShield (BOLA, FHIR Conformance, CVE), SlainteGov (GDPR Art. 9, Immutable Audit, HIPE DRG Coding), and SlainteClinical (Ingestion, Summariser, 3-Tier Rx-Guard, Triage/NEWS2, Ambient Voice Scribe).',
+                title: '16 Autonomous Health-Tech Agents',
+                desc: 'Three coordinated squads — SlainteShield Security (3), SlainteGov Governance & Coding (5), and SlainteClinical Care (8).',
               },
               {
                 step: 'LAYER 03',
@@ -131,7 +131,7 @@ export default function PlatformPage() {
                 Read Developer &amp; API Documentation
               </Button>
               <Button component={Link} href="/health-tech-agents/" variant="outlined" color="primary">
-                Inspect All 11 Agents
+                Inspect All 16 Agents
               </Button>
             </Stack>
           </Paper>

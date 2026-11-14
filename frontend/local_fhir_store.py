@@ -16,17 +16,20 @@ logger = logging.getLogger(__name__)
 
 class LocalFhirStore:
     def __init__(self, store_path: str = None):
+        chosen = None
+        if store_path and store_path != '/workspace/data/fhir_store' and os.path.isdir(store_path):
+            chosen = store_path
         candidates = [
             store_path,
             os.environ.get('FHIR_STORE_PATH'),
             '/workspace/data/fhir_store',
             os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data', 'fhir_store')),
         ]
-        chosen = None
-        for c in candidates:
-            if c and os.path.isdir(c) and glob.glob(os.path.join(c, "*.json")):
-                chosen = c
-                break
+        if not chosen:
+            for c in candidates:
+                if c and os.path.isdir(c) and glob.glob(os.path.join(c, "*.json")):
+                    chosen = c
+                    break
         if not chosen:
             if store_path:
                 chosen = store_path

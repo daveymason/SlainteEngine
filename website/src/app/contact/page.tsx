@@ -58,13 +58,15 @@ export default function ContactPage() {
                     Direct Engineering &amp; Investor Contact
                   </Typography>
                   <Typography variant="body2" sx={{ color: '#334155', mb: 1 }}>
-                    Clinical Pilots: <strong>pilots@slaintetech.ie</strong>
+                    Clinical Pilots, Security &amp; Investor Relations:{' '}
+                    <strong>
+                      <a href="mailto:hello@slainte-tech.com" style={{ color: '#134E68' }}>
+                        hello@slainte-tech.com
+                      </a>
+                    </strong>
                   </Typography>
-                  <Typography variant="body2" sx={{ color: '#334155', mb: 1 }}>
-                    CISO &amp; Security Disclosure: <strong>security@slaintetech.ie</strong>
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: '#334155' }}>
-                    Investor Relations: <strong>investors@slaintetech.ie</strong>
+                  <Typography variant="caption" sx={{ color: '#475569' }}>
+                    Include your track (Pilot, CISO/Security, or Investor Data Room) in the subject line for priority routing.
                   </Typography>
                 </Paper>
               </Stack>

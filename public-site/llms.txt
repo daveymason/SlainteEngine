@@ -1,6 +1,8 @@
 # SlainteTech AI Security Labs — Sovereign Healthcare AI & HL7 FHIR R4 Platform
 
-> SlainteTech builds 11 autonomous clinical, governance, and cybersecurity health-tech agents governed by deterministic Python FastMCP guardrails on HL7 FHIR R4 across 8 responsive healthcare verticals (desktop, tablet, ambulance ePCR, and mobile care-at-home nursing).
+Canonical Website: https://slainte-tech.com/
+
+> SlainteTech builds 16 autonomous clinical, governance, and cybersecurity health-tech agents governed by deterministic Python FastMCP guardrails on HL7 FHIR R4 across 8 responsive healthcare verticals (desktop, tablet, ambulance ePCR, and mobile care-at-home nursing).
 
 ## Core Architectural Principle
 - **Zero Hallucinated Clinical Math**: Royal College of Physicians NEWS2 (0-20), Manchester Triage System (Cat 1-5), and 3-Tier Pharmacology (Allergy cross-reactivity, ISMP High-Alert DDI, LOINC eGFR & Potassium renal gating) execute 100% in deterministic Python FastMCP tools — never inside probabilistic LLM weights.
@@ -14,20 +16,25 @@
 - [For Clinical & Community Pharmacies (SlaintePharm)](/verticals/pharmacy/): Risk-sorted dispensing queue, 3-Tier pharmacology verification, PSI Provenance sign-off, and HSE PCRS claim export.
 - [For Ambulance & Paramedic Services (SlainteEMS)](/verticals/ambulance-ems/): Glove-friendly 44px rugged tablet ePCR, sub-10ms MTS/NEWS2 acuity scoring, and 1-tap receiving ED FHIR R4 bundle push.
 - [For Elite Sports Clubs & Federations (SlainteSport)](/verticals/sports-medicine/): Squad physiological readiness, SCAT6 concussion SHA-256 Return-to-Play Provenance, TUE screening, and BOLA athlete privacy.
-- [For Astronaut & Aerospace Medicine (SlainteAstro)](/verticals/astronaut-health/): 100% air-gapped onboard autonomous medical bay running all 11 agents with zero Earth-cloud dependency.
+- [For Astronaut & Aerospace Medicine (SlainteAstro)](/verticals/astronaut-health/): 100% air-gapped onboard autonomous medical bay running all 16 agents with zero Earth-cloud dependency.
 
-## 11 Autonomous Health-Tech Agents (`/health-tech-agents/<agent-real-name>/`)
+## 16 Autonomous Health-Tech Agents (`/health-tech-agents/<agent-real-name>/`)
 - [BOLA & Role-Boundary Red-Team Agent (SlainteShield-BOLA)](/health-tech-agents/bola-authorization-red-team-agent/)
 - [FHIR R4 Conformance & Terminology Agent (SlainteShield-FHIR)](/health-tech-agents/fhir-r4-conformance-terminology-agent/)
 - [Healthcare Supply-Chain & CVE Vulnerability Agent (SlainteShield-CVE)](/health-tech-agents/healthcare-cve-vulnerability-agent/)
 - [GDPR Art. 9 Clinical Privacy & De-Identification Agent (SlainteGov-GDPR)](/health-tech-agents/gdpr-clinical-privacy-deidentification-agent/)
 - [Immutable Clinical & AI Audit Ledger Agent (SlainteGov-Audit)](/health-tech-agents/immutable-clinical-ai-audit-agent/)
 - [Autonomous HIPE, ICD-10-AM & DRG Clinical Coding Agent (SlainteRev-Coding)](/health-tech-agents/autonomous-icd10-drg-clinical-coding-agent/)
+- [Clinic Onboarding & Legacy Data Migration Agent (SlainteGov-Onboard)](/health-tech-agents/clinic-onboarding-legacy-migration-agent/)
+- [EU NIS2 Directive & Continuous Compliance Auditor (SlainteGov-NIS2)](/health-tech-agents/eu-nis2-directive-compliance-agent/)
 - [Multimodal & HL7v2-to-FHIR R4 Ingestion Agent (SlainteEngine-Ingest)](/health-tech-agents/multimodal-hl7v2-fhir-ingestion-agent/)
 - [Cited Clinical Handover Summariser Agent (SlainteScribe-Brief)](/health-tech-agents/cited-patient-handover-summariser-agent/)
 - [3-Tier Pharmacotherapy, Allergy & Renal Safety Agent (SlainteRx-Guard)](/health-tech-agents/pharmacotherapy-allergy-renal-safety-agent/)
 - [Manchester Triage & RCP NEWS2 Acuity Agent (SlainteDx-Triage)](/health-tech-agents/manchester-triage-news2-acuity-agent/)
 - [Ambient Clinical Voice Scribe & Order Drafter Agent (SlainteScribe-Voice)](/health-tech-agents/ambient-clinical-voice-scribe-agent/)
+- [Discharge & Clinical Handover Coordinator (SlainteCare-Transfer)](/health-tech-agents/discharge-clinical-handover-agent/)
+- [Emergency Pre-Hospital Pre-Alert Agent (SlainteEMS-Alert)](/health-tech-agents/emergency-prehospital-prealert-agent/)
+- [Chronic Disease & Quality Care Surveillance Agent (SlainteCare-CDM)](/health-tech-agents/chronic-disease-surveillance-agent/)
 
 ## Company & Technical Pages
 - [Platform Architecture](/platform/)
