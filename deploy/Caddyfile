@@ -16,14 +16,6 @@
 		}
 	}
 
-	# 2. Public Marketing, Investor & Spec Site
-	handle /site* {
-		uri strip_prefix /site
-		root * /srv/website/public-site
-		file_server
-		try_files {path} {path}/ {path}.html /index.html
-	}
-
 	# 3. Slainte-Scan-MCP Server SSE Streaming
 	handle /mcp* {
 		uri strip_prefix /mcp
@@ -72,14 +64,6 @@
 			header_up Host {upstream_hostport}
 			header_up X-Real-IP {remote_host}
 		}
-	}
-
-	# 2. Public Marketing, Investor & Spec Site
-	handle /site* {
-		uri strip_prefix /site
-		root * /srv/website/public-site
-		file_server
-		try_files {path} {path}/ {path}.html /index.html
 	}
 
 	# 3. Slainte-Scan-MCP Server SSE Streaming

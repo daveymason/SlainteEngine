@@ -53,8 +53,3 @@ data/raw/*
 *.log
 docker-compose.override.yml
 
-# Website / Next.js
-website/node_modules/
-website/.next/
-website/tsconfig.tsbuildinfo
-

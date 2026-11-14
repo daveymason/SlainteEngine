@@ -180,7 +180,6 @@ services:
       - "443:443"
     volumes:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./website/public-site:/srv/website/public-site:ro
       - caddy-data:/data
       - caddy-config:/config
     networks:

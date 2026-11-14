@@ -7,11 +7,10 @@ import yaml
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CADDYFILE_PATH = os.path.join(REPO_ROOT, "deploy", "Caddyfile")
 COMPOSE_PATH = os.path.join(REPO_ROOT, "docker-compose.yml")
-PUBLIC_SITE_PATH = os.path.join(REPO_ROOT, "website", "public-site")
 
 
 def test_caddyfile_exists_and_contains_required_ingress_routes():
-    """Verify Caddyfile defines reverse proxy routes for FHIR, website, and dashboard."""
+    """Verify Caddyfile defines reverse proxy routes for FHIR and dashboard."""
     assert os.path.exists(CADDYFILE_PATH), f"Caddyfile not found at {CADDYFILE_PATH}"
     with open(CADDYFILE_PATH, "r", encoding="utf-8") as f:
         content = f.read()
@@ -21,23 +20,12 @@ def test_caddyfile_exists_and_contains_required_ingress_routes():
     assert ":443" in content, "Missing HTTPS :443 block"
     assert "handle /fhir/r4*" in content, "Missing /fhir/r4 route handler"
     assert "slainte-fhir:8082" in content, "Missing reverse_proxy to slainte-fhir:8082"
-    assert "handle /site*" in content, "Missing /site static marketing site handler"
-    assert "/srv/website/public-site" in content, "Missing static website root mapping"
     assert "slainte-dashboard:8000" in content, "Missing reverse_proxy to slainte-dashboard:8000"
 
     # Security headers
     assert "Strict-Transport-Security" in content, "Missing HSTS security header"
     assert "X-Content-Type-Options" in content, "Missing X-Content-Type-Options"
     assert "X-Frame-Options" in content, "Missing X-Frame-Options"
-
-
-def test_public_site_export_present():
-    """Verify built marketing and investor pages are available for Caddy file server."""
-    assert os.path.isdir(PUBLIC_SITE_PATH), f"public-site directory missing at {PUBLIC_SITE_PATH}"
-    assert os.path.isfile(os.path.join(PUBLIC_SITE_PATH, "index.html")), "index.html missing in public-site"
-    assert os.path.isdir(os.path.join(PUBLIC_SITE_PATH, "agents")), "agents page directory missing in public-site"
-    assert os.path.isdir(os.path.join(PUBLIC_SITE_PATH, "verticals")), "verticals page directory missing in public-site"
-    assert os.path.isdir(os.path.join(PUBLIC_SITE_PATH, "investors")), "investors page directory missing in public-site"
 
 
 def test_docker_compose_ingress_service():
@@ -58,7 +46,6 @@ def test_docker_compose_ingress_service():
     volumes = ingress.get("volumes", [])
     vol_str = " ".join(volumes)
     assert "Caddyfile" in vol_str, "Caddyfile not mounted in slainte-ingress"
-    assert "public-site" in vol_str, "public-site not mounted in slainte-ingress"
 
 
 def test_caddy_syntax_validation():

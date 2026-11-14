@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://slainte-tech.com/sitemap.xml
-LLMs-Txt: https://slainte-tech.com/llms.txt
